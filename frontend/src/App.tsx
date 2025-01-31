@@ -36,6 +36,7 @@
 
 import { useEffect, useState } from "react";
 import api from "./services/api";
+import AppRoutes from "./routes";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -47,10 +48,14 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>Conexão com Backend</h1>
-      <p>{message}</p>
-    </div>
+    // <div>
+    //   <h1>Conexão com Backend</h1>
+    //   <p>{message}</p>
+    // </div>
+
+    <AppRoutes />
+
+
   );
 }
 
