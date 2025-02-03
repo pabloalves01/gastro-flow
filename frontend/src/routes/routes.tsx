@@ -1,41 +1,25 @@
-import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/login";
 import Home from "../pages/home/home";
-import Sidebar from "../layout/sidebar/sidebar";
+import SidebarLayout from "../layout/sidebar/sidebar";
 
 function AppRoutes() {
-  const [sideMenuIsExpand, setSideMenuIsExpand] = useState(true);
-
   return (
     <Router>
-      <Routes>
-        {/* Home page */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+      <div className="flex h-screen">
+        {/* Sidebar */}
+        <SidebarLayout />
 
-        {/* Rotas Privadas */}
-        <Route
-          path="/*"
-          element={
-            <div className="flex h-screen">
-              {/* Sidebar */}
-              <Sidebar setExpand={setSideMenuIsExpand} />
-
-              {/* Conteúdo Principal */}
-              <main
-                className={`flex-1 h-full bg-slate-100 transition-all duration-300 ease-in-out p-4 ${sideMenuIsExpand ? "md:ml-72" : "md:ml-20"
-                  }`}
-              >
-                <Routes>
-                  <Route path="/teste" element={<h1 className="text-2xl">Dashboard</h1>} />
-                  {/* Adicione outras rotas privadas aqui */}
-                </Routes>
-              </main>
-            </div>
-          }
-        />
-      </Routes>
+        {/* Conteúdo Principal */}
+        <main className="w-full flex-1 bg-slate-100 p-4">
+          <Routes>
+            {/* Home page */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/teste" element={<h1 className="text-2xl">Dashboard</h1>} />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 }
