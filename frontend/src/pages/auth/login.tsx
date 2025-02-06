@@ -36,6 +36,7 @@ export default function Login() {
                         <Label>Usuário ou Email</Label>
                         <Input
                             name="usuario"
+                            placeholder='Digite seu usuário ou email'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             invalid={errors.has('username')}
@@ -46,6 +47,7 @@ export default function Login() {
                         <Label>Senha</Label>
                         <Input
                             name="senha"
+                            placeholder='Digite sua senha'
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
