@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Field, Label, ErrorMessage } from '../../components/fieldset'
-import { Input } from '../../components/input'
-import { Switch } from '../../components/switch'
+import { Field, Label, ErrorMessage } from '../../components/ui/catalyst/fieldset'
+import { Input } from '../../components/ui/catalyst/input'
+import { Switch } from '../../components/ui/catalyst/switch'
 import * as Headless from '@headlessui/react'
-import { Button } from '../../components/button'
-import { Text } from '../../components/text'
+import { Button } from '../../components/ui/catalyst/button'
+import { Text } from '../../components/ui/catalyst/text'
 
 export default function Login() {
     const [username, setUsername] = useState('');
