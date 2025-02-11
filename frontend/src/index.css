@@ -1,7 +1,35 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    /* Cor de fundo principal do sistema */
+    --color-background: #121212;
+
+    /* Cor para o fundo de cards e containers */
+    --color-surface: #1E1E1E;
+
+    /* Cor principal para botões, links ativos e elementos de destaque */
+    --color-primary: #1DB954;
+
+    /* Cor secundária para botões secundários, links em hover e destaques adicionais */
+    --color-secondary: #FF9800;
+
+    /* Cor para mensagens de erro e botões de exclusão */
+    --color-error: #FF3B3B;
+
+    /* Cor para textos principais, como títulos e parágrafos */
+    --color-text-primary: #EDEDED;
+
+    /* Cor para textos secundários, como descrições e legendas */
+    --color-text-secondary: #A1A1A1;
+
+    /* Cor para textos desabilitados ou inativos */
+    --color-text-disabled: #6B6B6B;
+  }
+}
+
 body {
-  @apply bg-[#242424];
+  @apply bg-[#121212];
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

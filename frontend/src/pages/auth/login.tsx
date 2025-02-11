@@ -29,7 +29,7 @@ export default function Login() {
 
     return (
         <div className="h-screen flex items-center justify-center">
-            <div className="flex flex-col w-lg gap-8 border-1 border-[#3F3F3F] bg-[#2D2D2D] px-16 py-14 rounded-lg">
+            <div className="flex flex-col w-lg gap-8 border-1 border-[#3F3F3F] bg-[#1E1E1E] px-16 py-14 rounded-lg">
                 <span className="text-2xl font-semibold text-white">Login</span>
                 <form onSubmit={handleLogin} className="flex flex-col gap-4">
                     <Field>
