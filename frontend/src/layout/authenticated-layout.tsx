@@ -9,7 +9,7 @@ const AuthenticatedLayout = () => {
 
             {/* Conteúdo da página */}
             <div className="flex-1 flex flex-col h-screen">
-                <main className="flex-1 flex justify-center p-6 w-full max-w-7xl mx-auto">
+                <main className="flex-1 flex justify-center p-6 w-full max-w-7xl bg-red-500 mx-auto">
                     <Outlet />
                 </main>
             </div>
