@@ -1,21 +1,20 @@
 import { User } from 'lucide-react';
 interface Sale {
-    image: string;
-    title: string;
+    name: string;
     description: string;
     email: string;
     value: number;
 }
 
 interface RecentSalesProps {
-    sales?: Sale[]; // Tornar a prop opcional
+    sales?: Sale[];
 }
 
 const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
     const limitedSales = sales.slice(0, 5);
 
     return (
-        <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] p-4 rounded-lg">
+        <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border-1 border-[#333333]  p-4 rounded-lg">
             <div>
                 <div className="text-white text-md font-semibold">Vendas Recentes</div>
                 <div className="text-[#A1A1A1] text-sm font-regular">Acompanhe suas vendas recentes</div>
