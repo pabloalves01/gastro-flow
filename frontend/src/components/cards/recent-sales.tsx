@@ -1,6 +1,6 @@
 import { Badge } from "../ui/catalyst/badge";
-
 import { User } from "lucide-react";
+
 interface Sale {
   name: string;
   description: string;
@@ -31,8 +31,9 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
     }
   };
 
+
   return (
-    <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border-1 border-[#333333]  p-4 rounded-lg">
+    <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border-1 border-[#333333] p-4 rounded-lg">
       <div>
         <div className="text-white text-md font-semibold">Vendas Recentes</div>
         <div className="text-[#A1A1A1] text-sm font-regular">
