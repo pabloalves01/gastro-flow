@@ -1,7 +1,7 @@
 import RecentSales from "../../components/cards/recent-sales";
 import StatusCard from "../../components/cards/stats-card";
 import CashFlow from "../../components/cards/cash-flow";
-import { DollarSign } from "lucide-react";
+import { DollarSign, Cog } from "lucide-react";
 
 export default function Dashboard() {
   const sales = [
@@ -78,11 +78,27 @@ export default function Dashboard() {
       value: 100,
       operation_id: 1,
     },
-
   ];
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col py-4">
+          <div className="text-white text-md font-semibold">
+            Bom dia, Pablo Alves! ☀️
+          </div>
+          <div className="text-[#A1A1A1] text-sm font-regular">
+            Como podemos ajudá-lo hoje?
+          </div>
+        </div>
+        <div className="group">
+          <Cog
+            className="text-white w-6 h-6 cursor-pointer hover:text-zinc-500 group-hover:animate-[spin_2s_linear_infinite]"
+            strokeWidth={1}
+          />
+        </div>
+        {" "}
+      </div>
       {/* Grid dos StatusCards - 4 colunas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatusCard

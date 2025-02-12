@@ -23,7 +23,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
       case 3:
         return <RefreshCcw className="text-zinc-500 w-6 h-6" strokeWidth={1} />;
       default:
-        return <RefreshCcw className="text-white w-6 h-6" strokeWidth={1} />;
+        return <RefreshCcw className="text-zinc-500 w-6 h-6" strokeWidth={1} />;
     }
   };
 
@@ -35,6 +35,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
   };
 
   return (
+
     <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border border-[#333333] p-4 rounded-lg">
       <div>
         <div className="text-white text-md font-semibold">Fluxo de Caixa</div>
@@ -43,7 +44,9 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
         </div>
       </div>
       {limitedFlows.length === 0 ? (
-        <div className="text-center text-white">Não há transações recentes.</div>
+        <div className="text-center text-white">
+          Não há transações recentes.
+        </div>
       ) : (
         <div className="flex flex-col gap-2">
           {limitedFlows.map((flow, index) => (
