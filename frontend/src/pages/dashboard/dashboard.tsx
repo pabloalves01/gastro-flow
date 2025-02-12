@@ -1,5 +1,6 @@
 import RecentSales from "../../components/cards/recent-sales";
 import StatusCard from "../../components/cards/stats-card";
+import CashFlow from "../../components/cards/cash-flow";
 import { DollarSign } from "lucide-react";
 
 export default function Dashboard() {
@@ -11,6 +12,23 @@ export default function Dashboard() {
             description: "Descrição da venda",
             email: "cliente1@example.com",
             value: 1200.50,
+            payment_id: 1
+        },
+        {
+            image: "/path/to/avatar2.jpg",
+            name: "Paulo Sérgio",
+            description: "Descrição da venda",
+            email: "cliente2@example.com",
+            value: 950.50,
+            payment_id: 2
+        },
+        {
+            image: "/path/to/avatar2.jpg",
+            name: "Paulo Sérgio",
+            description: "Descrição da venda",
+            email: "cliente2@example.com",
+            value: 950.79,
+            payment_id: 3
         },
         {
             image: "/path/to/avatar2.jpg",
@@ -18,6 +36,7 @@ export default function Dashboard() {
             description: "Descrição da venda",
             email: "cliente2@example.com",
             value: 950.00,
+            payment_id: 4
         },
         {
             image: "/path/to/avatar2.jpg",
@@ -25,20 +44,7 @@ export default function Dashboard() {
             description: "Descrição da venda",
             email: "cliente2@example.com",
             value: 950.00,
-        },
-        {
-            image: "/path/to/avatar2.jpg",
-            name: "Paulo Sérgio",
-            description: "Descrição da venda",
-            email: "cliente2@example.com",
-            value: 950.00,
-        },
-        {
-            image: "/path/to/avatar2.jpg",
-            name: "Paulo Sérgio",
-            description: "Descrição da venda",
-            email: "cliente2@example.com",
-            value: 950.00,
+            payment_id: 1
         },
     ];
 
@@ -55,8 +61,7 @@ export default function Dashboard() {
             {/* Grid dos Recent Sales e Gráfico - 2 colunas */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <RecentSales sales={sales} />
-                <RecentSales sales={sales} />
-
+                <CashFlow value={100} />
             </div>
         </div>
     );
