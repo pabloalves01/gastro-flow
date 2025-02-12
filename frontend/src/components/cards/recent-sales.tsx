@@ -42,7 +42,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
       {limitedSales.length === 0 ? (
         <div className="text-center text-white">Não há vendas recentes.</div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 bg-blue-500">
           {limitedSales.map((sale, index) => (
             <div
               key={index}

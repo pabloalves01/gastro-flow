@@ -4,6 +4,7 @@ import CashFlow from "../../components/cards/cash-flow";
 import { DollarSign, Cog } from "lucide-react";
 
 export default function Dashboard() {
+
   const sales = [
     {
       image: "/path/to/avatar1.jpg",
