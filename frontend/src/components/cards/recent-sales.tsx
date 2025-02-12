@@ -25,12 +25,11 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
       case 3:
         return <Badge color="green">Cartão</Badge>;
       case 4:
-        return <Badge color="zinc">Transferência Bancária</Badge>;
+        return <Badge color="zinc">Transferência</Badge>;
       default:
         return <Badge color="sky">Outros</Badge>;
     }
   };
-
 
   return (
     <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border-1 border-[#333333] p-4 rounded-lg">
@@ -50,7 +49,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
               className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#333333]"
             >
               <div className="flex items-center gap-4 ">
-                <div className="w-10 h-10 rounded-full bg-[#FF9800] flex justify-center items-center">
+                <div className="w-10 h-10 rounded-full bg-[#292929] flex justify-center items-center">
                   <User className="text-white w-6 h-6" />
                 </div>{" "}
                 <div className="flex flex-col">
@@ -63,10 +62,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
                 </div>
               </div>
               <div className="flex gap-2 text-base font-semibold text-white">
-                <div>
-                  {" "}
-                  {renderPaymentBadge(sale.payment_id)}
-                </div>
+                <div> {renderPaymentBadge(sale.payment_id)}</div>
                 {sale.value} BRL
               </div>
             </div>
