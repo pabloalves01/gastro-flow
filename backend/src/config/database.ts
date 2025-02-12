@@ -1,15 +1,11 @@
-import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
+import { Pool } from "pg";
 
-dotenv.config();
-
-// Criando a instância do Sequelize para conectar com o banco de dados
-const sequelize = new Sequelize({
-  dialect: "postgres",
-  host: process.env.DB_HOST || "localhost",
-  username: process.env.DB_USER || "dev",
-  password: process.env.DB_PASSWORD || "secret",
-  database: process.env.DB_NAME || "meu_banco",
+const pool = new Pool({
+  user: "dev",
+  host: "localhost",
+  database: "localhost",
+  password: "secret",
+  port: 5432,
 });
 
-export default sequelize;
+export default pool;
