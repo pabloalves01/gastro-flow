@@ -11,7 +11,7 @@ export default function Dashboard() {
   const actions = [
     {
       icon: <FilePlus />,
-      title: "Adicionar Novo Pedido",
+      title: "Novo Pedido",
       description: "Crie um novo pedido",
     },
     {
@@ -21,8 +21,8 @@ export default function Dashboard() {
     },
     {
       icon: <UserPen />,
-      title: "Gerenciar Funcionários",
-      description: "Adicione ou remova funcionários",
+      title: "Gerenciar Clientes",
+      description: "Adicione ou remova clientes",
     },
     {
       icon: <ClipboardList />,

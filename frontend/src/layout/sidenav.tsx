@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { createPortal } from 'react-dom' // Importação para usar portal
-import { Avatar } from '../components/ui/catalyst/avatar'
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Avatar } from '../components/ui/catalyst/avatar';
 import {
   Dropdown,
   DropdownButton,
@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-} from '../components/ui/catalyst/dropdown'
+} from '../components/ui/catalyst/dropdown';
 import {
   Sidebar,
   SidebarBody,
@@ -18,7 +18,7 @@ import {
   SidebarLabel,
   SidebarSection,
   SidebarSpacer,
-} from '../components/ui/catalyst/sidebar'
+} from '../components/ui/catalyst/sidebar';
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -28,8 +28,8 @@ import {
   PlusIcon,
   ShieldCheckIcon,
   UserIcon,
-  Bars3Icon, // Ícone de menu hambúrguer
-} from '@heroicons/react/16/solid'
+  Bars3Icon,
+} from '@heroicons/react/16/solid';
 import {
   Cog6ToothIcon,
   HomeIcon,
@@ -40,10 +40,20 @@ import {
   SparklesIcon,
   Square2StackIcon,
   TicketIcon,
-} from '@heroicons/react/20/solid'
+} from '@heroicons/react/20/solid';
+
+import { Gauge, House, Users, ChevronRight } from 'lucide-react';
 
 function Sidenav() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [openModules, setOpenModules] = useState<{ [key: string]: boolean }>({
+    cadastros: false,
+  });
+
+  // Alterna a exibição dos submódulos
+  const toggleModule = (module: string) => {
+    setOpenModules((prev) => ({ ...prev, [module]: !prev[module] }));
+  };
 
   return (
     <>
@@ -59,44 +69,12 @@ function Sidenav() {
 
       {/* Sidebar responsiva */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[#1E1E1E] border-r border-[#333333] transition-transform duration-300 ease-in-out lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[#1E1E1E] border-r border-[#333333] transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
       >
         <Sidebar>
           <SidebarHeader>
-            <Dropdown>
-              <DropdownButton as={SidebarItem} className="mb-2.5">
-                <Avatar src="/tailwind-logo.svg" />
-                <SidebarLabel>Tailwind Labs</SidebarLabel>
-                <ChevronDownIcon />
-              </DropdownButton>
-
-              {/* DropdownMenu renderizado no portal */}
-              {createPortal(
-                <DropdownMenu className="absolute left-0 top-full z-50 min-w-64 bg-white shadow-lg rounded-md">
-                  <DropdownItem href="/teams/1/settings">
-                    <Cog8ToothIcon />
-                    <DropdownLabel>Settings</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownDivider />
-                  <DropdownItem href="/teams/1">
-                    <Avatar slot="icon" src="/tailwind-logo.svg" />
-                    <DropdownLabel>Tailwind Labs</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownItem href="/teams/2">
-                    <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
-                    <DropdownLabel>Workcation</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownDivider />
-                  <DropdownItem href="/teams/create">
-                    <PlusIcon />
-                    <DropdownLabel>New team&hellip;</DropdownLabel>
-                  </DropdownItem>
-                </DropdownMenu>,
-                document.body
-              )}
-            </Dropdown>
-
             <SidebarSection>
               <SidebarItem href="/search">
                 <MagnifyingGlassIcon />
@@ -112,9 +90,34 @@ function Sidenav() {
           <SidebarBody>
             <SidebarSection>
               <SidebarItem href="/home">
-                <HomeIcon />
-                <SidebarLabel>Home</SidebarLabel>
+                <House />
+                <SidebarLabel>Início</SidebarLabel>
               </SidebarItem>
+              <SidebarItem href="/dashboard">
+                <Gauge />
+                <SidebarLabel>Dashboard</SidebarLabel>
+              </SidebarItem>
+
+              {/* Módulo de Cadastros com Submódulos */}
+              <div>
+                <SidebarItem onClick={() => toggleModule('cadastros')} className="cursor-pointer">
+                  <Users />
+                  <SidebarLabel>Cadastros</SidebarLabel>
+                  {openModules['cadastros'] ? <ChevronDownIcon /> : <ChevronRight />}
+                </SidebarItem>
+
+                {openModules['cadastros'] && (
+                  <div className="ml-6 border-l border-gray-600">
+                    <SidebarItem href="/cadastros/clientes">
+                      <SidebarLabel>Clientes</SidebarLabel>
+                    </SidebarItem>
+                    <SidebarItem href="/cadastros/representantes">
+                      <SidebarLabel>Representantes</SidebarLabel>
+                    </SidebarItem>
+                  </div>
+                )}
+              </div>
+
               <SidebarItem href="/events">
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
@@ -132,7 +135,9 @@ function Sidenav() {
                 <SidebarLabel>Settings</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
+
             <SidebarSpacer />
+
             <SidebarSection>
               <SidebarItem href="/support">
                 <QuestionMarkCircleIcon />
@@ -196,7 +201,7 @@ function Sidenav() {
       {/* Overlay para fechar o menu ao clicar fora */}
       {isOpen && <div className="fixed inset-0 z-30 lg:hidden bg-black/50" onClick={() => setIsOpen(false)} />}
     </>
-  )
+  );
 }
 
-export default Sidenav
+export default Sidenav;
