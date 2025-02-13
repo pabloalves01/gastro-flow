@@ -16,6 +16,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ actions = [] }) => {
     return (
         <div className="bg-[#1E1E1E] border border-[#333333] p-4 rounded-lg">
             <div className="flex flex-col gap-4">
+                {/* TODO: Informações do cabeçalho também devem vir por props */}
                 <div className="flex flex-col">
                     <div className="text-white text-md font-semibold">O que você gostaria de fazer?</div>
                     <div className="text-[#A1A1A1] text-sm font-regular">
