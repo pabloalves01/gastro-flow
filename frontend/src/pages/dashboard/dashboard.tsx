@@ -109,7 +109,7 @@ export default function Dashboard() {
 
   return (
     <div className="container max-w-7xl">
-      <div className="space-y-4">
+      <div className="space-y-4 pt-8 md:pt-0">
         <div className="flex items-center justify-between">
           <div className="flex flex-col py-4">
             <div className="text-white text-md font-semibold">
