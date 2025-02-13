@@ -4,17 +4,21 @@ import Header from "./header";
 
 const AuthenticatedLayout = () => {
     return (
-        <div className="flex h-screen">
-            {/* Sidebar */}
-            <Sidenav />
+        <div className="flex h-screen w-full">
+            {/* Sidebar fixa à esquerda */}
+            <div className="fixed left-0 top-0 h-full w-64">
+                <Sidenav />
+            </div>
 
-            {/* Conteúdo da página */}
-            <div className="flex-1 flex flex-col h-screen">
-                {/* <div className="fixed top-0 left-0 w-full z-50 bg-[#1E1E1E] shadow-md">
+            {/* Área de conteúdo principal */}
+            <div className="flex-1 flex flex-col h-screen w-full ml-64">
+                {/* Cabeçalho fixo no topo */}
+                <div className="w-full">
                     <Header />
-                </div> */}
+                </div>
 
-                <main className="flex-1 flex justify-center p-6 w-full max-w-7xl mx-auto">
+                {/* Conteúdo centralizado */}
+                <main className="flex-1 flex justify-center items-center p-6">
                     <Outlet />
                 </main>
             </div>
