@@ -1,7 +1,9 @@
 import QuickActions from "../../components/cards/quick-actions";
-import RecentSales from "../../components/cards/recent-sales";
 import StatusCard from "../../components/cards/stats-card";
+import RecentSales from "../../components/cards/recent-sales";
 import CashFlow from "../../components/cards/cash-flow";
+import UnlockMoreBenefits from "../../components/cards/unlock-more-benefits";
+
 import { DollarSign, Cog, FilePlus, ClipboardList, UserPen, ScrollText } from "lucide-react";
 
 export default function Dashboard() {
@@ -165,6 +167,7 @@ export default function Dashboard() {
           <RecentSales sales={sales} />
           <CashFlow flows={cashFlow} />
         </div>
+        <UnlockMoreBenefits />
       </div>
     </div>
   );
