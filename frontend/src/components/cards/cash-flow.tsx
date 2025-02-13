@@ -17,21 +17,14 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
   const renderArrowIcon = (operationId: number) => {
     switch (operationId) {
       case 1:
-        return <ArrowUp className="text-green-500 w-6 h-6" strokeWidth={1} />;
+        return <ArrowUp className="text-green-500 w-6 h-6" />;
       case 2:
-        return <ArrowDown className="text-red-500 w-6 h-6" strokeWidth={1} />;
+        return <ArrowDown className="text-red-500 w-6 h-6" />;
       case 3:
-        return <RefreshCcw className="text-zinc-500 w-6 h-6" strokeWidth={1} />;
+        return <RefreshCcw className="text-zinc-500 w-6 h-6" />;
       default:
-        return <RefreshCcw className="text-zinc-500 w-6 h-6" strokeWidth={1} />;
+        return <RefreshCcw className="text-zinc-500 w-6 h-6" />;
     }
-  };
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
   };
 
   return (
@@ -55,7 +48,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
               className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#333333]"
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#292929] flex justify-center items-center">
+                <div className="w-10 h-10 flex justify-center items-center">
                   {renderArrowIcon(flow.operation_id)}
                 </div>
                 <div className="flex flex-col">
@@ -68,7 +61,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
                 </div>
               </div>
               <div className="flex gap-2 text-base font-semibold text-white">
-                {formatCurrency(flow.value)}
+                {flow.value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} BRL
               </div>
             </div>
           ))}

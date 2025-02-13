@@ -42,7 +42,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
       {limitedSales.length === 0 ? (
         <div className="text-center text-white">Não há vendas recentes.</div>
       ) : (
-        <div className="flex flex-col gap-2 bg-blue-500">
+        <div className="flex flex-col gap-2">
           {limitedSales.map((sale, index) => (
             <div
               key={index}
@@ -62,7 +62,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
                 </div>
               </div>
               <div className="flex gap-2 text-base font-semibold text-white">
-                <div> {renderPaymentBadge(sale.payment_id)}</div>
+                <div className="hidden md:block"> {renderPaymentBadge(sale.payment_id)}</div>
                 {sale.value} BRL
               </div>
             </div>
