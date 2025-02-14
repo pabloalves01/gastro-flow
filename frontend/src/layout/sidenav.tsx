@@ -60,7 +60,7 @@ function Sidenav() {
       {/* Botão de menu hambúrguer */}
       {!isOpen && (
         <button
-          className="fixed top-4 left-4 z-50 p-2 bg-[#1E1E1E] text-white rounded-lg lg:hidden"
+          className="fixed top-4 left-4 z-50 p-2 bg-[#141414] text-white rounded-lg lg:hidden"
           onClick={() => setIsOpen(true)}
         >
           <Bars3Icon className="w-6 h-6" />
@@ -69,7 +69,7 @@ function Sidenav() {
 
       {/* Sidebar responsiva */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[#1E1E1E] border-r border-[#333333] transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[#141414] border-r border-[#333333] transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

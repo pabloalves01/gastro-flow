@@ -8,7 +8,7 @@ interface StatusCardProps {
 
 const StatusCard: React.FC<StatusCardProps> = ({ title, description, value, icon, status }) => {
     return (
-        <div className="bg-[#1E1E1E] border-1 border-[#333333] rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 w-full h-full flex flex-col">
+        <div className="bg-[#141414] border-1 border-[#333333] rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 w-full h-full flex flex-col">
             <div className="flex sm:items-start gap-36 md:gap-12 ">
                 <div className="flex-1">
                     <div className="text-sm font-medium text-white mb-1">{title}</div>

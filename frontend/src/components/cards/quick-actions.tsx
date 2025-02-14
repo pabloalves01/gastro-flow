@@ -14,7 +14,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ actions = [] }) => {
     const limitedActions = actions.slice(0, 4);
 
     return (
-        <div className="bg-[#1E1E1E] border border-[#333333] p-4 rounded-lg">
+        <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg">
             <div className="flex flex-col gap-4">
                 {/* TODO: Informações do cabeçalho também devem vir por props */}
                 <div className="flex flex-col">
@@ -25,7 +25,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ actions = [] }) => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {limitedActions.map((action, index) => (
-                        <div key={index} className="flex items-center hover:bg-[#333333] cursor-pointer p-4 rounded-md text-white gap-2">
+                        <div key={index} className="flex items-center hover:bg-[#1B1B1B] cursor-pointer p-4 rounded-md text-white gap-2">
                             <div className="flex items-center justify-center w-12 h-12 bg-[#292929] rounded-lg text-[#FF9800]">
                                 {action.icon}
                             </div>

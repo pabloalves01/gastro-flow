@@ -29,7 +29,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
 
   return (
 
-    <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border border-[#333333] p-4 rounded-lg">
+    <div className="flex flex-col gap-4 min-h-[300px] bg-[#141414] border border-[#333333] p-4 rounded-lg">
       <div>
         <div className="text-white text-md font-semibold">Fluxo de Caixa</div>
         <div className="text-[#A1A1A1] text-sm font-regular">
@@ -45,7 +45,7 @@ const CashFlow: React.FC<RecentSalesProps> = ({ flows = [] }) => {
           {limitedFlows.map((flow, index) => (
             <div
               key={index}
-              className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#333333]"
+              className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#1B1B1B]"
             >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 flex justify-center items-center">

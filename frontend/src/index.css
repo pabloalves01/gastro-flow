@@ -3,10 +3,10 @@
 @layer base {
   :root {
     /* Cor de fundo principal do sistema */
-    --color-background: #121212;
+    --color-background: #0A0A0A;
 
     /* Cor para o fundo de cards e containers */
-    --color-surface: #1E1E1E;
+    --color-surface: #141414 ;
 
     /* Cor principal para botões, links ativos e elementos de destaque */
     --color-primary: #1DB954;
@@ -29,7 +29,7 @@
 }
 
 body {
-  @apply bg-[#121212];
+  @apply bg-[#0A0A0A];
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

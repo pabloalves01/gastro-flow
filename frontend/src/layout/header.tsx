@@ -5,7 +5,7 @@ export default function Header() {
     const [hasNotifications, setHasNotifications] = useState(true); // Simulação de notificação
 
     return (
-        <div className="bg-[#1E1E1E] border-b border-[#333333] py-4 px-6 flex justify-between items-center">
+        <div className="bg-[#141414] border-b border-[#333333] py-4 px-6 flex justify-between items-center">
             {/* Título */}
             <div className="text-white text-lg font-semibold">Dashboard</div>
 

@@ -32,7 +32,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 min-h-[300px] bg-[#1E1E1E] border-1 border-[#333333] p-4 rounded-lg">
+    <div className="flex flex-col gap-4 min-h-[300px] bg-[#141414] border-1 border-[#333333] p-4 rounded-lg">
       <div>
         <div className="text-white text-md font-semibold">Vendas Recentes</div>
         <div className="text-[#A1A1A1] text-sm font-regular">
@@ -46,7 +46,7 @@ const RecentSales: React.FC<RecentSalesProps> = ({ sales = [] }) => {
           {limitedSales.map((sale, index) => (
             <div
               key={index}
-              className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#333333]"
+              className="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-[#1B1B1B]"
             >
               <div className="flex items-center gap-4 ">
                 <div className="w-10 h-10 rounded-full bg-[#292929] flex justify-center items-center">
