@@ -2,6 +2,8 @@ import StatusCard from "../../components/cards/stats-card";
 import SectionText from "../../components/text/section-text";
 import { Avatar } from "../../components/ui/catalyst/avatar";
 import { Badge } from "../../components/ui/catalyst/badge";
+import { EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../../components/ui/catalyst/dropdown";
 import {
   Pagination,
   PaginationGap,
@@ -105,12 +107,13 @@ export function ManageOrders() {
           />
         </div>
       </div>
-      <Table className="w-full [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
+      <Table dense striped className="w-full [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
         <TableHead>
           <TableRow>
             <TableHeader>Name</TableHeader>
             <TableHeader>Role</TableHeader>
             <TableHeader>Status</TableHeader>
+            <TableHeader></TableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -160,6 +163,20 @@ export function ManageOrders() {
                   <Badge color="zinc">Offline</Badge>
                 )}
               </TableCell>
+              <TableCell>
+              <div className="-mx-3 -my-1.5 sm:-mx-2.5">
+                <Dropdown>
+                  <DropdownButton plain aria-label="More options">
+                    <EllipsisHorizontalIcon />
+                  </DropdownButton>
+                  <DropdownMenu anchor="bottom end">
+                    <DropdownItem>View</DropdownItem>
+                    <DropdownItem>Edit</DropdownItem>
+                    <DropdownItem>Delete</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            </TableCell>
             </TableRow>
           ))}
         </TableBody>
