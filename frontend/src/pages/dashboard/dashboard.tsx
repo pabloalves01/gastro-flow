@@ -13,25 +13,25 @@ export default function Dashboard() {
       icon: <FilePlus />,
       title: "Novo Pedido",
       description: "Crie um novo pedido",
-      href: "/teste",
+      href: "/novo-pedido",
     },
     {
       icon: <ScrollText />,
       title: "Gerenciar Pedido",
       description: "Acompanhe seus pedidos",
-      href: "/teste",
+      href: "/gerenciar-pedidos",
     },
     {
       icon: <UserPen />,
       title: "Gerenciar Clientes",
       description: "Adicione ou remova clientes",
-      href: "/teste",
+      href: "/gerenciar-clientes",
     },
     {
       icon: <ClipboardList />,
       title: "Configurações",
       description: "Configure sua conta",
-      href: "/teste",
+      href: "/configuracoes",
     },
   ];
 
