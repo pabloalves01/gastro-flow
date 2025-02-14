@@ -1,9 +1,11 @@
 import { FilePlus, ClipboardList, UserPen, Settings2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Actions {
     icon: React.ReactNode;
     title: string;
     description: string;
+    href: string;
 }
 
 interface QuickActionsProps {
@@ -25,17 +27,19 @@ const QuickActions: React.FC<QuickActionsProps> = ({ actions = [] }) => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {limitedActions.map((action, index) => (
-                        <div key={index} className="flex items-center hover:bg-[#1B1B1B] cursor-pointer p-4 rounded-md text-white gap-2">
-                            <div className="flex items-center justify-center w-12 h-12 bg-[#292929] rounded-lg text-[#FF9800]">
-                                {action.icon}
-                            </div>
-                            <div className='flex flex-col'>
-                                <div className='text-sm font-semibold text-white'>{action.title}</div>
-                                <div className="text-[#A1A1A1] text-sm font-regular">
-                                    {action.description}
+                        <Link to={action.href} className="block">
+                            <div key={index} className="flex items-center hover:bg-[#1B1B1B] cursor-pointer p-4 rounded-md text-white gap-2">
+                                <div className="flex items-center justify-center w-12 h-12 bg-[#292929] rounded-lg text-[#FF9800]">
+                                    {action.icon}
+                                </div>
+                                <div className='flex flex-col'>
+                                    <div className='text-sm font-semibold text-white'>{action.title}</div>
+                                    <div className="text-[#A1A1A1] text-sm font-regular">
+                                        {action.description}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
