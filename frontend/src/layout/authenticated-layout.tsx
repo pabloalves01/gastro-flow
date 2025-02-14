@@ -1,6 +1,9 @@
 import { Avatar } from '../components/ui/catalyst/avatar'
 import { Outlet } from "react-router-dom";
 
+import { House, Gauge, ScrollText, Cog, Headset  } from 'lucide-react'
+
+
 import {
   Dropdown,
   DropdownButton,
@@ -95,7 +98,7 @@ function AuthenticatedLayout() {
             <Dropdown>
               <DropdownButton as={SidebarItem} className="lg:mb-2.5">
                 <Avatar src="/tailwind-logo.svg" />
-                <SidebarLabel>Tailwind Labs</SidebarLabel>
+                <SidebarLabel>Emitente 1</SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
               <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
@@ -133,20 +136,20 @@ function AuthenticatedLayout() {
           <SidebarBody>
             <SidebarSection>
               <SidebarItem href="/">
-                <HomeIcon />
+                <House  />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/events">
-                <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
+              <SidebarItem href="/dashboard">
+                <Gauge />
+                <SidebarLabel>Dashboard</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/orders">
-                <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
+              <SidebarItem href="/pedido/gerenciar">
+                <ScrollText  />
+                <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/settings">
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
+                <Cog />
+                <SidebarLabel>Configurações</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/broadcasts">
                 <MegaphoneIcon />
@@ -162,9 +165,9 @@ function AuthenticatedLayout() {
             </SidebarSection>
             <SidebarSpacer />
             <SidebarSection>
-              <SidebarItem href="/support">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
+              <SidebarItem href="/suporte">
+                <Headset  />
+                <SidebarLabel>Suporte</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/changelog">
                 <SparklesIcon />
