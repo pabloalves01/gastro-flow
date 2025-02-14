@@ -1,207 +1,77 @@
-import { useState } from 'react';
-import { createPortal } from 'react-dom';
-import { Avatar } from '../components/ui/catalyst/avatar';
-import {
-  Dropdown,
-  DropdownButton,
-  DropdownDivider,
-  DropdownItem,
-  DropdownLabel,
-  DropdownMenu,
-} from '../components/ui/catalyst/dropdown';
-import {
-  Sidebar,
-  SidebarBody,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarItem,
-  SidebarLabel,
-  SidebarSection,
-  SidebarSpacer,
-} from '../components/ui/catalyst/sidebar';
-import {
-  ArrowRightStartOnRectangleIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  Cog8ToothIcon,
-  LightBulbIcon,
-  PlusIcon,
-  ShieldCheckIcon,
-  UserIcon,
-  Bars3Icon,
-} from '@heroicons/react/16/solid';
-import {
-  Cog6ToothIcon,
-  HomeIcon,
-  InboxIcon,
-  MagnifyingGlassIcon,
-  MegaphoneIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
-} from '@heroicons/react/20/solid';
+import { Home, Users, Settings, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-import { Gauge, House, Users, ChevronRight } from 'lucide-react';
+interface SidenavProps {
+  isOpen: boolean;
+  isMobileOpen: boolean;
+  toggleSidebar: () => void;
+  toggleMobileSidebar: () => void;
+}
 
-function Sidenav() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [openModules, setOpenModules] = useState<{ [key: string]: boolean }>({
-    cadastros: false,
-  });
-
-  // Alterna a exibição dos submódulos
-  const toggleModule = (module: string) => {
-    setOpenModules((prev) => ({ ...prev, [module]: !prev[module] }));
-  };
+const Sidenav = ({ isOpen, isMobileOpen, toggleSidebar, toggleMobileSidebar }: SidenavProps) => {
+  const [collapsed, setCollapsed] = useState(false); // Estado de colapso da sidebar no desktop
 
   return (
     <>
-      {/* Botão de menu hambúrguer */}
-      {!isOpen && (
-        <button
-          className="fixed top-4 left-4 z-50 p-2 bg-[#141414] text-white rounded-lg lg:hidden"
-          onClick={() => setIsOpen(true)}
-        >
-          <Bars3Icon className="w-6 h-6" />
-        </button>
-      )}
-
-      {/* Sidebar responsiva */}
+      {/* Sidebar no Desktop */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[#141414] border-r border-[#333333] transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`hidden lg:flex flex-col h-screen bg-[#141414] text-white border-r border-[#333] transition-all duration-300 ${collapsed ? "w-16" : "w-64"
+          }`}
       >
-        <Sidebar>
-          <SidebarHeader>
-            <SidebarSection>
-              <SidebarItem href="/search">
-                <MagnifyingGlassIcon />
-                <SidebarLabel>Search</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/inbox">
-                <InboxIcon />
-                <SidebarLabel>Inbox</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-          </SidebarHeader>
+        {/* Botão de expandir/retrair a sidebar */}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-2 mt-4 mx-auto bg-[#222] rounded-full hover:bg-[#333] transition"
+        >
+          {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+        </button>
 
-          <SidebarBody>
-            <SidebarSection>
-              <SidebarItem href="/home">
-                <House />
-                <SidebarLabel>Início</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard">
-                <Gauge />
-                <SidebarLabel>Dashboard</SidebarLabel>
-              </SidebarItem>
-
-              {/* Módulo de Cadastros com Submódulos */}
-              <div>
-                <SidebarItem onClick={() => toggleModule('cadastros')} className="cursor-pointer">
-                  <Users />
-                  <SidebarLabel>Cadastros</SidebarLabel>
-                  {openModules['cadastros'] ? <ChevronDownIcon /> : <ChevronRight />}
-                </SidebarItem>
-
-                {openModules['cadastros'] && (
-                  <div className="ml-6 border-l border-gray-600">
-                    <SidebarItem href="/cadastros/clientes">
-                      <SidebarLabel>Clientes</SidebarLabel>
-                    </SidebarItem>
-                    <SidebarItem href="/cadastros/representantes">
-                      <SidebarLabel>Representantes</SidebarLabel>
-                    </SidebarItem>
-                  </div>
-                )}
-              </div>
-
-              <SidebarItem href="/events">
-                <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/orders">
-                <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/broadcasts">
-                <MegaphoneIcon />
-                <SidebarLabel>Broadcasts</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/settings">
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-
-            <SidebarSpacer />
-
-            <SidebarSection>
-              <SidebarItem href="/support">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/changelog">
-                <SparklesIcon />
-                <SidebarLabel>Changelog</SidebarLabel>
-              </SidebarItem>
-            </SidebarSection>
-          </SidebarBody>
-
-          <SidebarFooter>
-            <Dropdown>
-              <DropdownButton as={SidebarItem}>
-                <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/profile-photo.jpg" className="size-10" square alt="" />
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm font-medium text-white">Erica</span>
-                    <span className="block truncate text-xs font-normal text-gray-400">
-                      erica@example.com
-                    </span>
-                  </span>
-                </span>
-                <ChevronUpIcon />
-              </DropdownButton>
-
-              {/* DropdownMenu do perfil renderizado no portal */}
-              {createPortal(
-                <DropdownMenu className="absolute left-0 top-full z-50 min-w-64 bg-white shadow-lg rounded-md">
-                  <DropdownItem href="/my-profile">
-                    <UserIcon />
-                    <DropdownLabel>My profile</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownItem href="/settings">
-                    <Cog8ToothIcon />
-                    <DropdownLabel>Settings</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownDivider />
-                  <DropdownItem href="/privacy-policy">
-                    <ShieldCheckIcon />
-                    <DropdownLabel>Privacy policy</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownItem href="/share-feedback">
-                    <LightBulbIcon />
-                    <DropdownLabel>Share feedback</DropdownLabel>
-                  </DropdownItem>
-                  <DropdownDivider />
-                  <DropdownItem href="/logout">
-                    <ArrowRightStartOnRectangleIcon />
-                    <DropdownLabel>Sign out</DropdownLabel>
-                  </DropdownItem>
-                </DropdownMenu>,
-                document.body
-              )}
-            </Dropdown>
-          </SidebarFooter>
-        </Sidebar>
+        {/* Navegação */}
+        <nav className="flex flex-col mt-8 space-y-4">
+          <Link to="/home" className="flex items-center px-4 py-3 hover:bg-[#222]">
+            <Home className="w-5 h-5" />
+            {!collapsed && <span className="ml-4">Início</span>}
+          </Link>
+          <Link to="/users" className="flex items-center px-4 py-3 hover:bg-[#222]">
+            <Users className="w-5 h-5" />
+            {!collapsed && <span className="ml-4">Usuários</span>}
+          </Link>
+          <Link to="/settings" className="flex items-center px-4 py-3 hover:bg-[#222]">
+            <Settings className="w-5 h-5" />
+            {!collapsed && <span className="ml-4">Configurações</span>}
+          </Link>
+        </nav>
       </div>
 
-      {/* Overlay para fechar o menu ao clicar fora */}
-      {isOpen && <div className="fixed inset-0 z-30 lg:hidden bg-black/50" onClick={() => setIsOpen(false)} />}
+      {/* Sidebar no Mobile */}
+      {isMobileOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 lg:hidden" onClick={toggleMobileSidebar}>
+          <div className="fixed left-0 top-0 w-64 h-full bg-[#141414] text-white shadow-lg">
+            {/* Botão para fechar */}
+            <button onClick={toggleMobileSidebar} className="absolute top-4 right-4 text-white">
+              <X className="w-6 h-6" />
+            </button>
+
+            <nav className="flex flex-col mt-16 space-y-4">
+              <Link to="/home" className="flex items-center px-4 py-3 hover:bg-[#222]">
+                <Home className="w-5 h-5" />
+                <span className="ml-4">Início</span>
+              </Link>
+              <Link to="/users" className="flex items-center px-4 py-3 hover:bg-[#222]">
+                <Users className="w-5 h-5" />
+                <span className="ml-4">Usuários</span>
+              </Link>
+              <Link to="/settings" className="flex items-center px-4 py-3 hover:bg-[#222]">
+                <Settings className="w-5 h-5" />
+                <span className="ml-4">Configurações</span>
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
     </>
   );
-}
+};
 
 export default Sidenav;

@@ -1,32 +1,26 @@
-import { User, Bell, Search } from "lucide-react";
-import { useState } from "react";
+import { Bell, User, Menu } from "lucide-react";
 
-export default function Header() {
-    const [hasNotifications, setHasNotifications] = useState(true); // Simulação de notificação
+interface HeaderProps {
+    toggleSidebar: () => void;
+}
 
+const Header = ({ toggleSidebar }: HeaderProps) => {
     return (
-        <div className="bg-[#141414] border-b border-[#333333] py-4 px-6 flex justify-between items-center">
-            {/* Título */}
-            <div className="text-white text-lg font-semibold"></div>
+        <header className="bg-[#141414] border-b border-[#333] text-white py-4 px-6 flex justify-between items-center">
+            {/* Botão de menu hambúrguer (aparece só no mobile) */}
+            <button onClick={toggleSidebar} className="lg:hidden">
+                <Menu className="w-6 h-6" />
+            </button>
 
-            {/* Campo de busca */}
-            {/* <div className="relative w-72">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                    type="text"
-                    placeholder="Buscar..."
-                    className="w-full bg-[#2A2A2A] text-white text-sm pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF9800]"
-                />
-            </div> */}
+            {/* Nome do sistema */}
+            <h1 className="text-lg font-semibold">Meu Sistema</h1>
 
-            {/* Notificações e Perfil */}
+            {/* Ícones de notificações e perfil */}
             <div className="flex items-center space-x-6">
                 {/* Notificações */}
                 <div className="relative">
-                    <Bell className="w-6 h-6 text-white cursor-pointer" />
-                    {hasNotifications && (
-                        <span className="absolute top-0 right-0 bg-red-500 w-3 h-3 rounded-full border-2 border-[#1E1E1E]"></span>
-                    )}
+                    <Bell className="w-6 h-6 cursor-pointer" />
+                    <span className="absolute top-0 right-0 bg-red-500 w-3 h-3 rounded-full"></span>
                 </div>
 
                 {/* Perfil */}
@@ -34,9 +28,11 @@ export default function Header() {
                     <div className="w-10 h-10 bg-[#FF9800] rounded-full flex justify-center items-center">
                         <User className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-white text-sm font-medium">Usuário</span>
+                    <span className="hidden lg:block">Usuário</span>
                 </div>
             </div>
-        </div>
+        </header>
     );
-}
+};
+
+export default Header;
