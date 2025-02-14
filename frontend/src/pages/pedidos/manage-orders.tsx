@@ -3,7 +3,12 @@ import SectionText from "../../components/text/section-text";
 import { Avatar } from "../../components/ui/catalyst/avatar";
 import { Badge } from "../../components/ui/catalyst/badge";
 import { EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../../components/ui/catalyst/dropdown";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from "../../components/ui/catalyst/dropdown";
 import {
   Pagination,
   PaginationGap,
@@ -20,49 +25,49 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/catalyst/table";
-import { Check, Cog, Hourglass, Inbox, Loader2, Package } from "lucide-react";
+import { Check, Cog, Hourglass, Inbox, Loader2, Package, Eye, Pencil, Printer } from "lucide-react";
 
 const users = [
   {
-      avatarUrl: "/path/to/avatar1.jpg",
-      name: "Pablo Alves",
-      email: "pablo.alves@example.com",
-      access: "Admin",
-      online: true,
-      handle: "pablo.alves",
+    avatarUrl: "/path/to/avatar1.jpg",
+    name: "Pablo Alves",
+    email: "pablo.alves@example.com",
+    access: "Admin",
+    online: true,
+    handle: "pablo.alves",
   },
   {
-      avatarUrl: "/path/to/avatar2.jpg",
-      name: "Mariana Souza",
-      email: "mariana.souza@example.com",
-      access: "Editor",
-      online: false,
-      handle: "mariana.souza",
+    avatarUrl: "/path/to/avatar2.jpg",
+    name: "Mariana Souza",
+    email: "mariana.souza@example.com",
+    access: "Editor",
+    online: false,
+    handle: "mariana.souza",
   },
   {
-      avatarUrl: "/path/to/avatar3.jpg",
-      name: "Carlos Oliveira",
-      email: "carlos.oliveira@example.com",
-      access: "Viewer",
-      online: true,
-      handle: "carlos.oliveira",
+    avatarUrl: "/path/to/avatar3.jpg",
+    name: "Carlos Oliveira",
+    email: "carlos.oliveira@example.com",
+    access: "Viewer",
+    online: true,
+    handle: "carlos.oliveira",
   },
   {
-      avatarUrl: "/path/to/avatar4.jpg",
-      name: "Ana Lima",
-      email: "ana.lima@example.com",
-      access: "Editor",
-      online: true,
-      handle: "ana.lima",
+    avatarUrl: "/path/to/avatar4.jpg",
+    name: "Ana Lima",
+    email: "ana.lima@example.com",
+    access: "Editor",
+    online: true,
+    handle: "ana.lima",
   },
   {
-      avatarUrl: "/path/to/avatar5.jpg",
-      name: "Rafael Mendes",
-      email: "rafael.mendes@example.com",
-      access: "Admin",
-      online: false,
-      handle: "rafael.mendes",
-  }
+    avatarUrl: "/path/to/avatar5.jpg",
+    name: "Rafael Mendes",
+    email: "rafael.mendes@example.com",
+    access: "Admin",
+    online: false,
+    handle: "rafael.mendes",
+  },
 ];
 
 export function ManageOrders() {
@@ -107,20 +112,21 @@ export function ManageOrders() {
           />
         </div>
       </div>
-      <Table dense striped className="w-full [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
+
+      <Table dense striped className="w-full">
         <TableHead>
           <TableRow>
             <TableHeader>Name</TableHeader>
             <TableHeader>Role</TableHeader>
             <TableHeader>Status</TableHeader>
-            <TableHeader></TableHeader>
+            <TableHeader>Ações</TableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={3}
+                colSpan={4}
                 className="py-24 text-center text-[#A1A1A1]"
               >
                 <div className="flex flex-col items-center justify-center">
@@ -129,7 +135,7 @@ export function ManageOrders() {
                     Nenhum resultado encontrado
                   </div>
                   <p className="text-sm text-center">
-                    Você pode configurar as opções no menu acima clicando em{" "}
+                    Você pode configurar as opções no menu acima clicando em
                     <i className="inline-flex items-center">
                       <Cog className="w-4 h-4 mx-1" />
                     </i>
@@ -138,49 +144,60 @@ export function ManageOrders() {
                 </div>
               </TableCell>
             </TableRow>
-          ) : null}
-
-          {users.map((user) => (
-            <TableRow key={user.handle}>
-              <TableCell>
-                <div className="flex items-center gap-4">
-                  <Avatar src={user.avatarUrl} className="size-12" />
-                  <div>
-                    <div className="font-medium">{user.name}</div>
-                    <div className="text-zinc-500">
-                      <a href="#" className="hover:text-zinc-700">
-                        {user.email}
-                      </a>
+          ) : (
+            users.map((user) => (
+              <TableRow key={user.handle}>
+                <TableCell>
+                  <div className="flex items-center gap-4">
+                    <Avatar src={user.avatarUrl} className="size-12" />
+                    <div>
+                      <div className="font-medium">{user.name}</div>
+                      <div className="text-zinc-500">
+                        <a href="#" className="hover:text-zinc-700">
+                          {user.email}
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </TableCell>
-              <TableCell className="text-zinc-500">{user.access}</TableCell>
-              <TableCell>
-                {user.online ? (
-                  <Badge color="lime">Online</Badge>
-                ) : (
-                  <Badge color="zinc">Offline</Badge>
-                )}
-              </TableCell>
-              <TableCell>
-              <div className="-mx-3 -my-1.5 sm:-mx-2.5">
-                <Dropdown>
-                  <DropdownButton plain aria-label="More options">
-                    <EllipsisHorizontalIcon />
-                  </DropdownButton>
-                  <DropdownMenu anchor="bottom end">
-                    <DropdownItem>Visualizar</DropdownItem>
-                    <DropdownItem>Editar</DropdownItem>
-                    <DropdownItem>Imprimir</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </div>
-            </TableCell>
-            </TableRow>
-          ))}
+                </TableCell>
+                <TableCell className="text-zinc-500">{user.access}</TableCell>
+                <TableCell>
+                  {user.online ? (
+                    <Badge color="lime">Online</Badge>
+                  ) : (
+                    <Badge color="zinc">Offline</Badge>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Dropdown>
+                    <DropdownButton plain aria-label="More options">
+                      <EllipsisHorizontalIcon />
+                    </DropdownButton>
+                    <DropdownMenu anchor="bottom end">
+                      <DropdownItem>
+                        <Eye className="w-4 h-4 mr-2" />
+                        Visualizar
+                        
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Pencil className="w-4 h-4 mr-2" />
+                        Editar
+                        
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Printer className="w-4 h-4 mr-2" />
+                        Imprimir
+                        
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
+
       <Pagination className="flex w-full justify-center mt-6">
         <PaginationPrevious href="?page=2" />
         <PaginationList>
