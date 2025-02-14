@@ -13,7 +13,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             </button>
 
             {/* Nome do sistema */}
-            <h1 className="text-lg font-semibold">Meu Sistema</h1>
+            <div></div>
 
             {/* Ícones de notificações e perfil */}
             <div className="flex items-center space-x-6">
@@ -31,7 +31,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
                     <span className="hidden lg:block">Usuário</span>
                 </div>
             </div>
-        </header>
+        </header >
     );
 };
 
