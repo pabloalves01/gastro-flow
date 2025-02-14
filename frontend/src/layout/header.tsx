@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <div className="bg-[#141414] border-b border-[#333333] py-4 px-6 flex justify-between items-center">
             {/* Título */}
-            <div className="text-white text-lg font-semibold">Dashboard</div>
+            <div className="text-white text-lg font-semibold"></div>
 
             {/* Campo de busca */}
             {/* <div className="relative w-72">
