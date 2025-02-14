@@ -170,9 +170,9 @@ export function ManageOrders() {
                     <EllipsisHorizontalIcon />
                   </DropdownButton>
                   <DropdownMenu anchor="bottom end">
-                    <DropdownItem>View</DropdownItem>
-                    <DropdownItem>Edit</DropdownItem>
-                    <DropdownItem>Delete</DropdownItem>
+                    <DropdownItem>Visualizar</DropdownItem>
+                    <DropdownItem>Editar</DropdownItem>
+                    <DropdownItem>Imprimir</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
