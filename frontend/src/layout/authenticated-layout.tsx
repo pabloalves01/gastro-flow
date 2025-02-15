@@ -1,8 +1,7 @@
-import { Avatar } from '../components/ui/catalyst/avatar'
+import { Avatar } from "../components/ui/catalyst/avatar";
 import { Outlet } from "react-router-dom";
 
-import { House, Gauge, ScrollText, Cog, Headset  } from 'lucide-react'
-
+import { House, Gauge, ScrollText, Cog, Headset, Store } from "lucide-react";
 
 import {
   Dropdown,
@@ -11,8 +10,13 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-} from '../components/ui/catalyst/dropdown'
-import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '../components/ui/catalyst/navbar'
+} from "../components/ui/catalyst/dropdown";
+import {
+  Navbar,
+  NavbarItem,
+  NavbarSection,
+  NavbarSpacer,
+} from "../components/ui/catalyst/navbar";
 import {
   Sidebar,
   SidebarBody,
@@ -23,8 +27,8 @@ import {
   SidebarLabel,
   SidebarSection,
   SidebarSpacer,
-} from '../components/ui/catalyst/sidebar'
-import { SidebarLayout } from '../components/ui/catalyst/sidebar-layout'
+} from "../components/ui/catalyst/sidebar";
+import { SidebarLayout } from "../components/ui/catalyst/sidebar-layout";
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -34,7 +38,7 @@ import {
   PlusIcon,
   ShieldCheckIcon,
   UserIcon,
-} from '@heroicons/react/16/solid'
+} from "@heroicons/react/16/solid";
 import {
   Cog6ToothIcon,
   HomeIcon,
@@ -45,7 +49,7 @@ import {
   SparklesIcon,
   Square2StackIcon,
   TicketIcon,
-} from '@heroicons/react/20/solid'
+} from "@heroicons/react/20/solid";
 
 function AuthenticatedLayout() {
   return (
@@ -101,7 +105,10 @@ function AuthenticatedLayout() {
                 <SidebarLabel>Emitente 1</SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
-              <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
+              <DropdownMenu
+                className="min-w-80 lg:min-w-64"
+                anchor="bottom start"
+              >
                 <DropdownItem href="/teams/1/settings">
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
@@ -112,7 +119,11 @@ function AuthenticatedLayout() {
                   <DropdownLabel>Tailwind Labs</DropdownLabel>
                 </DropdownItem>
                 <DropdownItem href="/teams/2">
-                  <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
+                  <Avatar
+                    slot="icon"
+                    initials="WC"
+                    className="bg-purple-500 text-white"
+                  />
                   <DropdownLabel>Workcation</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
@@ -136,15 +147,19 @@ function AuthenticatedLayout() {
           <SidebarBody>
             <SidebarSection>
               <SidebarItem href="/">
-                <House  />
+                <House />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/dashboard">
                 <Gauge />
                 <SidebarLabel>Dashboard</SidebarLabel>
               </SidebarItem>
+              <SidebarItem href="/pdv">
+                <Store />
+                <SidebarLabel>PDV</SidebarLabel>
+              </SidebarItem>
               <SidebarItem href="/pedido/gerenciar">
-                <ScrollText  />
+                <ScrollText />
                 <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/settings">
@@ -158,7 +173,9 @@ function AuthenticatedLayout() {
             </SidebarSection>
             <SidebarSection className="max-lg:hidden">
               <SidebarHeading>Upcoming Events</SidebarHeading>
-              <SidebarItem href="/events/1">Bear Hug: Live in Concert</SidebarItem>
+              <SidebarItem href="/events/1">
+                Bear Hug: Live in Concert
+              </SidebarItem>
               <SidebarItem href="/events/2">Viking People</SidebarItem>
               <SidebarItem href="/events/3">Six Fingers — DJ Set</SidebarItem>
               <SidebarItem href="/events/4">We All Look The Same</SidebarItem>
@@ -166,7 +183,7 @@ function AuthenticatedLayout() {
             <SidebarSpacer />
             <SidebarSection>
               <SidebarItem href="/suporte">
-                <Headset  />
+                <Headset />
                 <SidebarLabel>Suporte</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/changelog">
@@ -179,9 +196,16 @@ function AuthenticatedLayout() {
             <Dropdown>
               <DropdownButton as={SidebarItem}>
                 <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/profile-photo.jpg" className="size-10" square alt="" />
+                  <Avatar
+                    src="/profile-photo.jpg"
+                    className="size-10"
+                    square
+                    alt=""
+                  />
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                      Erica
+                    </span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
                       erica@example.com
                     </span>
@@ -220,7 +244,7 @@ function AuthenticatedLayout() {
     >
       <Outlet />
     </SidebarLayout>
-  )
+  );
 }
 
 export default AuthenticatedLayout;
