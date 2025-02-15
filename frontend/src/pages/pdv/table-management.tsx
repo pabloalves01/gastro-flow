@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionText from "../../components/text/section-text";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Receipt, Trash2 } from "lucide-react";
+import { ClipboardList, Cog, Divide, Inbox, Plus, Receipt, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -11,7 +11,12 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/catalyst/table";
-import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../components/ui/catalyst/alert";
+import {
+  Alert,
+  AlertActions,
+  AlertDescription,
+  AlertTitle,
+} from "../../components/ui/catalyst/alert";
 
 interface TableItem {
   id: number;
@@ -72,26 +77,26 @@ export default function TableManagement() {
   ]);
 
   const [activeOrders, setActiveOrders] = useState<Order[]>([
-    {
-      id: 1,
-      table: 2,
-      items: [
-        { id: 1, name: "X-Burger", quantity: 2, price: 25.9 },
-        { id: 2, name: "Coca-Cola 350ml", quantity: 2, price: 5.5 },
-      ],
-      total: 62.8,
-      startTime: "14:30",
-    },
-    {
-      id: 2,
-      table: 5,
-      items: [
-        { id: 3, name: "X-Salada", quantity: 1, price: 27.9 },
-        { id: 4, name: "Água Mineral", quantity: 1, price: 4.0 },
-      ],
-      total: 31.9,
-      startTime: "15:45",
-    },
+    // {
+    //   id: 1,
+    //   table: 2,
+    //   items: [
+    //     { id: 1, name: "X-Burger", quantity: 2, price: 25.9 },
+    //     { id: 2, name: "Coca-Cola 350ml", quantity: 2, price: 5.5 },
+    //   ],
+    //   total: 62.8,
+    //   startTime: "14:30",
+    // },
+    // {
+    //   id: 2,
+    //   table: 5,
+    //   items: [
+    //     { id: 3, name: "X-Salada", quantity: 1, price: 27.9 },
+    //     { id: 4, name: "Água Mineral", quantity: 1, price: 4.0 },
+    //   ],
+    //   total: 31.9,
+    //   startTime: "15:45",
+    // },
   ]);
 
   const getStatusColor = (status: TableItem["status"]) => {
@@ -152,7 +157,10 @@ export default function TableManagement() {
                       Visão geral das mesas
                     </div>
                   </div>
-                  <Button onClick={() => setIsOpenNewTable(true)}className="text-white hover:bg-[#FF9800] hover:bg-[#1B1B1B] cursor-pointer">
+                  <Button
+                    onClick={() => setIsOpenNewTable(true)}
+                    className="text-white hover:bg-[#FF9800] hover:bg-[#1B1B1B] cursor-pointer"
+                  >
                     <Plus className="w-4 h-4 mr-2" />
                     Nova Mesa
                   </Button>
@@ -226,39 +234,58 @@ export default function TableManagement() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {activeOrders.map((order) => (
-                        <TableRow key={order.id}>
-                          <TableCell className="text-white">
-                            Mesa {order.table}
-                          </TableCell>
-                          <TableCell className="text-white">
-                            {order.startTime}
-                          </TableCell>
-                          <TableCell className="text-white">
-                            {order.items.length} itens
-                          </TableCell>
-                          <TableCell className="text-white">
-                            {order.total.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-2">
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
-                              >
-                                <Receipt className="w-4 h-4" />
-                              </Button>
-                              <Button className="text-red-500 hover:text-red-500 hover:bg-[#1B1B1B]">
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
+                      {activeOrders.length === 0 ? (
+                        <TableRow>
+                          <TableCell
+                            colSpan={5}
+                            className="py-12 text-center text-[#A1A1A1]"
+                          >
+                            <div className="flex flex-col items-center justify-center">
+                              <ClipboardList className="w-14 h-14 " />
+                              <div className="text-lg font-semibold">
+                                Nenhuma comanda em andamento
+                              </div>
+                              <p className="text-sm text-center">
+                                No momento não há pedidos ativos, por favor inicie uma nova comanda
+                              </p>
                             </div>
                           </TableCell>
                         </TableRow>
-                      ))}
+                      ) : (
+                        activeOrders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="text-white">
+                              Mesa {order.table}
+                            </TableCell>
+                            <TableCell className="text-white">
+                              {order.startTime}
+                            </TableCell>
+                            <TableCell className="text-white">
+                              {order.items.length} itens
+                            </TableCell>
+                            <TableCell className="text-white">
+                              {order.total.toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                              })}
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex gap-2">
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
+                                >
+                                  <Receipt className="w-4 h-4" />
+                                </Button>
+                                <Button className="text-red-500 hover:text-red-500 hover:bg-[#1B1B1B]">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
                     </TableBody>
                   </Table>
                 </div>
@@ -270,9 +297,7 @@ export default function TableManagement() {
 
       <Alert open={isOpenNewTable} onClose={setIsOpenNewTable}>
         <AlertTitle>Nova Mesa</AlertTitle>
-        <AlertDescription>
-          Adicionar nova mesa
-        </AlertDescription>
+        <AlertDescription>Adicionar nova mesa</AlertDescription>
         <AlertActions>
           <Button plain onClick={() => setIsOpenNewTable(false)}>
             Cancelar
