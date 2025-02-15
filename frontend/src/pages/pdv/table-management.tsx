@@ -2,7 +2,15 @@ import { useState } from "react";
 import SectionText from "../../components/text/section-text";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Clock, Users, Receipt, Trash2 } from "lucide-react";
+import {
+  Cog,
+  Plus,
+  Clock,
+  Users,
+  Receipt,
+  Trash2,
+  Grid2x2,
+} from "lucide-react";
 import {
   Table,
   TableBody,
@@ -36,35 +44,38 @@ interface Order {
 
 export default function TableManagement() {
   const [tables, setTables] = useState<TableItem[]>([
-    { id: 1, number: 1, status: "available" },
     {
-      id: 2,
-      number: 2,
+      id: 1,
+      number: 1,
       status: "occupied",
       guests: 4,
       startTime: "14:30",
       total: 156.8,
     },
-    { id: 3, number: 3, status: "reserved" },
-    { id: 4, number: 4, status: "available" },
     {
-      id: 5,
-      number: 5,
-      status: "occupied",
-      guests: 2,
-      startTime: "15:45",
-      total: 89.9,
+      id: 2,
+      number: 2,
+      status: "reserved",
+      guests: 4,
+      startTime: "14:30",
+      total: 156.8,
     },
-    { id: 6, number: 6, status: "available" },
     {
-      id: 7,
-      number: 7,
-      status: "occupied",
-      guests: 6,
-      startTime: "13:15",
-      total: 345.6,
+      id: 3,
+      number: 3,
+      status: "available",
+      guests: 4,
+      startTime: "14:30",
+      total: 156.8,
     },
-    { id: 8, number: 8, status: "available" },
+    {
+      id: 4,
+      number: 4,
+      status: "occupied",
+      guests: 4,
+      startTime: "14:30",
+      total: 156.8,
+    },
   ]);
 
   const [activeOrders, setActiveOrders] = useState<Order[]>([
@@ -157,14 +168,16 @@ export default function TableManagement() {
                   >
                     <div className="flex flex-col gap-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-white text-lg font-semibold">
+                        <span className=" text-lg font-semibold text-white">
                           Mesa {table.number}
                         </span>
                         <Badge color={getStatusColor(table.status)}>
                           {getStatusText(table.status)}
                         </Badge>
                       </div>
-                      {table.status === "occupied" && (
+
+                      {/* TODO: Melhorar Layout */}
+                      {/* {table.status === "occupied" && (
                         <>
                           <div className="flex items-center gap-3 text-[#A1A1A1]">
                             <Users className="w-5 h-5" />
@@ -181,7 +194,7 @@ export default function TableManagement() {
                             })}
                           </div>
                         </>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 ))}
@@ -241,11 +254,7 @@ export default function TableManagement() {
                             >
                               <Receipt className="w-4 h-4" />
                             </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="text-red-500 hover:text-red-500 hover:bg-[#1B1B1B]"
-                            >
+                            <Button className="text-red-500 hover:text-red-500 hover:bg-[#1B1B1B]">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
