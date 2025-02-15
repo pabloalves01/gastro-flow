@@ -82,7 +82,7 @@ const users = [
     avatarUrl: "/path/to/avatar3.jpg",
     name: "Carlos Oliveira",
     email: "carlos.oliveira@example.com",
-    access: "Viewer",
+    access: "Editor",
     online: true,
     handle: "carlos.oliveira",
   },
@@ -105,12 +105,16 @@ const users = [
 ];
 
 export function ManageOrders() {
-  const [isOpen, setIsOpen] = useState(false);
+  //   Abrir Modal de Visualização de Pedido
+  const [isOpenView, setIsOpenView] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  //   Abrir Modal de Filtros
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const handleView = (user: User) => {
     setSelectedUser(user);
-    setIsOpen(true);
+    setIsOpenView(true);
   };
 
   return (
@@ -149,6 +153,7 @@ export function ManageOrders() {
         />
         <div className="group">
           <Cog
+            onClick={() => setIsOpenFilters(true)}
             className="text-white w-6 h-6 cursor-pointer hover:text-zinc-500 group-hover:animate-[spin_2s_linear_infinite]"
             strokeWidth={1}
           />
@@ -205,7 +210,7 @@ export function ManageOrders() {
                 <TableCell className="text-zinc-500">{user.access}</TableCell>
                 <TableCell>
                   {user.online ? (
-                    <Badge color="lime">Online</Badge>
+                    <Badge color="green">Online</Badge>
                   ) : (
                     <Badge color="zinc">Offline</Badge>
                   )}
@@ -254,7 +259,7 @@ export function ManageOrders() {
       </Pagination>
 
       {/* Alert para exibir detalhes do pedido selecionado */}
-      <Alert open={isOpen} onClose={() => setIsOpen(false)}>
+      <Alert open={isOpenView} onClose={() => setIsOpenView(false)}>
         <div className="flex w-full flex-wrap items-end justify-between gap-4 border-b border-zinc-950/10 pb-4 dark:border-white/10">
           <Heading>Pedido #00001</Heading>
           {/* <div className="flex gap-4">
@@ -289,9 +294,23 @@ export function ManageOrders() {
           </AlertDescription>
         )}
         <AlertActions>
-          <Button plain onClick={() => setIsOpen(false)}>
+          <Button plain onClick={() => setIsOpenFilters(false)}>
             Fechar
           </Button>
+        </AlertActions>
+      </Alert>
+
+      <Alert open={isOpenFilters} onClose={setIsOpenFilters}>
+        <AlertTitle>Aplicar Filtros</AlertTitle>
+        <AlertDescription>
+          Os filtros serão aplicados para exibir apenas os pedidos que atendem
+          aos critérios selecionados.
+        </AlertDescription>
+        <AlertActions>
+          <Button plain onClick={() => setIsOpenFilters(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={() => setIsOpenFilters(false)}>Buscar</Button>
         </AlertActions>
       </Alert>
     </div>
