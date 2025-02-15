@@ -190,7 +190,7 @@ export default function TableManagement() {
           </div>
 
           {/* Active Orders */}
-          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg h-[600px] flex flex-col">
+          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg max-h-[80vh] flex flex-col">
             <div className="flex flex-col gap-4 h-full">
               <div className="flex items-center justify-between">
                 <div>
