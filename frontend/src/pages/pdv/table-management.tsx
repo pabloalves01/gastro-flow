@@ -134,7 +134,7 @@ export default function TableManagement() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Tables Grid */}
-          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg h-[600px] flex flex-col">
+          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg flex flex-col max-h-[80vh] overflow-y-auto">
             <div className="flex flex-col gap-4 h-full">
               <div className="flex items-center justify-between">
                 <div>
@@ -143,24 +143,21 @@ export default function TableManagement() {
                     Visão geral das mesas
                   </div>
                 </div>
-                <Button
-                  variant="ghost"
-                  className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
-                >
+                <Button className="text-white hover:bg-[#FF9800] hover:bg-[#1B1B1B] cursor-pointer">
                   <Plus className="w-4 h-4 mr-2" />
                   Nova Mesa
                 </Button>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pb-4">
                 {tables.map((table) => (
                   <div
                     key={table.id}
-                    className="bg-[#1B1B1B] p-4 rounded-lg cursor-pointer hover:bg-[#242424] transition-colors"
+                    className="bg-[#1B1B1B] p-6 rounded-lg cursor-pointer hover:bg-[#242424] transition-all ease-in-out duration-200 transform hover:scale-105"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex justify-between items-start">
-                        <span className="text-white font-semibold">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-white text-lg font-semibold">
                           Mesa {table.number}
                         </span>
                         <Badge color={getStatusColor(table.status)}>
@@ -169,15 +166,15 @@ export default function TableManagement() {
                       </div>
                       {table.status === "occupied" && (
                         <>
-                          <div className="flex items-center gap-2 text-[#A1A1A1]">
-                            <Users className="w-4 h-4" />
+                          <div className="flex items-center gap-3 text-[#A1A1A1]">
+                            <Users className="w-5 h-5" />
                             <span>{table.guests} pessoas</span>
                           </div>
-                          <div className="flex items-center gap-2 text-[#A1A1A1]">
-                            <Clock className="w-4 h-4" />
+                          <div className="flex items-center gap-3 text-[#A1A1A1]">
+                            <Clock className="w-5 h-5" />
                             <span>Desde {table.startTime}</span>
                           </div>
-                          <div className="text-white font-semibold">
+                          <div className="text-white text-lg font-semibold">
                             {table.total?.toLocaleString("pt-BR", {
                               style: "currency",
                               currency: "BRL",
