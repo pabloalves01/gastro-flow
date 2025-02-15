@@ -50,6 +50,15 @@ import {
   Printer,
 } from "lucide-react";
 
+interface User {
+    avatarUrl: string;
+    name: string;
+    email: string;
+    access: string;
+    online: boolean;
+    handle: string;
+  }
+
 const users = [
   {
     avatarUrl: "/path/to/avatar1.jpg",
@@ -95,9 +104,9 @@ const users = [
 
 export function ManageOrders() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  const handleView = (user: any) => {
+  const handleView = (user: User) => {
     setSelectedUser(user);
     setIsOpen(true);
   };
