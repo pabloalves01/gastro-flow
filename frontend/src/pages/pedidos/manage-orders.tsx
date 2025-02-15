@@ -1,3 +1,16 @@
+import { useState } from "react";
+import { Button } from "../../components/ui/catalyst/button";
+import {
+  DescriptionDetails,
+  DescriptionList,
+  DescriptionTerm,
+} from "../../components/ui/catalyst/description-list";
+import {
+  Alert,
+  AlertActions,
+  AlertDescription,
+  AlertTitle,
+} from "../../components/ui/catalyst/alert";
 import StatusCard from "../../components/cards/stats-card";
 import SectionText from "../../components/text/section-text";
 import { Avatar } from "../../components/ui/catalyst/avatar";
@@ -25,7 +38,17 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/catalyst/table";
-import { Check, Cog, Hourglass, Inbox, Loader2, Package, Eye, Pencil, Printer } from "lucide-react";
+import {
+  Check,
+  Cog,
+  Hourglass,
+  Inbox,
+  Loader2,
+  Package,
+  Eye,
+  Pencil,
+  Printer,
+} from "lucide-react";
 
 const users = [
   {
@@ -71,6 +94,14 @@ const users = [
 ];
 
 export function ManageOrders() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleView = (user: any) => {
+    setSelectedUser(user);
+    setIsOpen(true);
+  };
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -116,8 +147,8 @@ export function ManageOrders() {
       <Table dense striped className="w-full">
         <TableHead>
           <TableRow>
-            <TableHeader>Name</TableHeader>
-            <TableHeader>Role</TableHeader>
+            <TableHeader>Nome</TableHeader>
+            <TableHeader>Função</TableHeader>
             <TableHeader>Status</TableHeader>
             <TableHeader>Ações</TableHeader>
           </TableRow>
@@ -174,20 +205,17 @@ export function ManageOrders() {
                       <EllipsisHorizontalIcon />
                     </DropdownButton>
                     <DropdownMenu anchor="bottom end">
-                      <DropdownItem>
+                      <DropdownItem onClick={() => handleView(user)}>
                         <Eye className="w-4 h-4 mr-2" />
                         Visualizar
-                        
                       </DropdownItem>
                       <DropdownItem>
                         <Pencil className="w-4 h-4 mr-2" />
                         Editar
-                        
                       </DropdownItem>
                       <DropdownItem>
                         <Printer className="w-4 h-4 mr-2" />
                         Imprimir
-                        
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
@@ -213,6 +241,41 @@ export function ManageOrders() {
         </PaginationList>
         <PaginationNext href="?page=4" />
       </Pagination>
+
+      {/* Alert para exibir detalhes do pedido selecionado */}
+      <Alert open={isOpen} onClose={() => setIsOpen(false)}>
+        <AlertTitle>Detalhes do Pedido</AlertTitle>
+        {selectedUser && (
+          <AlertDescription>
+            <DescriptionList>
+              <DescriptionTerm>Nome</DescriptionTerm>
+              <DescriptionDetails>{selectedUser.name}</DescriptionDetails>
+
+              <DescriptionTerm>Função</DescriptionTerm>
+              <DescriptionDetails>{selectedUser.access}</DescriptionDetails>
+
+              <DescriptionTerm>Amount</DescriptionTerm>
+              <DescriptionDetails>$150.00 USD</DescriptionDetails>
+
+              <DescriptionTerm>Amount after exchange rate</DescriptionTerm>
+              <DescriptionDetails>
+                US$150.00 &rarr; CA$199.79
+              </DescriptionDetails>
+
+              <DescriptionTerm>Fee</DescriptionTerm>
+              <DescriptionDetails>$4.79 USD</DescriptionDetails>
+
+              <DescriptionTerm>Net</DescriptionTerm>
+              <DescriptionDetails>$1,955.00</DescriptionDetails>
+            </DescriptionList>
+          </AlertDescription>
+        )}
+        <AlertActions>
+          <Button plain onClick={() => setIsOpen(false)}>
+            Fechar
+          </Button>
+        </AlertActions>
+      </Alert>
     </div>
   );
 }
