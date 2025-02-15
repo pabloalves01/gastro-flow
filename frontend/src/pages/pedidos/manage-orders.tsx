@@ -294,7 +294,7 @@ export function ManageOrders() {
           </AlertDescription>
         )}
         <AlertActions>
-          <Button plain onClick={() => setIsOpenFilters(false)}>
+          <Button plain onClick={() => setIsOpenView(false)}>
             Fechar
           </Button>
         </AlertActions>

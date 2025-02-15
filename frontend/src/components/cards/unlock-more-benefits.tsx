@@ -9,7 +9,7 @@ export default function UnlockMoreBenefits() {
                     Aproveite ao máximo com o plano Premium
                 </div>
             </div>
-            <Button className='bg-[#FF9800] py-3 px-8 text-md rounded-lg w-64 font-semibold text-white hover:bg-[#F57C00] transition-colors duration-300'>
+            <Button className='bg-[#FF9800] cursor-pointer py-3 px-8 text-md rounded-lg w-64 font-semibold text-white hover:bg-[#F57C00] transition-colors duration-300'>
                 Atualizar Plano
             </Button>
         </div>
