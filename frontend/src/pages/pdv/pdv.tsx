@@ -12,7 +12,7 @@ import {
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Search, Receipt, Trash2, Minus } from "lucide-react";
+import { Cog, Plus, Search, Receipt, Trash2, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function PDV() {
@@ -33,17 +33,18 @@ export default function PDV() {
       description: "Pesquisar no catálogo (F3)",
       href: "/pdv/buscar",
     },
-    {
-      icon: <Minus />,
-      title: "Remover Item",
-      description: "Remover produto (F4)",
-      href: "/pdv/carrinho",
-    },
+
     {
       icon: <Receipt />,
       title: "Finalizar",
       description: "Concluir venda (F5)",
       href: "/pdv/finalizar",
+    },
+    {
+      icon: <Users />,
+      title: "Mesas",
+      description: "Gerenciar mesas",
+      href: "/pdv/mesas",
     },
   ];
 

@@ -7,6 +7,7 @@ import ManageOrders from "../pages/pedidos/manage-orders";
 import Teste from "../pages/dashboard/teste";
 import PDV from "../pages/pdv/pdv";
 import Checkout from "../pages/pdv/checkout";
+import TableManagement from "../pages/pdv/table-management";
 function AppRoutes() {
   return (
     <Router>
@@ -21,7 +22,8 @@ function AppRoutes() {
           <Route path="pedido/gerenciar" element={<ManageOrders />} />
           <Route path="teste" element={<Teste />} />
           <Route path="pdv" element={<PDV />} />
-          <Route path="pdv/checkout" element={<Checkout />}></Route>
+          <Route path="pdv/checkout" element={<Checkout />} />
+          <Route path="pdv/mesas" element={<TableManagement />} />
         </Route>
       </Routes>
     </Router>
