@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import QuickActions from "../../components/cards/quick-actions";
 import SectionText from "../../components/text/section-text";
 import {
@@ -125,9 +125,9 @@ export default function PDV() {
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-
-
+  // Atalhos teclado
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") {
@@ -137,9 +137,16 @@ export default function PDV() {
         });
       } else if (e.key === "ArrowUp") {
         setSelectedIndex((prev) => {
-          if (prev === null) return 0;
+          if (filteredProducts.length === 0) return prev;
+          if (prev === null) return filteredProducts.length - 1;
           return Math.max(prev - 1, 0);
         });
+      } else if (e.key === "F5") {
+        e.preventDefault();
+        navigate("/pdv/checkout");
+      } else if (e.key === "F3") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
       }
     };
 
@@ -148,8 +155,6 @@ export default function PDV() {
       window.removeEventListener("keydown", handleGlobalKeyDown);
     };
   }, [filteredProducts, selectedIndex]);
-
-
 
   return (
     <div className="container max-w-7xl">
@@ -183,6 +188,7 @@ export default function PDV() {
                 </div>
                 <div className="w-64">
                   <Input
+                    ref={searchInputRef}
                     type="text"
                     placeholder="Buscar produto... (F3)"
                     value={searchTerm}
