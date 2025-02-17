@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Tabs from '../../components/custom/tabs/tabs';
+import SectionText from '../../components/text/section-text';
 const productTabs = [
   { name: 'dados gerais', href: '#' },
   { name: 'dados complementares', href: '#' },
@@ -16,6 +17,7 @@ function ProductForm() {
       <Tabs tabs={productTabs} activeTab={activeTab} onTabChange={setActiveTab} />
       <div className="mt-4">
         {activeTab === 'Geral' && <div>
+          <SectionText title="Dados Gerais" subtitle='teste' />
         </div>}
       </div>
 
