@@ -12,7 +12,7 @@ import {
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Search, Receipt, Trash2, Users } from "lucide-react";
+import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function PDV() {
@@ -217,9 +217,9 @@ export default function PDV() {
         <QuickActions actions={actions} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg h-[600px] flex flex-col">
+          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg flex flex-col">
             <div className="flex flex-col gap-4 h-full">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between ">
                 <div>
                   <div className="text-white text-md font-semibold">
                     Produtos
@@ -228,18 +228,21 @@ export default function PDV() {
                     Lista de produtos disponíveis
                   </div>
                 </div>
-                <div className="w-64">
-                  <Input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Buscar produto... (F3)"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="bg-[#1B1B1B] border-[#333333] text-white"
-                  />
-                </div>
-              </div>
+                <Button className="cursor-pointer" onClick={clearCart}>
+                  <Barcode className=" w-4 h-4" /> Código de Barras (F12)
+                </Button>
 
+              </div>
+              <div className="w-full">
+                <Input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Digite o nome do produto.. (F3)"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="bg-[#1B1B1B] border-[#333333] text-white"
+                />
+              </div>
               <div className="flex-1 overflow-auto">
                 <Table dense className="w-full">
                   <TableHead className="sticky top-0 bg-[#141414] z-10">
@@ -284,7 +287,7 @@ export default function PDV() {
             </div>
           </div>
 
-          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg h-[600px] flex flex-col">
+          <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg  flex flex-col">
             <div className="flex flex-col gap-4 h-full">
               <div className="flex items-center justify-between">
                 <div>
