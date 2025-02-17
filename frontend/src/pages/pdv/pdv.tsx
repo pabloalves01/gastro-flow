@@ -175,6 +175,15 @@ export default function PDV() {
         setCartItems((prev) => {
           if (prev.length === 0) return prev; // Evita erro se o carrinho estiver vazio
 
+          if (prev.length === 1) {
+            // Se houver apenas um item no carrinho
+            if (prev[0].quantity > 1) {
+              return [{ ...prev[0], quantity: prev[0].quantity - 1 }];
+            } else {
+              return []; // Remove o item caso a quantidade seja 1
+            }
+          }
+
           if (typeof selectedIndex === "number" && selectedIndex >= 0 && selectedIndex < prev.length) {
             if (prev[selectedIndex].quantity > 1) {
               return prev.map((item, index) =>
@@ -184,13 +193,15 @@ export default function PDV() {
               return prev.filter((_, index) => index !== selectedIndex);
             }
           }
+
           return prev.slice(0, -1); // Remove o último item se nenhum estiver selecionado
         });
       }
-      else if (e.key === "Backspace" && e.ctrlKey) {
-        e.preventDefault();
-        clearCart();
-      }
+
+      // else if (e.key === "Backspace" && e.ctrlKey) {
+      //   e.preventDefault();
+      //   clearCart();
+      // }
     };
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => {
