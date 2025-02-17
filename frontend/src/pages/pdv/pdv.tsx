@@ -286,6 +286,7 @@ export default function PDV() {
                         <TableCell>
                           <Button
                             className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
+                            onClick={() => addToCart(product)}
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
