@@ -348,7 +348,7 @@ export default function PDV() {
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{(item.price * item.quantity).toFixed(2)}</TableCell>
                           <TableCell>
-                            <Button className="text-[#FF9800]">
+                            <Button className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </TableCell>
