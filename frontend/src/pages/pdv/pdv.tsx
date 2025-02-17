@@ -12,7 +12,7 @@ import {
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode } from "lucide-react";
+import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode, Inbox, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function PDV() {
@@ -328,17 +328,23 @@ export default function PDV() {
                       <TableHeader>Quantidade</TableHeader>
                       <TableHeader>Preço Un.</TableHeader>
                       <TableHeader>Total</TableHeader>
-                      <TableHeader>Ações</TableHeader>
+                      {/* <TableHeader>Ações</TableHeader> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {cartItems.length === 0 ? (
                       <TableRow>
                         <TableCell
-                          colSpan={5}
-                          className="text-center py-8 text-[#A1A1A1]"
+                          colSpan={4}
+                          className="text-center text-[#A1A1A1] h-64 align-middle"
                         >
-                          Nenhum item no carrinho
+                          <div className="flex flex-col items-center justify-center h-full">
+                            <ShoppingCart className="w-14 h-14" />
+                            <div className="text-lg font-semibold">Nenhum Item no Carrinho</div>
+                            <p className="text-sm text-center">
+                              Você pode adicionar itens no menu ao lado ou teclado F12.
+                            </p>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -348,11 +354,11 @@ export default function PDV() {
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{(item.price * item.quantity).toFixed(2)}</TableCell>
-                          <TableCell>
+                          {/* <TableCell>
                             <Button className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]">
                               <Trash2 className="w-4 h-4" />
                             </Button>
-                          </TableCell>
+                          </TableCell> */}
                         </TableRow>
                       ))
                     )}
