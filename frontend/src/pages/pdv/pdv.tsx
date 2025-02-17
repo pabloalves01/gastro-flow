@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuickActions from "../../components/cards/quick-actions";
 import SectionText from "../../components/text/section-text";
 import {
@@ -19,7 +19,7 @@ export default function PDV() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
-
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const actions = [
     {
       icon: <Plus />,
@@ -47,8 +47,6 @@ export default function PDV() {
       href: "/pdv/mesas",
     },
   ];
-
-  // Mock products for demonstration
   const products = [
     { id: 1, name: "X-Burger", price: 25.9, category: "Lanches", stock: 50 },
     { id: 2, name: "X-Salada", price: 27.9, category: "Lanches", stock: 45 },
@@ -128,6 +126,31 @@ export default function PDV() {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") {
+        setSelectedIndex((prev) => {
+          if (prev === null) return 0;
+          return Math.min(prev + 1, filteredProducts.length - 1);
+        });
+      } else if (e.key === "ArrowUp") {
+        setSelectedIndex((prev) => {
+          if (prev === null) return 0;
+          return Math.max(prev - 1, 0);
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleGlobalKeyDown);
+    };
+  }, [filteredProducts, selectedIndex]);
+
+
+
   return (
     <div className="container max-w-7xl">
       <div className="space-y-4">
@@ -170,7 +193,7 @@ export default function PDV() {
               </div>
 
               <div className="flex-1 overflow-auto">
-                <Table dense striped className="w-full">
+                <Table dense className="w-full">
                   <TableHead className="sticky top-0 bg-[#141414] z-10">
                     <TableRow>
                       <TableHeader>Nome</TableHeader>
@@ -181,8 +204,8 @@ export default function PDV() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {filteredProducts.map((product) => (
-                      <TableRow key={product.id}>
+                    {filteredProducts.map((product, index) => (
+                      <TableRow key={product.id} className={selectedIndex === index ? "bg-[#FF9800] text-white" : ""}>
                         <TableCell className="text-white">
                           {product.name}
                         </TableCell>
@@ -200,8 +223,6 @@ export default function PDV() {
                         </TableCell>
                         <TableCell>
                           <Button
-                            size="sm"
-                            variant="ghost"
                             className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
                           >
                             <Plus className="w-4 h-4" />
@@ -227,7 +248,6 @@ export default function PDV() {
                   </div>
                 </div>
                 <Button
-                  variant="ghost"
                   className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
