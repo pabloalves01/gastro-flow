@@ -326,6 +326,7 @@ export default function PDV() {
                       <TableHeader>Quantidade</TableHeader>
                       <TableHeader>Preço Un.</TableHeader>
                       <TableHeader>Total</TableHeader>
+                      <TableHeader>Ações</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -345,6 +346,11 @@ export default function PDV() {
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{(item.price * item.quantity).toFixed(2)}</TableCell>
+                          <TableCell>
+                            <Button className="text-[#FF9800]">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))
                     )}
@@ -356,7 +362,7 @@ export default function PDV() {
                 <div className="flex justify-between items-center">
                   <div className="text-[#A1A1A1]">Total do Pedido</div>
                   <div className="text-2xl font-bold text-white">
-                    {totalCartValue.toFixed(2)}
+                    R$ {totalCartValue.toFixed(2)}
                   </div>
                 </div>
 
@@ -372,6 +378,6 @@ export default function PDV() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
