@@ -8,6 +8,7 @@ import Teste from "../pages/dashboard/teste";
 import PDV from "../pages/pdv/pdv";
 import Checkout from "../pages/pdv/checkout";
 import TableManagement from "../pages/pdv/table-management";
+import NewProduct from "../pages/produtos/new-product";
 function AppRoutes() {
   return (
     <Router>
@@ -20,10 +21,14 @@ function AppRoutes() {
         <Route path="/*" element={<AuthenticatedLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="pedido/gerenciar" element={<ManageOrders />} />
-          <Route path="teste" element={<Teste />} />
+
+          {/* PDV */}
           <Route path="pdv" element={<PDV />} />
           <Route path="pdv/checkout" element={<Checkout />} />
           <Route path="pdv/mesas" element={<TableManagement />} />
+
+          {/* CADASTROS */}
+          <Route path="produto/novo" element={<NewProduct />} />
         </Route>
       </Routes>
     </Router>

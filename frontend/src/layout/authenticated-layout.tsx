@@ -162,6 +162,10 @@ function AuthenticatedLayout() {
                 <ScrollText />
                 <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
+              <SidebarItem href="/produto/novo">
+                <ScrollText />
+                <SidebarLabel>Produto</SidebarLabel>
+              </SidebarItem>
               <SidebarItem href="/settings">
                 <Cog />
                 <SidebarLabel>Configurações</SidebarLabel>
