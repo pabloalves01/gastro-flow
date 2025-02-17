@@ -171,7 +171,24 @@ export default function PDV() {
         searchInputRef.current?.focus();
       } else if (e.key === "Enter" && selectedIndex !== null) { // Adiciona o produto selecionado produto no carrinho
         addToCart(filteredProducts[selectedIndex]);
+      } else if (e.key === "Backspace") {
+        setCartItems((prev) => {
+          if (prev.length === 0) return prev; // Evita erro se o carrinho estiver vazio
+
+          if (typeof selectedIndex === "number" && selectedIndex >= 0 && selectedIndex < prev.length) {
+            if (prev[selectedIndex].quantity > 1) {
+              return prev.map((item, index) =>
+                index === selectedIndex ? { ...item, quantity: item.quantity - 1 } : item
+              );
+            } else {
+              return prev.filter((_, index) => index !== selectedIndex);
+            }
+          }
+
+          return prev.slice(0, -1); // Remove o último item se nenhum estiver selecionado
+        });
       }
+
     };
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => {
