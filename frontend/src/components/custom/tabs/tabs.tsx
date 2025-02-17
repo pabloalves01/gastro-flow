@@ -19,15 +19,15 @@ function classNames(...classes: string[]): string {
 const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
     return (
         <div>
-            <div className="hidden sm:block">
-                <nav aria-label="Tabs" className="flex space-x-4">
+            <div className="overflow-x-auto scrollbar-hide">
+                <nav aria-label="Tabs" className="flex space-x-4 border-b border-[#333333] border-opacity-50 whitespace-nowrap overflow-x-auto no-scrollbar">
                     {tabs.map((tab) => (
                         <button
                             key={tab.name}
                             onClick={() => onTabChange && onTabChange(tab.name)}
                             className={classNames(
-                                tab.name === activeTab ? 'bg-transparent text-white' : 'text-gray-500 hover:text-gray-700',
-                                'rounded-md px-3 py-2 text-sm font-medium'
+                                tab.name === activeTab ? 'bg-transparent text-white' : 'text-[#A1A1A1] hover:text-[#525252]',
+                                'rounded-md px-3 py-2 text-sm font-medium cursor-pointer'
                             )}
                         >
                             {tab.name}
@@ -35,6 +35,15 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
                     ))}
                 </nav>
             </div>
+            <style jsx>{`
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </div>
     );
 };

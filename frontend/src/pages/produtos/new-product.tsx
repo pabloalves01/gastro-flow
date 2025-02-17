@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import Tabs from '../../components/custom/tabs/tabs';
+import SectionText from '../../components/text/section-text';
 const productTabs = [
-  { name: 'Geral', href: '#' },
-  { name: 'Imagens', href: '#' },
-  { name: 'Estoque', href: '#' },
-  { name: 'Preços', href: '#' },
+  { name: 'dados gerais', href: '#' },
+  { name: 'dados complementares', href: '#' },
+  { name: 'ficha técnica', href: '#' },
+  { name: 'custos', href: '#' },
+  { name: 'outros', href: '#' },
 ];
 
 function ProductForm() {
@@ -14,11 +16,11 @@ function ProductForm() {
     <div>
       <Tabs tabs={productTabs} activeTab={activeTab} onTabChange={setActiveTab} />
       <div className="mt-4">
-        {activeTab === 'Geral' && <div>Conteúdo da aba Geral</div>}
-        {activeTab === 'Imagens' && <div>Conteúdo da aba Imagens</div>}
-        {activeTab === 'Estoque' && <div>Conteúdo da aba Estoque</div>}
-        {activeTab === 'Preços' && <div>Conteúdo da aba Preços</div>}
+        {activeTab === 'Geral' && <div>
+          <SectionText
+        </div>}
       </div>
+
     </div>
   );
 }
