@@ -262,7 +262,7 @@ export default function PDV() {
                       <TableHeader>Categoria</TableHeader>
                       <TableHeader>Preço</TableHeader>
                       <TableHeader>Estoque</TableHeader>
-                      <TableHeader>Ações</TableHeader>
+                      {/* <TableHeader>Ações</TableHeader> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -283,14 +283,15 @@ export default function PDV() {
                         <TableCell className="text-white">
                           {product.stock}
                         </TableCell>
-                        <TableCell>
+                        {/* TODO: Tem um bug aqui, quando seleciona um pelo mouse clicando no botao e depois seleciona outro pelo teclado ele adiciona os dois juntos */}
+                        {/* <TableCell>
                           <Button
                             className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
                             onClick={() => addToCart(product)}
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     ))}
                   </TableBody>
