@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import React from 'react';
 
 interface Tab {
@@ -26,8 +25,8 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
                             key={tab.name}
                             onClick={() => onTabChange && onTabChange(tab.name)}
                             className={classNames(
-                                tab.name === activeTab ? 'bg-transparent text-white' : 'text-[#A1A1A1] hover:text-[#525252]',
-                                'text-sm pb-1 font-medium cursor-pointer'
+                                tab.name === activeTab ? 'bg-zinc-800 text-white' : 'text-[#A1A1A1] hover:text-[#525252]',
+                                'text-sm p-2 rounded-t-lg font-medium cursor-pointer'
                             )}
                         >
                             {tab.name}
