@@ -184,11 +184,13 @@ export default function PDV() {
               return prev.filter((_, index) => index !== selectedIndex);
             }
           }
-
           return prev.slice(0, -1); // Remove o último item se nenhum estiver selecionado
         });
       }
-
+      else if (e.key === "Backspace" && e.ctrlKey) {
+        e.preventDefault();
+        clearCart();
+      }
     };
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => {
@@ -307,7 +309,7 @@ export default function PDV() {
                   <TableHead className="sticky top-0 bg-[#141414] z-10">
                     <TableRow>
                       <TableHeader>Produto</TableHeader>
-                      <TableHeader>Qtd</TableHeader>
+                      <TableHeader>Quantidade</TableHeader>
                       <TableHeader>Preço Un.</TableHeader>
                       <TableHeader>Total</TableHeader>
                     </TableRow>
