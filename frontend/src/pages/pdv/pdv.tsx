@@ -18,8 +18,11 @@ import { useNavigate } from "react-router-dom";
 export default function PDV() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartItems, setCartItems] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [cartItems, setCartItems] = useState<{ id: number; name: string; price: number; category: string; stock: number; quantity: number }[]>([]);
+  const totalCartValue = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   const actions = [
     {
       icon: <Plus />,
@@ -122,34 +125,54 @@ export default function PDV() {
     },
   ];
 
+  // Filtrar produtos
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Atalhos teclado
+  // Adicionar produtos no carrinho
+  const addToCart = (product: { id: number; name: string; price: number; category: string; stock: number }) => {
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prev.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item // Se ja tem o produto no carrinho, aumenta a quantidade, se nao adiciona o produto
+        );
+      } else {
+        return [...prev, { ...product, quantity: 1 }];
+      }
+    });
+  };
+  // Limpa TODOS os items do carrinho
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  // Atalhos teclado para o PDV
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
+      if (e.key === "ArrowDown") { // Vai pra cima nos produtos
         setSelectedIndex((prev) => {
           if (prev === null) return 0;
           return Math.min(prev + 1, filteredProducts.length - 1);
         });
-      } else if (e.key === "ArrowUp") {
+      } else if (e.key === "ArrowUp") { // Vai pra baixo nos produtos
         setSelectedIndex((prev) => {
           if (filteredProducts.length === 0) return prev;
           if (prev === null) return filteredProducts.length - 1;
           return Math.max(prev - 1, 0);
         });
-      } else if (e.key === "F5") {
+      } else if (e.key === "F5") { // Finaliza a venda
         e.preventDefault();
         navigate("/pdv/checkout");
-      } else if (e.key === "F3") {
+      } else if (e.key === "F3") { // Abre o Input de busca de produtos
         e.preventDefault();
         searchInputRef.current?.focus();
+      } else if (e.key === "Enter" && selectedIndex !== null) { // Adiciona o produto selecionado produto no carrinho
+        addToCart(filteredProducts[selectedIndex]);
       }
     };
-
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => {
       window.removeEventListener("keydown", handleGlobalKeyDown);
@@ -255,6 +278,7 @@ export default function PDV() {
                 </div>
                 <Button
                   className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
+                  onClick={clearCart}
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
                   Limpar
@@ -262,14 +286,13 @@ export default function PDV() {
               </div>
 
               <div className="flex-1 overflow-auto">
-                <Table dense striped className="w-full">
+                <Table dense className="w-full">
                   <TableHead className="sticky top-0 bg-[#141414] z-10">
                     <TableRow>
                       <TableHeader>Produto</TableHeader>
                       <TableHeader>Qtd</TableHeader>
                       <TableHeader>Preço Un.</TableHeader>
                       <TableHeader>Total</TableHeader>
-                      <TableHeader>Ações</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -285,7 +308,10 @@ export default function PDV() {
                     ) : (
                       cartItems.map((item) => (
                         <TableRow key={item.id}>
-                          {/* Cart item rows will be added here */}
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                          <TableCell>{item.price}</TableCell>
+                          <TableCell>{(item.price * item.quantity).toFixed(2)}</TableCell>
                         </TableRow>
                       ))
                     )}
@@ -297,10 +323,7 @@ export default function PDV() {
                 <div className="flex justify-between items-center">
                   <div className="text-[#A1A1A1]">Total do Pedido</div>
                   <div className="text-2xl font-bold text-white">
-                    {(0).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {totalCartValue.toFixed(2)}
                   </div>
                 </div>
 
