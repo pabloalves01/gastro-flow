@@ -11,6 +11,7 @@ import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../compone
 
 export default function PDV() {
   const navigate = useNavigate();
+  const [errorMessageStock, setErrorMessageStock] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [cartItems, setCartItems] = useState<{ id: number; name: string; price: number; category: string; stock: number; quantity: number }[]>([]);
@@ -133,7 +134,32 @@ export default function PDV() {
     }
   }, [openModalAddCard]);
 
+
+  const validateStock = (selectedProduct: any, quantity: number, cartItems: any[]) => {
+    const existingItem = cartItems.find((item) => item.id === selectedProduct.id); // Verifica se o item já está no carrinho
+    const alreadyInCart = existingItem ? existingItem.quantity : 0; // Se o item já estiver no carrinho, pega a quantidade
+    const totalQuantity = alreadyInCart + quantity; // Soma a quantidade atual com a quantidade que será adicionada
+
+    if (selectedProduct.stock < 1 || totalQuantity > selectedProduct.stock) {
+      if (selectedProduct.stock === 0) {
+        return (
+          `Estoque insuficiente para o produto (${selectedProduct.name}).`
+        );
+      }
+      return `Estoque insuficiente! Apenas ${selectedProduct.stock - alreadyInCart} unidades restantes.`;
+    }
+    return null;
+  };
+
   const addToCart = () => {
+    if (selectedProduct && Number(quantity) > 0) {
+      const stockError = validateStock(selectedProduct, Number(quantity), cartItems); // valida o estoque
+      if (stockError) {
+        setErrorMessageStock(stockError);
+        return;
+      }
+    }
+
     if (selectedProduct && Number(quantity) > 0) {
       setCartItems((prev) => {
         const existingItem = prev.find((item) => item.id === selectedProduct.id);
@@ -393,6 +419,17 @@ export default function PDV() {
           <Button onClick={addToCart}>Confirmar (Enter)</Button>
         </AlertActions>
       </Alert>
+
+      {/* ALERTS DE ERRO */}
+      {errorMessageStock && (
+        <Alert open={true} onClose={() => setErrorMessageStock(null)}>
+          <AlertTitle>Não foi possível realizar essa operação.</AlertTitle>
+          <AlertDescription>{errorMessageStock}</AlertDescription>
+          <AlertActions>
+            <Button onClick={() => setErrorMessageStock(null)}>Fechar</Button>
+          </AlertActions>
+        </Alert>
+      )}
     </div >
   );
 }
