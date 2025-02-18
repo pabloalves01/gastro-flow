@@ -254,14 +254,7 @@ function ProductForm() {
           </div>
         )}
       </div>
-
-
-
-
       {/* DADOS COMPLEMENTARES */}
-
-
-
       <div className="mt-4">
         {activeTab === "dados complementares" && (
           <div>
@@ -274,7 +267,6 @@ function ProductForm() {
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Categoria - Ocupa toda a largura */}
               <Field className="col-span-full w-full">
                 <Label>Categoria</Label>
                 <Description>Identifique a Categoria do Produto.</Description>
@@ -285,7 +277,6 @@ function ProductForm() {
                 />
               </Field>
 
-              {/* Descrição - Ocupa toda a largura */}
               <Field className="col-span-full w-full">
                 <Label>Descrição</Label>
                 <Description className="mb-4">Uma breve descrição com informações sobre o produto.</Description>
@@ -304,8 +295,6 @@ function ProductForm() {
                 subtitle="Preencha as informações de dimensões e peso do produto."
                 icon={<Image />}
               />
-
-              {/* TODO: AJUSTAR ENVIO DE IAMGEM E MOSTRAR PRÉVIA */}
               <div className="mt-4">
                 <div className="bg-white/5 hover:bg-zinc-800 py-10 rounded-lg flex justify-center items-center gap-4 text-white font-semibold cursor-pointer border border-zinc-400/10">
                   <div className="flex items-center justify-center rounded-full bg-zinc-600 w-10 h-10 ">
