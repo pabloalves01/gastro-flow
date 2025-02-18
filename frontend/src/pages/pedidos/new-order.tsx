@@ -12,8 +12,6 @@ export default function NewOrder() {
     const productTabs = [
         { name: "informações básicas", href: "#" },
         { name: "dados complementares", href: "#" },
-        { name: "ficha técnica", href: "#" },
-        { name: "custos", href: "#" },
         { name: "outros", href: "#" },
     ];
     const [activeTab, setActiveTab] = useState("informações básicas");
@@ -33,9 +31,7 @@ export default function NewOrder() {
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
             />
-
             <div className="mt-4">
-
                 {activeTab === "informações básicas" && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
@@ -83,24 +79,9 @@ export default function NewOrder() {
                             </Select>
                         </Field>
                     </div>
-
-
-
                 )}
             </div>
             <Divider className="mt-12 mb-7" />
-
-
-
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
-                    <Label>Pedido Nº</Label>
-                    <Description>Número do pedido em seu estabelecimento.</Description>
-                    <Input name="NCM" placeholder="(Exemplo: 1001.10.10)" />
-                </Field>
-
-            </div> */}
         </div>
     );
 }
