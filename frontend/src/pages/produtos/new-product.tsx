@@ -2,20 +2,14 @@ import { useState } from "react";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
 import { Select } from "../../components/ui/catalyst/select";
-
-import {
-  Description,
-  Field,
-  Fieldset,
-  Label,
-} from "../../components/ui/catalyst/fieldset";
+import { Description, Field, Fieldset, Label } from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
 import { Checkbox, CheckboxField, CheckboxGroup } from "../../components/ui/catalyst/checkbox";
 import { Box, Image, Package, Plus, Ruler, Tags } from "lucide-react";
-import { Button, Textarea } from "@headlessui/react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 import { Divider } from "../../components/ui/catalyst/divider";
-
+import { Button } from "../../components/ui/catalyst/button";
+import { Textarea } from "../../components/ui/catalyst/textarea";
 const productTabs = [
   { name: "dados gerais", href: "#" },
   { name: "dados complementares", href: "#" },
@@ -254,7 +248,6 @@ function ProductForm() {
                         Habilite para manter o estoque sem limite de produtos.
                       </Description>
                     </CheckboxField>
-
                   </CheckboxGroup>
                 </Fieldset>
 
@@ -291,7 +284,7 @@ function ProductForm() {
                 <Label>Descrição</Label>
                 <Description className="mb-4">Uma breve descrição com informações sobre o produto.</Description>
                 <Textarea
-                  className="w-full border border-zinc-950/10 data-hover:border-zinc-950/20 dark:border-white/10 dark:data-hover:border-white/20 rounded-lg text-sm text-white placeholder:text-zinc-500 p-2"
+                  className=""
                   name="name"
                   placeholder="Digite a descrição do produto"
                 />
@@ -346,6 +339,13 @@ function ProductForm() {
             </div>
           </div>
         )}
+      </div>
+      <Divider className="mt-12 mb-8" />
+
+      <div className="flex justify-end mt-4">
+        <Button className="hover:bg-[#FF9800] cursor-pointer">
+          Salvar Informações
+        </Button>
       </div>
     </div >
   );
