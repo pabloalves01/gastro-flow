@@ -159,7 +159,7 @@ export default function TableManagement() {
                   </div>
                   <Button
                     onClick={() => setIsOpenNewTable(true)}
-                    className="text-white hover:bg-[#FF9800] hover:bg-[#1B1B1B] cursor-pointer"
+                    className="text-white hover:bg-[#FF9800] cursor-pointer"
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     Nova Mesa
@@ -272,8 +272,6 @@ export default function TableManagement() {
                             <TableCell>
                               <div className="flex gap-2">
                                 <Button
-                                  size="sm"
-                                  variant="ghost"
                                   className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
                                 >
                                   <Receipt className="w-4 h-4" />

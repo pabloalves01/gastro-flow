@@ -1,4 +1,3 @@
-import { FilePlus, ClipboardList, UserPen, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Actions {

@@ -6,7 +6,7 @@ interface StatusCardProps {
     icon?: React.ReactNode;
 }
 
-const StatusCard: React.FC<StatusCardProps> = ({ title, description, value, number, icon, status }) => {
+const StatusCard: React.FC<StatusCardProps> = ({ title, description, value, number, icon }) => {
     const displayValue = value !== undefined
         ? value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' BRL'
         : number !== undefined

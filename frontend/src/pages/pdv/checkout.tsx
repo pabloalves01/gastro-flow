@@ -10,9 +10,7 @@ import {
 } from "../../components/ui/catalyst/table";
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
-import { Badge } from "../../components/ui/catalyst/badge";
 import {
-  Receipt,
   CreditCard,
   Wallet,
   QrCode,

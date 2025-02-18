@@ -34,7 +34,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
                     ))}
                 </nav>
             </div>
-            <style jsx>{`
+            <style>{`
                 .no-scrollbar::-webkit-scrollbar {
                     display: none;
                 }
