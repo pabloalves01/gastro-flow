@@ -34,7 +34,6 @@ export default function Checkout() {
   const [discount, setDiscount] = useState<number>(0);
   const [additionalCharge, setAdditionalCharge] = useState<number>(0);
 
-  // Mock cart items for demonstration
   const cartItems = [
     { id: 1, name: "X-Burger", quantity: 2, price: 25.9, total: 51.8 },
     { id: 2, name: "Coca-Cola 350ml", quantity: 2, price: 5.5, total: 11.0 },
@@ -62,7 +61,6 @@ export default function Checkout() {
             subtitle="Processe o pagamento e finalize a venda"
           />
           <Button
-            variant="ghost"
             className="text-white hover:text-zinc-500"
             onClick={() => window.history.back()}
           >
@@ -195,14 +193,10 @@ export default function Checkout() {
                 {paymentMethods.map((method) => (
                   <Button
                     key={method.id}
-                    variant={
-                      selectedPaymentMethod === method.id ? "default" : "ghost"
-                    }
-                    className={`h-20 ${
-                      selectedPaymentMethod === method.id
-                        ? "bg-[#FF9800] hover:bg-[#F57C00] text-white"
-                        : "text-white hover:bg-[#1B1B1B]"
-                    }`}
+                    className={`h-20 ${selectedPaymentMethod === method.id
+                      ? "bg-[#FF9800] hover:bg-[#F57C00] text-white"
+                      : "text-white hover:bg-[#1B1B1B]"
+                      }`}
                     onClick={() => setSelectedPaymentMethod(method.id)}
                   >
                     <div className="flex flex-col items-center gap-2">
@@ -221,19 +215,16 @@ export default function Checkout() {
                     </div>
                     <div className="flex gap-2">
                       <Button
-                        variant={splitPayment ? "default" : "ghost"}
-                        className={`flex-1 ${
-                          splitPayment
-                            ? "bg-[#FF9800] hover:bg-[#F57C00] text-white"
-                            : "text-white hover:bg-[#1B1B1B]"
-                        }`}
+                        className={`flex-1 ${splitPayment
+                          ? "bg-[#FF9800] hover:bg-[#F57C00] text-white"
+                          : "text-white hover:bg-[#1B1B1B]"
+                          }`}
                         onClick={() => setSplitPayment(!splitPayment)}
                       >
                         <Users className="w-4 h-4 mr-2" />
                         Dividir Conta
                       </Button>
                       <Button
-                        variant="ghost"
                         className="flex-1 text-white hover:bg-[#1B1B1B]"
                         onClick={() => setDiscount(0)}
                       >
@@ -241,7 +232,6 @@ export default function Checkout() {
                         Desconto
                       </Button>
                       <Button
-                        variant="ghost"
                         className="flex-1 text-white hover:bg-[#1B1B1B]"
                         onClick={() => setAdditionalCharge(0)}
                       >
@@ -254,8 +244,6 @@ export default function Checkout() {
                   {splitPayment && (
                     <div className="flex items-center gap-2">
                       <Button
-                        size="sm"
-                        variant="ghost"
                         className="text-white"
                         onClick={() =>
                           setNumberOfPeople(Math.max(1, numberOfPeople - 1))
@@ -275,8 +263,6 @@ export default function Checkout() {
                         className="bg-[#1B1B1B] border-[#333333] text-white text-center"
                       />
                       <Button
-                        size="sm"
-                        variant="ghost"
                         className="text-white"
                         onClick={() => setNumberOfPeople(numberOfPeople + 1)}
                       >

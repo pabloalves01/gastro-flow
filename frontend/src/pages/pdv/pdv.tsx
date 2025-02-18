@@ -154,11 +154,9 @@ export default function PDV() {
       }, 50);
     }
   };
-
   const clearCart = () => {
     setCartItems([]);
   };
-
   // Atalhos teclado para o PDV
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
@@ -183,7 +181,7 @@ export default function PDV() {
         setIsOpenModalAddCard(false);
         setSelectedProduct(null);
         setQuantity(1);
-      } else if (e.key === "Enter" && selectedIndex !== null) { // Abre o modal para adicioanar quantidade e adicionar ao carrinho
+      } else if (e.key === "Enter" && selectedIndex !== null) {
         setSelectedProduct(filteredProducts[selectedIndex]);
         setQuantity("");
         setSearchTerm("");
