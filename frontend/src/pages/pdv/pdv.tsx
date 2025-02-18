@@ -1,19 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import QuickActions from "../../components/cards/quick-actions";
 import SectionText from "../../components/text/section-text";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../components/ui/catalyst/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/catalyst/table";
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
 import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode, Inbox, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../components/ui/catalyst/alert";
 
 export default function PDV() {
   const navigate = useNavigate();
@@ -22,7 +16,10 @@ export default function PDV() {
   const [cartItems, setCartItems] = useState<{ id: number; name: string; price: number; category: string; stock: number; quantity: number }[]>([]);
   const totalCartValue = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
+  const [selectedProduct, setSelectedProduct] = useState<{ id: number; name: string; price: number; category: string; stock: number } | null>(null);
+  const [quantity, setQuantity] = useState<string | number>("");
+  const quantityInputRef = useRef<HTMLInputElement>(null);
+  const [openModalAddCard, setIsOpenModalAddCard] = useState(false);
   const actions = [
     {
       icon: <Plus />,
@@ -124,26 +121,39 @@ export default function PDV() {
       stock: 0,
     },
   ];
-
-  // Filtrar produtos
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Adicionar produtos no carrinho
-  const addToCart = (product: { id: number; name: string; price: number; category: string; stock: number }) => {
-    setCartItems((prev) => {
-      const existingItem = prev.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item // Se ja tem o produto no carrinho, aumenta a quantidade, se nao adiciona o produto
-        );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
-      }
-    });
+  useEffect(() => { // Foco no input de busca de produtos
+    if (openModalAddCard) {
+      setTimeout(() => {
+        quantityInputRef.current?.focus();
+      }, 100);
+    }
+  }, [openModalAddCard]);
+
+  const addToCart = () => {
+    if (selectedProduct && Number(quantity) > 0) {
+      setCartItems((prev) => {
+        const existingItem = prev.find((item) => item.id === selectedProduct.id);
+        if (existingItem) {
+          return prev.map((item) =>
+            item.id === selectedProduct.id ? { ...item, quantity: item.quantity + Number(quantity) } : item
+          );
+        } else {
+          return [...prev, { ...selectedProduct, quantity: Number(quantity) }];
+        }
+      });
+
+      // Aguarda o estado ser atualizado antes de fechar o modal
+      setTimeout(() => {
+        setIsOpenModalAddCard(false);
+        setSelectedProduct(null);
+        setQuantity("");
+      }, 50);
+    }
   };
-  // Limpa TODOS os items do carrinho
 
   const clearCart = () => {
     setCartItems([]);
@@ -152,29 +162,34 @@ export default function PDV() {
   // Atalhos teclado para o PDV
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") { // Vai pra cima nos produtos
+      if (e.key === "ArrowDown") {
         setSelectedIndex((prev) => {
           if (prev === null) return 0;
           return Math.min(prev + 1, filteredProducts.length - 1);
         });
-      } else if (e.key === "ArrowUp") { // Vai pra baixo nos produtos
+      } else if (e.key === "ArrowUp") {
         setSelectedIndex((prev) => {
           if (filteredProducts.length === 0) return prev;
           if (prev === null) return filteredProducts.length - 1;
           return Math.max(prev - 1, 0);
         });
-      } else if (e.key === "F5") { // Finaliza a venda
+      } else if (e.key === "F5") {
         e.preventDefault();
         navigate("/pdv/checkout");
-      } else if (e.key === "F3") { // Abre o Input de busca de produtos
+      } else if (e.key === "F3") {
         e.preventDefault();
         searchInputRef.current?.focus();
-      } else if (e.key === "Enter" && selectedIndex !== null) { // Adiciona o produto selecionado produto no carrinho
-        addToCart(filteredProducts[selectedIndex]);
+      } else if (e.key === "Escape" && openModalAddCard) {
+        setIsOpenModalAddCard(false);
+        setSelectedProduct(null);
+        setQuantity(1);
+      } else if (e.key === "Enter" && selectedIndex !== null) { // Abre o modal para adicioanar quantidade e adicionar ao carrinho
+        setSelectedProduct(filteredProducts[selectedIndex]);
+        setQuantity("");
+        setIsOpenModalAddCard(true);
       } else if (e.key === "Backspace") {
         setCartItems((prev) => {
           if (prev.length === 0) return prev; // Evita erro se o carrinho estiver vazio
-
           if (prev.length === 1) {
             // Se houver apenas um item no carrinho
             if (prev[0].quantity > 1) {
@@ -183,7 +198,6 @@ export default function PDV() {
               return []; // Remove o item caso a quantidade seja 1
             }
           }
-
           if (typeof selectedIndex === "number" && selectedIndex >= 0 && selectedIndex < prev.length) {
             if (prev[selectedIndex].quantity > 1) {
               return prev.map((item, index) =>
@@ -193,22 +207,15 @@ export default function PDV() {
               return prev.filter((_, index) => index !== selectedIndex);
             }
           }
-
-          return prev.slice(0, -1); // Remove o último item se nenhum estiver selecionado
+          return prev.slice(0, -1);
         });
       }
-
-      // else if (e.key === "Backspace" && e.ctrlKey) {
-      //   e.preventDefault();
-      //   clearCart();
-      // }
     };
     window.addEventListener("keydown", handleGlobalKeyDown);
     return () => {
       window.removeEventListener("keydown", handleGlobalKeyDown);
     };
   }, [filteredProducts, selectedIndex]);
-
   return (
     <div className="container max-w-7xl">
       <div className="space-y-4">
@@ -224,9 +231,7 @@ export default function PDV() {
             />
           </div>
         </div>
-
         <QuickActions actions={actions} />
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg flex flex-col">
             <div className="flex flex-col gap-4 h-full">
@@ -263,7 +268,6 @@ export default function PDV() {
                       <TableHeader>Categoria</TableHeader>
                       <TableHeader>Preço</TableHeader>
                       <TableHeader>Estoque</TableHeader>
-                      {/* <TableHeader>Ações</TableHeader> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -284,15 +288,6 @@ export default function PDV() {
                         <TableCell className="text-white">
                           {product.stock}
                         </TableCell>
-                        {/* TODO: Tem um bug aqui, quando seleciona um pelo mouse clicando no botao e depois seleciona outro pelo teclado ele adiciona os dois juntos */}
-                        {/* <TableCell>
-                          <Button
-                            className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]"
-                            onClick={() => addToCart(product)}
-                          >
-                            <Plus className="w-4 h-4" />
-                          </Button>
-                        </TableCell> */}
                       </TableRow>
                     ))}
                   </TableBody>
@@ -300,7 +295,6 @@ export default function PDV() {
               </div>
             </div>
           </div>
-
           <div className="bg-[#141414] border border-[#333333] p-4 rounded-lg  flex flex-col">
             <div className="flex flex-col gap-4 h-full">
               <div className="flex items-center justify-between">
@@ -320,7 +314,6 @@ export default function PDV() {
                   Limpar
                 </Button>
               </div>
-
               <div className="flex-1 overflow-auto">
                 <Table dense className="w-full">
                   <TableHead className="sticky top-0 bg-[#141414] z-10">
@@ -329,7 +322,6 @@ export default function PDV() {
                       <TableHeader>Quantidade</TableHeader>
                       <TableHeader>Preço Un.</TableHeader>
                       <TableHeader>Total</TableHeader>
-                      {/* <TableHeader>Ações</TableHeader> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -355,18 +347,12 @@ export default function PDV() {
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.price}</TableCell>
                           <TableCell>{(item.price * item.quantity).toFixed(2)}</TableCell>
-                          {/* <TableCell>
-                            <Button className="text-[#FF9800] hover:text-[#FF9800] hover:bg-[#1B1B1B]">
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </TableCell> */}
                         </TableRow>
                       ))
                     )}
                   </TableBody>
                 </Table>
               </div>
-
               <div className="border-t border-[#333333] pt-4 mt-4">
                 <div className="flex justify-between items-center">
                   <div className="text-[#A1A1A1]">Total do Pedido</div>
@@ -374,7 +360,6 @@ export default function PDV() {
                     R$ {totalCartValue.toFixed(2)}
                   </div>
                 </div>
-
                 <Button
                   className="w-full bg-[#FF9800] hover:bg-[#F57C00] text-white mt-4"
                   onClick={() => navigate("/pdv/checkout")}
@@ -387,6 +372,28 @@ export default function PDV() {
           </div>
         </div>
       </div>
+      <Alert open={openModalAddCard} onClose={() => setIsOpenModalAddCard(false)}>
+        <AlertTitle>Quantidade do Produto</AlertTitle>
+        <AlertDescription>
+          <Input
+            ref={quantityInputRef}
+            type="number"
+            value={quantity}
+            onChange={(e) => {
+              const value = e.target.value;
+              setQuantity(value === "" ? "" : Number(value));
+            }} onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addToCart();
+              }
+            }}
+          />
+        </AlertDescription>
+        <AlertActions>
+          <Button onClick={addToCart}>Confirmar (Enter)</Button>
+        </AlertActions>
+      </Alert>
     </div >
   );
 }
