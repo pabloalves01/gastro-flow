@@ -337,7 +337,7 @@ function ProductForm() {
                     />
 
                     {/* Botão com cor Zinc do Catalyst */}
-                    <Button className="flex items-center mt-3 gap-2 px-4 py-2 bg-zinc-600 text-white rounded-md hover:bg-zinc-700">
+                    <Button className="flex items-center mt-3 gap-2 px-4 py-1.5 bg-zinc-600 text-white rounded-md hover:bg-zinc-700 cursor-pointer">
                       <Plus className="w-4 h-4" />
                       Adicionar
                     </Button>
