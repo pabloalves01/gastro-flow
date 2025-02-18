@@ -57,7 +57,7 @@ interface User {
   name: string;
   email: string;
   access: string;
-  online: boolean;
+  status: string;
   handle: string;
 }
 
@@ -67,7 +67,7 @@ const users = [
     name: "Pablo Alves",
     email: "pablo.alves@example.com",
     access: "Admin",
-    online: true,
+    status: "Em andamento",
     handle: "pablo.alves",
   },
   {
@@ -75,7 +75,7 @@ const users = [
     name: "Mariana Souza",
     email: "mariana.souza@example.com",
     access: "Editor",
-    online: false,
+    status: "Finalizado",
     handle: "mariana.souza",
   },
   {
@@ -83,25 +83,10 @@ const users = [
     name: "Carlos Oliveira",
     email: "carlos.oliveira@example.com",
     access: "Editor",
-    online: true,
+    status: "Pendente",
     handle: "carlos.oliveira",
   },
-  {
-    avatarUrl: "/path/to/avatar4.jpg",
-    name: "Ana Lima",
-    email: "ana.lima@example.com",
-    access: "Editor",
-    online: true,
-    handle: "ana.lima",
-  },
-  {
-    avatarUrl: "/path/to/avatar5.jpg",
-    name: "Rafael Mendes",
-    email: "rafael.mendes@example.com",
-    access: "Admin",
-    online: false,
-    handle: "rafael.mendes",
-  },
+
 ];
 
 export function ManageOrders() {
@@ -209,10 +194,12 @@ export function ManageOrders() {
                 </TableCell>
                 <TableCell className="text-zinc-500">{user.access}</TableCell>
                 <TableCell>
-                  {user.online ? (
-                    <Badge color="green">Online</Badge>
+                  {user.status === "Em andamento" ? (
+                    <Badge color="blue">Em andamento</Badge>
+                  ) : user.status === "Finalizado" ? (
+                    <Badge color="green">Finalizado</Badge>
                   ) : (
-                    <Badge color="zinc">Offline</Badge>
+                    <Badge color="yellow">Pendente</Badge>
                   )}
                 </TableCell>
                 <TableCell>
