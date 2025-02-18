@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/login";
 import SplashScreen from "../pages/splashscreen";
-import Dashboard from "../pages/dashboard/dashboard";
+import Home from "../pages/dashboard/home";
 import AuthenticatedLayout from "../layout/authenticated-layout";
 import ManageOrders from "../pages/pedidos/manage-orders";
-import Teste from "../pages/dashboard/teste";
 import PDV from "../pages/pdv/pdv";
 import Checkout from "../pages/pdv/checkout";
 import TableManagement from "../pages/pdv/table-management";
@@ -19,7 +18,7 @@ function AppRoutes() {
 
         {/* Rotas Privadas (Usando o Layout Base) */}
         <Route path="/*" element={<AuthenticatedLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="home" element={<Home />} />
           <Route path="pedido/gerenciar" element={<ManageOrders />} />
 
           {/* PDV */}

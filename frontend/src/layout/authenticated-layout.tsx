@@ -146,14 +146,14 @@ function AuthenticatedLayout() {
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/">
+              <SidebarItem href="/home">
                 <House />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/dashboard">
+              {/* <SidebarItem href="/dashboard">
                 <Gauge />
                 <SidebarLabel>Dashboard</SidebarLabel>
-              </SidebarItem>
+              </SidebarItem> */}
               <SidebarItem href="/pdv">
                 <Store />
                 <SidebarLabel>PDV</SidebarLabel>

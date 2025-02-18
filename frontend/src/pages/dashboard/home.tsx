@@ -7,7 +7,7 @@ import UnlockMoreBenefits from "../../components/cards/unlock-more-benefits";
 import { DollarSign, Cog, FilePlus, ClipboardList, UserPen, ScrollText } from "lucide-react";
 import SectionText from "../../components/text/section-text";
 
-export default function Dashboard() {
+export default function Home() {
 
   const actions = [
     {

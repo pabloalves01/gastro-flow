@@ -21,7 +21,7 @@ export default function Login() {
         setErrors(newErrors);
         if (newErrors.size > 0) return;
         if (username === 'admin' && password === 'admin') {
-            navigate('/dashboard');
+            navigate('/home');
         } else {
             setErrors(new Map([['password', 'Usuário ou senha incorretos.']]));
         }

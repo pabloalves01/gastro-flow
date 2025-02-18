@@ -1,12 +1,13 @@
 interface SectionTextProps {
     title: string;
-    subtitle: string;
+    subtitle?: string;
     icon?: React.ReactNode;
+    className?: string;
 }
 
-const SectionText: React.FC<SectionTextProps> = ({ title, subtitle, icon }) => {
+const SectionText: React.FC<SectionTextProps> = ({ title, subtitle, icon, className }) => {
     return (
-        <div className="flex items-center w-full">
+        <div className={`flex items-center w-full ${className || ''}`}>
             {icon && (
                 <div className="mr-4">
                     <div className="text-[#FF9800] rounded-full">

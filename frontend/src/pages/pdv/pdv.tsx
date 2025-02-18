@@ -5,9 +5,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode, Inbox, ShoppingCart } from "lucide-react";
+import { Cog, Plus, Search, Receipt, Trash2, Users, Barcode, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../components/ui/catalyst/alert";
+import { Description } from "../../components/ui/catalyst/fieldset";
+import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 
 export default function PDV() {
   const navigate = useNavigate();
@@ -244,6 +246,10 @@ export default function PDV() {
   return (
     <div className="container max-w-7xl">
       <div className="space-y-4">
+        <Breadcrumb items={[
+          { label: "Início", href: "/home" },
+          { label: "PDV", href: "/pdv" }
+        ]} />
         <div className="flex items-center justify-between">
           <SectionText
             title="PDV - Ponto de Venda"
@@ -399,6 +405,7 @@ export default function PDV() {
       </div>
       <Alert open={openModalAddCard} onClose={() => setIsOpenModalAddCard(false)}>
         <AlertTitle>Quantidade do Produto</AlertTitle>
+        <Description >Quantidade do produto qeu deseja adicionar ao carrinho.</Description>
         <AlertDescription>
           <Input
             ref={quantityInputRef}

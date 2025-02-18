@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
 import { Select } from "../../components/ui/catalyst/select";
@@ -8,13 +8,13 @@ import {
   Field,
   Fieldset,
   Label,
-  Legend,
 } from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
-import { Switch, SwitchField } from "../../components/ui/catalyst/switch";
 import { Checkbox, CheckboxField, CheckboxGroup } from "../../components/ui/catalyst/checkbox";
 import { Box, Image, Package, Plus, Ruler, Tags } from "lucide-react";
 import { Button, Textarea } from "@headlessui/react";
+import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
+import { Divider } from "../../components/ui/catalyst/divider";
 
 const productTabs = [
   { name: "dados gerais", href: "#" },
@@ -30,6 +30,12 @@ function ProductForm() {
 
   return (
     <div>
+      <Breadcrumb items={[
+        { label: "Início", href: "/home" },
+        { label: "Cadastros", href: "/cadastros" },
+        { label: "Produtos", href: "/produto/novo" },
+      ]} />
+      <SectionText className="mb-5" title="Novo Produto" />
       <Tabs
         tabs={productTabs}
         activeTab={activeTab}
@@ -40,6 +46,7 @@ function ProductForm() {
           <div>
             <div className="pb-4">
               <SectionText
+                className="py-4"
                 title="Dados Gerais do Produto"
                 subtitle="Preencha as informações para garantir um controle preciso do produto."
                 icon={<Package />}
@@ -148,8 +155,9 @@ function ProductForm() {
             </div>
 
             <div>
-              <hr className="border-[#333333] border-opacity-50 my-5" />
+              <Divider className="mt-12 mb-7" />
               <SectionText
+                className="py-4"
                 title="Dimensões e Peso"
                 subtitle="Preencha as informações de dimensões e peso do produto."
                 icon={<Ruler />}
@@ -196,8 +204,9 @@ function ProductForm() {
               </div>
             </div>
             <div>
-              <hr className="border-[#333333] border-opacity-50 my-5" />
+              <Divider className="mt-12 mb-7" />
               <SectionText
+                className="py-4"
                 title="Estoque"
                 subtitle="Preencha as informações de estocagem do produto."
                 icon={<Box />}
@@ -260,6 +269,7 @@ function ProductForm() {
           <div>
             <div className="pb-4">
               <SectionText
+                className="py-4"
                 title="Dados Complementares"
                 subtitle="Preencha as informações para garantir um controle preciso do produto."
                 icon={<Package />}
@@ -289,8 +299,9 @@ function ProductForm() {
 
             </div>
             <div>
-              <hr className="border-[#333333] border-opacity-50 my-5" />
+              <Divider className="mt-12 mb-7" />
               <SectionText
+                className="py-4"
                 title="Imagem e Anexos"
                 subtitle="Preencha as informações de dimensões e peso do produto."
                 icon={<Image />}
@@ -307,6 +318,7 @@ function ProductForm() {
             <hr className="border-[#333333] border-opacity-50 my-5" />
             <div>
               <SectionText
+                className="py-4"
                 title="Tags"
                 subtitle="As tags servem para classificar os produtos (Exemplo: Grupo, Cor, etc.)."
                 icon={<Tags />}
@@ -335,7 +347,7 @@ function ProductForm() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }
 
