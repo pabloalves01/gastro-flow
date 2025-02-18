@@ -9,7 +9,7 @@
 ```sh
 # Clonar o repositório
 git clone https://github.com/seu-usuario/seu-repositorio.git](https://github.com/pabloalves01/gastro-flow
-cd seu-repositorio
+cd gastro-flow
 
 # Rodando o Frontend
 cd frontend
