@@ -1,7 +1,7 @@
 import { Avatar } from "../components/ui/catalyst/avatar";
 import { Outlet } from "react-router-dom";
 
-import { House, Gauge, ScrollText, Cog, Headset, Store } from "lucide-react";
+import { House, ScrollText, Cog, Headset, Store, InboxIcon } from "lucide-react";
 
 import {
   Dropdown,
@@ -40,15 +40,9 @@ import {
   UserIcon,
 } from "@heroicons/react/16/solid";
 import {
-  Cog6ToothIcon,
-  HomeIcon,
-  InboxIcon,
   MagnifyingGlassIcon,
   MegaphoneIcon,
-  QuestionMarkCircleIcon,
   SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
 } from "@heroicons/react/20/solid";
 
 function AuthenticatedLayout() {
