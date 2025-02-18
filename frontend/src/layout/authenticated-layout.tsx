@@ -1,5 +1,5 @@
 import { Avatar } from "../components/ui/catalyst/avatar";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import { House, ScrollText, Cog, Headset, Store, InboxIcon } from "lucide-react";
 
@@ -140,7 +140,8 @@ function AuthenticatedLayout() {
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/home">
+              <SidebarItem>
+                <Link to="/pdv" />
                 <House />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
@@ -148,15 +149,18 @@ function AuthenticatedLayout() {
                 <Gauge />
                 <SidebarLabel>Dashboard</SidebarLabel>
               </SidebarItem> */}
-              <SidebarItem href="/pdv">
+              <SidebarItem>
+                <Link to="/pdv" />
                 <Store />
                 <SidebarLabel>PDV</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/pedido/gerenciar">
+              <SidebarItem>
+                <Link to="pedido/gerenciar" />
                 <ScrollText />
                 <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/produto/novo">
+              <SidebarItem>
+                <Link to="produto/novo" />
                 <ScrollText />
                 <SidebarLabel>Produto</SidebarLabel>
               </SidebarItem>
