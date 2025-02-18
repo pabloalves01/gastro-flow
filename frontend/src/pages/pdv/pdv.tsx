@@ -299,7 +299,7 @@ export default function PDV() {
                     Lista de produtos disponíveis
                   </div>
                 </div>
-                <Button className="cursor-pointer" onClick={clearCart}>
+                <Button className="cursor-pointer">
                   <Barcode className=" w-4 h-4" /> Código de Barras (F12)
                 </Button>
 
