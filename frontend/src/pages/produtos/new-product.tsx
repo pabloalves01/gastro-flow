@@ -6,9 +6,13 @@ import { Select } from "../../components/ui/catalyst/select";
 import {
   Description,
   Field,
+  Fieldset,
   Label,
+  Legend,
 } from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
+import { Switch, SwitchField } from "../../components/ui/catalyst/switch";
+import { Checkbox, CheckboxField, CheckboxGroup } from "../../components/ui/catalyst/checkbox";
 
 const productTabs = [
   { name: "dados gerais", href: "#" },
@@ -120,7 +124,7 @@ function ProductForm() {
                 <Description>
                   Preço de venda do produto para o cliente final.
                 </Description>
-                <Input name="preco_venda" placeholder="0,00" type="number"/>
+                <Input name="preco_venda" placeholder="0,00" type="number" />
               </Field>
               <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Preço Promocional</Label>
@@ -157,11 +161,7 @@ function ProductForm() {
                 </Field>
                 <Field className="col-span-1">
                   <Label>Peso Bruto</Label>
-                  <Input
-                    name="peso_bruto"
-                    type="number"
-                    placeholder="Em Kg"
-                  />
+                  <Input name="peso_bruto" type="number" placeholder="Em Kg" />
                   <Description>Digite o peso bruto do produto.</Description>
                 </Field>
                 <Field className="col-span-1">
@@ -171,7 +171,21 @@ function ProductForm() {
                     type="number"
                     placeholder="Quantidade de volumes"
                   />
-                  <Description>Digite o número de volumes do produto.</Description>
+                  <Description>
+                    Digite o número de volumes do produto.
+                  </Description>
+                </Field>
+                <Field className="col-span-1">
+                  <Label>Largura</Label>
+                  <Input name="largura" type="number" placeholder="0,00" />
+                </Field>
+                <Field className="col-span-1">
+                  <Label>Altura</Label>
+                  <Input name="altura" type="number" placeholder="0,00" />
+                </Field>
+                <Field className="col-span-1">
+                  <Label>Comprimento </Label>
+                  <Input name="comprimento" type="number" placeholder="0,00" />
                 </Field>
               </div>
             </div>
@@ -183,6 +197,7 @@ function ProductForm() {
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                
                 <Field className="col-span-1">
                   <Label>Estoque Total</Label>
                   <Description>Digite o estoque total.</Description>
@@ -201,12 +216,31 @@ function ProductForm() {
                 </Field>
                 <Field className="col-span-1">
                   <Label>Estoque Mínimo</Label>
-                  <Description>Digite o mínimo de estoque desejado.</Description>
+                  <Description>
+                    Digite o mínimo de estoque desejado.
+                  </Description>
                   <Input
                     name="estoque_minimo"
                     placeholder="Digite o estoque mínimo"
                   />
                 </Field>
+                <Fieldset>
+                  
+                  <CheckboxGroup>
+                    <CheckboxField>
+                      <Checkbox
+                        name="discoverability"
+                        value="show_on_events_page"
+                        defaultChecked
+                      />
+                      <Label>Estoque Infinito</Label>
+                      <Description>
+                          Habilite para manter o estoque sem limite de produtos.
+                      </Description>
+                    </CheckboxField>
+                    
+                  </CheckboxGroup>
+                </Fieldset>
               </div>
             </div>
           </div>
