@@ -16,7 +16,7 @@ export default function NewOrder() {
         { name: "custos", href: "#" },
         { name: "outros", href: "#" },
     ];
-    const [activeTab, setActiveTab] = useState("dados gerais");
+    const [activeTab, setActiveTab] = useState("informações básicas");
 
     const breadcrumbItems = [
         { label: "Inicio", href: "/" },
