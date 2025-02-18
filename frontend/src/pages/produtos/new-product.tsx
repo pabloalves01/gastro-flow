@@ -35,7 +35,7 @@ function ProductForm() {
         { label: "Cadastros", href: "/cadastros" },
         { label: "Produtos", href: "/produto/novo" },
       ]} />
-      <SectionText className="mb-5" title="Novo Produto" />
+      <SectionText className="mb-4" title="Novo Produto" />
       <Tabs
         tabs={productTabs}
         activeTab={activeTab}

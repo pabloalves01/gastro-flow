@@ -53,6 +53,7 @@ import {
   FilePlus2,
 } from "lucide-react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   avatarUrl: string;
@@ -92,6 +93,8 @@ const users = [
 ];
 
 export function ManageOrders() {
+  const navigate = useNavigate();
+
   //   Abrir Modal de Visualização de Pedido
   const [isOpenView, setIsOpenView] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -114,7 +117,7 @@ export function ManageOrders() {
         ]}
         buttons={[{
           label: "Novo Pedido",
-          onClick: () => console.log("teste"),
+          onClick: () => navigate("/pedido/novo"),
           icon: <FilePlus2 />
         },
         ]} />
