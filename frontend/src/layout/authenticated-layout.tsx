@@ -1,5 +1,5 @@
 import { Avatar } from "../components/ui/catalyst/avatar";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { House, ScrollText, Cog, Headset, Store, InboxIcon } from "lucide-react";
 
