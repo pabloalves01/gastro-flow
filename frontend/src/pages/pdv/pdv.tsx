@@ -429,7 +429,7 @@ export default function PDV() {
       </div>
       <Alert open={openModalAddCard} onClose={() => setIsOpenModalAddCard(false)}>
         <AlertTitle>Quantidade do Produto</AlertTitle>
-        <Description >Quantidade do produto qeu deseja adicionar ao carrinho.</Description>
+        <Description >Quantidade do produto que deseja adicionar ao carrinho.</Description>
         <AlertDescription>
           <Input
             ref={quantityInputRef}
@@ -447,6 +447,7 @@ export default function PDV() {
           />
         </AlertDescription>
         <AlertActions>
+          <Button>Cancelar (Esc)</Button>
           <Button onClick={addToCart}>Confirmar (Enter)</Button>
         </AlertActions>
       </Alert>
@@ -457,7 +458,7 @@ export default function PDV() {
           <AlertTitle>Não foi possível realizar essa operação.</AlertTitle>
           <AlertDescription>{errorMessageStock}</AlertDescription>
           <AlertActions>
-            <Button onClick={() => setErrorMessageStock(null)}>Fechar</Button>
+            <Button onClick={() => setErrorMessageStock(null)}>Fechar (Esc)</Button>
           </AlertActions>
         </Alert>
       )}
