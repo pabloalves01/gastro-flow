@@ -18,8 +18,7 @@ export default function PDV() {
   // Breadcrumbs
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "Produtos", href: "/produtos" },
-    { label: "Detalhes", href: "/produtos/1" },
+    { label: "PDV", href: "/pdv" },
   ];
 
   // Refs
