@@ -186,6 +186,7 @@ export default function PDV() {
       } else if (e.key === "Enter" && selectedIndex !== null) { // Abre o modal para adicioanar quantidade e adicionar ao carrinho
         setSelectedProduct(filteredProducts[selectedIndex]);
         setQuantity("");
+        setSearchTerm("");
         setIsOpenModalAddCard(true);
       } else if (e.key === "Backspace") {
         setCartItems((prev) => {
