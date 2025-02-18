@@ -140,8 +140,7 @@ function AuthenticatedLayout() {
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem>
-                <Link to="/pdv" />
+              <SidebarItem href="/home">
                 <House />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
@@ -149,18 +148,15 @@ function AuthenticatedLayout() {
                 <Gauge />
                 <SidebarLabel>Dashboard</SidebarLabel>
               </SidebarItem> */}
-              <SidebarItem>
-                <Link to="/pdv" />
+              <SidebarItem href="/pdv">
                 <Store />
                 <SidebarLabel>PDV</SidebarLabel>
               </SidebarItem>
-              <SidebarItem>
-                <Link to="pedido/gerenciar" />
+              <SidebarItem href="/pedido/gerenciar">
                 <ScrollText />
                 <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
-              <SidebarItem>
-                <Link to="produto/novo" />
+              <SidebarItem href="/produto/novo">
                 <ScrollText />
                 <SidebarLabel>Produto</SidebarLabel>
               </SidebarItem>
