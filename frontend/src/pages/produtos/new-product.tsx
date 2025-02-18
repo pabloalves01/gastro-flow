@@ -323,12 +323,10 @@ function ProductForm() {
                 icon={<Tags />}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                {/* Campo de Tags */}
                 <Field className="col-span-full w-full">
                   <Label>Tags</Label>
                   <Description>Adicione a tag para identificar o seu produto.</Description>
 
-                  {/* Container flex para alinhar Input + Botão */}
                   <div className="flex items-center gap-2">
                     <Input
                       name="product_name"
@@ -336,7 +334,6 @@ function ProductForm() {
                       className="w-full mt-3"
                     />
 
-                    {/* Botão com cor Zinc do Catalyst */}
                     <Button className="flex items-center mt-3 gap-2 px-4 py-1.5 bg-zinc-600 text-white rounded-md hover:bg-zinc-700 cursor-pointer">
                       <Plus className="w-4 h-4" />
                       Adicionar
