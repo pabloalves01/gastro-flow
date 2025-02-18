@@ -37,8 +37,8 @@ function ProductForm() {
                 subtitle="Preencha as informações para garantir um controle preciso do produto."
               />
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <Field className="col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                 <Label>Nome do Produto</Label>
                 <Description>
                   Nome principal para exibição e identificação.
@@ -48,7 +48,7 @@ function ProductForm() {
                   placeholder="Digite o nome do produto"
                 />
               </Field>
-              <Field>
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Código SKU</Label>
                 <Description>
                   Necessário para emissão de notas fiscais.
@@ -59,7 +59,7 @@ function ProductForm() {
                 />
               </Field>
 
-              <Field className="col-span-2">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Origem</Label>
                 <Description>Origem do produto conforme ICMS</Description>
                 <Select name="ncm" defaultValue="">
@@ -73,7 +73,7 @@ function ProductForm() {
                 </Select>
               </Field>
 
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Tipo</Label>
                 <Description>Selecione o tipo do produto.</Description>
                 <Select name="ncm" defaultValue="">
@@ -86,13 +86,13 @@ function ProductForm() {
                 </Select>
               </Field>
 
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>NCM</Label>
                 <Description>Nomenclatura comum do Mercosul.</Description>
                 <Input name="NCM" placeholder="(Exemplo: 1001.10.10)" />
               </Field>
 
-              <Field>
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>GTIN/EAN</Label>
                 <Description>
                   Código de barras para identificação global.
@@ -100,7 +100,7 @@ function ProductForm() {
                 <Input name="gtin" placeholder="Digite o código GTIN/EAN" />
               </Field>
 
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Código CEST</Label>
                 <Description>
                   Código Específico de Substituição Tributária.
@@ -115,21 +115,21 @@ function ProductForm() {
                   <option value="4">NCM 4</option>
                 </Select>
               </Field>
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Preço de Venda</Label>
                 <Description>
                   Preço de venda do produto para o cliente final.
                 </Description>
                 <Input name="preco_venda" placeholder="0,00" type="number"/>
               </Field>
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Preço Promocional</Label>
                 <Description>
                   Preço promocional do produto para o cliente final.
                 </Description>
                 <Input name="preco_venda" placeholder="0,00" />
               </Field>
-              <Field className="col-span-1">
+              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Unidade</Label>
                 <Description>
                   Selecione a unidade de medida do produto.
@@ -145,7 +145,7 @@ function ProductForm() {
                 subtitle="Preencha as informações de dimensões e peso do produto."
               />
 
-              <div className="mt-4 grid grid-cols-3 gap-4">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Field className="col-span-1">
                   <Label>Peso Líquido</Label>
                   <Input
@@ -153,7 +153,7 @@ function ProductForm() {
                     type="number"
                     placeholder="Em Kg"
                   />
-                  <Description>Digite o estoque inicial desejado.</Description>
+                  <Description>Digite o peso líquido do produto.</Description>
                 </Field>
                 <Field className="col-span-1">
                   <Label>Peso Bruto</Label>
@@ -162,18 +162,17 @@ function ProductForm() {
                     type="number"
                     placeholder="Em Kg"
                   />
-                  <Description>Digite o estoque inicial desejado.</Description>
+                  <Description>Digite o peso bruto do produto.</Description>
                 </Field>
                 <Field className="col-span-1">
                   <Label>Número de Volumes</Label>
                   <Input
-                    name="peso_bruto"
+                    name="numero_volumes"
                     type="number"
-                    placeholder="Em Kg"
+                    placeholder="Quantidade de volumes"
                   />
-                  <Description>Digite o estoque inicial desejado.</Description>
+                  <Description>Digite o número de volumes do produto.</Description>
                 </Field>
-                
               </div>
             </div>
             <div>
@@ -183,16 +182,16 @@ function ProductForm() {
                 subtitle="Preencha as informações de estocagem do produto."
               />
 
-              <div className="mt-4 grid grid-cols-3 gap-4">
-              <Field>
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Field className="col-span-1">
                   <Label>Estoque Total</Label>
                   <Description>Digite o estoque total.</Description>
                   <Input
-                    name="estoque_inicial"
-                    placeholder="Digite o estoque inicial"
+                    name="estoque_total"
+                    placeholder="Digite o estoque total"
                   />
                 </Field>
-                <Field>
+                <Field className="col-span-1">
                   <Label>Estoque Inicial</Label>
                   <Description>Digite o estoque inicial desejado.</Description>
                   <Input
@@ -200,13 +199,11 @@ function ProductForm() {
                     placeholder="Digite o estoque inicial"
                   />
                 </Field>
-                <Field>
+                <Field className="col-span-1">
                   <Label>Estoque Mínimo</Label>
-                  <Description>
-                    Digite o mínimo de estoque desejado.
-                  </Description>
+                  <Description>Digite o mínimo de estoque desejado.</Description>
                   <Input
-                    name="estoque_inicial"
+                    name="estoque_minimo"
                     placeholder="Digite o estoque mínimo"
                   />
                 </Field>
