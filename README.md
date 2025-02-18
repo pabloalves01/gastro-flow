@@ -1,21 +1,22 @@
+# 🍽️ Sistema de PDV e Gerenciamento de Pedidos para Bares e Restaurantes (em desenvolvimento)
 
-# Sistemae PDV e Gerenciamento de Pedidos para Bares e Restaurantes (in development)
+## 🚀 Tecnologias  
+**Frontend:** React.js (Vite) + Tailwind CSS + TypeScript  
+**Backend:** Node.js (Express) + PostgreSQL  
+**Autenticação:** JWT (JSON Web Token)  
 
-## 🚀 Tecnologias
-- **Frontend:** React.js (Vite) + Tailwind CSS + TypeScript  
-- **Backend:** Node.js (Express) + PostgreSQL + Prisma ORM  
-- **Autenticação:** JWT (JSON Web Token)  
-
-## 🛠️ Como Rodar
-### 📌 **Frontend**
+## 🛠️ Como Rodar  
 ```sh
+# Clonar o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git](https://github.com/pabloalves01/gastro-flow
+cd seu-repositorio
+
+# Rodando o Frontend
 cd frontend
 npm install
 npm run dev
-📌 Backend
-sh
-Copiar
-Editar
-cd backend
+
+# Rodando o Backend
+cd ../backend
 npm install
 npm run dev
