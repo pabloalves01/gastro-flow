@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionText from "../../components/text/section-text";
 import { Button } from "../../components/ui/catalyst/button";
 import { Badge } from "../../components/ui/catalyst/badge";
-import { ClipboardList, Cog, Divide, Inbox, Plus, Receipt, Trash2 } from "lucide-react";
+import { ClipboardList, Cog, Plus, Receipt, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -41,7 +41,7 @@ interface Order {
 }
 
 export default function TableManagement() {
-  const [tables, setTables] = useState<TableItem[]>([
+  const [tables] = useState<TableItem[]>([
     {
       id: 1,
       number: 1,
@@ -76,7 +76,7 @@ export default function TableManagement() {
     },
   ]);
 
-  const [activeOrders, setActiveOrders] = useState<Order[]>([
+  const [activeOrders] = useState<Order[]>([
     // {
     //   id: 1,
     //   table: 2,
