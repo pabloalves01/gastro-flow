@@ -51,6 +51,7 @@ import {
   Pencil,
   Printer,
 } from "lucide-react";
+import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 
 interface User {
   avatarUrl: string;
@@ -104,6 +105,11 @@ export function ManageOrders() {
 
   return (
     <div>
+      <Breadcrumb items={[
+        { label: "Início", href: "/home" },
+        { label: "Pedidos", href: "/pedidos" },
+        { label: "Gerenciar Pedidos", href: "/pedido/gerenciar" }
+      ]} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <StatusCard
           title="Pedidos"
