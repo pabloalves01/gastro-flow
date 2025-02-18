@@ -43,7 +43,7 @@ export function Breadcrumb({ items, buttons }: BreadcrumbProps) {
                         <Button
                             key={index}
                             onClick={button.onClick}
-                            className="flex items-center gap-2 px-4 py-2"
+                            className="flex items-center gap-2 px-4 py-2 cursor-pointer"
                         >
                             {button.icon && (
                                 <span className="w-5 h-5 flex items-center justify-center">
