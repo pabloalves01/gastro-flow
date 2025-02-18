@@ -1,5 +1,5 @@
 import { Avatar } from "../components/ui/catalyst/avatar";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import { House, ScrollText, Cog, Headset, Store, InboxIcon } from "lucide-react";
 
@@ -46,16 +46,18 @@ import {
 } from "@heroicons/react/20/solid";
 
 function AuthenticatedLayout() {
+  const navigate = useNavigate();
+
   return (
     <SidebarLayout
       navbar={
         <Navbar>
           <NavbarSpacer />
           <NavbarSection>
-            <NavbarItem href="/search" aria-label="Search">
+            <NavbarItem onClick={() => navigate("/search")} aria-label="Search">
               <MagnifyingGlassIcon />
             </NavbarItem>
-            <NavbarItem href="/inbox" aria-label="Inbox">
+            <NavbarItem onClick={() => navigate("/inbox")} aria-label="Inbox">
               <InboxIcon />
             </NavbarItem>
             <Dropdown>
@@ -63,25 +65,25 @@ function AuthenticatedLayout() {
                 <Avatar src="/profile-photo.jpg" square />
               </DropdownButton>
               <DropdownMenu className="min-w-64" anchor="bottom end">
-                <DropdownItem href="/my-profile">
+                <DropdownItem onClick={() => navigate("/my-profile")}>
                   <UserIcon />
                   <DropdownLabel>My profile</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/settings">
+                <DropdownItem onClick={() => navigate("/settings")}>
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/privacy-policy">
+                <DropdownItem onClick={() => navigate("/privacy-policy")}>
                   <ShieldCheckIcon />
                   <DropdownLabel>Privacy policy</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/share-feedback">
+                <DropdownItem onClick={() => navigate("/share-feedback")}>
                   <LightBulbIcon />
                   <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/logout">
+                <DropdownItem onClick={() => navigate("/logout")}>
                   <ArrowRightStartOnRectangleIcon />
                   <DropdownLabel>Sign out</DropdownLabel>
                 </DropdownItem>
@@ -103,16 +105,16 @@ function AuthenticatedLayout() {
                 className="min-w-80 lg:min-w-64"
                 anchor="bottom start"
               >
-                <DropdownItem href="/teams/1/settings">
+                <DropdownItem onClick={() => navigate("/teams/1/settings")}>
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/teams/1">
+                <DropdownItem onClick={() => navigate("/teams/1")}>
                   <Avatar slot="icon" src="/tailwind-logo.svg" />
                   <DropdownLabel>Tailwind Labs</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/teams/2">
+                <DropdownItem onClick={() => navigate("/teams/2")}>
                   <Avatar
                     slot="icon"
                     initials="WC"
@@ -121,18 +123,18 @@ function AuthenticatedLayout() {
                   <DropdownLabel>Workcation</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/teams/create">
+                <DropdownItem onClick={() => navigate("/teams/create")}>
                   <PlusIcon />
                   <DropdownLabel>New team&hellip;</DropdownLabel>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
             <SidebarSection className="max-lg:hidden">
-              <SidebarItem href="/search">
+              <SidebarItem onClick={() => navigate("/search")}>
                 <MagnifyingGlassIcon />
                 <SidebarLabel>Search</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/inbox">
+              <SidebarItem onClick={() => navigate("/inbox")}>
                 <InboxIcon />
                 <SidebarLabel>Inbox</SidebarLabel>
               </SidebarItem>
@@ -140,51 +142,51 @@ function AuthenticatedLayout() {
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/home">
+              <SidebarItem onClick={() => navigate("/home")}>
                 <House />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              {/* <SidebarItem href="/dashboard">
+              {/* <SidebarItem onClick={() => navigate("/dashboard")}>
                 <Gauge />
                 <SidebarLabel>Dashboard</SidebarLabel>
               </SidebarItem> */}
-              <SidebarItem href="/pdv">
+              <SidebarItem onClick={() => navigate("/pdv")}>
                 <Store />
                 <SidebarLabel>PDV</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/pedido/gerenciar">
+              <SidebarItem onClick={() => navigate("/pedido/gerenciar")}>
                 <ScrollText />
                 <SidebarLabel>Pedidos</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/produto/novo">
+              <SidebarItem onClick={() => navigate("/produto/novo")}>
                 <ScrollText />
                 <SidebarLabel>Produto</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/settings">
+              <SidebarItem onClick={() => navigate("/settings")}>
                 <Cog />
                 <SidebarLabel>Configurações</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/broadcasts">
+              <SidebarItem onClick={() => navigate("/broadcasts")}>
                 <MegaphoneIcon />
                 <SidebarLabel>Broadcasts</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
             <SidebarSection className="max-lg:hidden">
               <SidebarHeading>Upcoming Events</SidebarHeading>
-              <SidebarItem href="/events/1">
+              <SidebarItem onClick={() => navigate("/events/1")}>
                 Bear Hug: Live in Concert
               </SidebarItem>
-              <SidebarItem href="/events/2">Viking People</SidebarItem>
-              <SidebarItem href="/events/3">Six Fingers — DJ Set</SidebarItem>
-              <SidebarItem href="/events/4">We All Look The Same</SidebarItem>
+              <SidebarItem onClick={() => navigate("/events/2")}>Viking People</SidebarItem>
+              <SidebarItem onClick={() => navigate("/events/3")}>Six Fingers — DJ Set</SidebarItem>
+              <SidebarItem onClick={() => navigate("/events/4")}>We All Look The Same</SidebarItem>
             </SidebarSection>
             <SidebarSpacer />
             <SidebarSection>
-              <SidebarItem href="/suporte">
+              <SidebarItem onClick={() => navigate("/suporte")}>
                 <Headset />
                 <SidebarLabel>Suporte</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/changelog">
+              <SidebarItem onClick={() => navigate("/changelog")}>
                 <SparklesIcon />
                 <SidebarLabel>Changelog</SidebarLabel>
               </SidebarItem>
@@ -212,25 +214,25 @@ function AuthenticatedLayout() {
                 <ChevronUpIcon />
               </DropdownButton>
               <DropdownMenu className="min-w-64" anchor="top start">
-                <DropdownItem href="/my-profile">
+                <DropdownItem onClick={() => navigate("/my-profile")}>
                   <UserIcon />
                   <DropdownLabel>My profile</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/settings">
+                <DropdownItem onClick={() => navigate("/settings")}>
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/privacy-policy">
+                <DropdownItem onClick={() => navigate("/privacy-policy")}>
                   <ShieldCheckIcon />
                   <DropdownLabel>Privacy policy</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/share-feedback">
+                <DropdownItem onClick={() => navigate("/share-feedback")}>
                   <LightBulbIcon />
                   <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/logout">
+                <DropdownItem onClick={() => navigate("/logout")}>
                   <ArrowRightStartOnRectangleIcon />
                   <DropdownLabel>Sign out</DropdownLabel>
                 </DropdownItem>
