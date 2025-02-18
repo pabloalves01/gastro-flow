@@ -15,6 +15,13 @@ export default function PDV() {
   // Navigation
   const navigate = useNavigate();
 
+  // Breadcrumbs
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Produtos", href: "/produtos" },
+    { label: "Detalhes", href: "/produtos/1" },
+  ];
+
   // Refs
   const searchInputRef = useRef<HTMLInputElement>(null);
   const quantityInputRef = useRef<HTMLInputElement>(null);
@@ -270,10 +277,9 @@ export default function PDV() {
   return (
     <div className="container max-w-7xl">
       <div className="space-y-4">
-        <Breadcrumb items={[
-          { label: "Início", href: "/home" },
-          { label: "PDV", href: "/pdv" }
-        ]} />
+        <Breadcrumb
+          items={breadcrumbItems}
+        />
         <div className="flex items-center justify-between">
           <SectionText
             title="PDV - Ponto de Venda"

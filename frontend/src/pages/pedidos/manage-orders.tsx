@@ -50,6 +50,7 @@ import {
   Eye,
   Pencil,
   Printer,
+  FilePlus2,
 } from "lucide-react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 
@@ -105,11 +106,23 @@ export function ManageOrders() {
 
   return (
     <div>
-      <Breadcrumb items={[
-        { label: "Início", href: "/home" },
-        { label: "Pedidos", href: "/pedidos" },
-        { label: "Gerenciar Pedidos", href: "/pedido/gerenciar" }
-      ]} />
+      <Breadcrumb
+        items={[
+          { label: "Início", href: "/home" },
+          { label: "Pedidos", href: "/pedidos" },
+          { label: "Gerenciar Pedidos", href: "/pedido/gerenciar" }
+        ]}
+        buttons={[{
+          label: "Novo Pedido",
+          onClick: () => console.log("teste"),
+          icon: <FilePlus2 />
+        },
+        ]} />
+      <SectionText
+        title="Gerenciar Pedidos"
+        subtitle="Gerencie seus pedidos, crie novos ou edite."
+        className="mb-4"
+      />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <StatusCard
           title="Pedidos"
@@ -137,11 +150,8 @@ export function ManageOrders() {
         />
       </div>
 
-      <div className="flex justify-between items-center mb-4">
-        <SectionText
-          title="Gerenciar Pedidos"
-          subtitle="Gerencie seus pedidos, crie novos ou edite."
-        />
+      <div className="flex justify-end items-center mb-4">
+
         <div className="group">
           <Cog
             onClick={() => setIsOpenFilters(true)}
@@ -151,7 +161,7 @@ export function ManageOrders() {
         </div>
       </div>
 
-      <Table dense striped className="w-full">
+      <Table dense className="w-full">
         <TableHead>
           <TableRow>
             <TableHeader>Nome</TableHeader>
