@@ -12,17 +12,41 @@ import { Description } from "../../components/ui/catalyst/fieldset";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 
 export default function PDV() {
+  // Navigation
   const navigate = useNavigate();
-  const [errorMessageStock, setErrorMessageStock] = useState<string | null>(null);
+
+  // Refs
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const quantityInputRef = useRef<HTMLInputElement>(null);
+
+  // Cart state
+  const [cartItems, setCartItems] = useState<{
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    stock: number;
+    quantity: number;
+  }[]>([]);
+  const totalCartValue = cartItems.reduce((total, item) =>
+    total + item.price * item.quantity, 0
+  );
+
+  // Search and selection state
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [cartItems, setCartItems] = useState<{ id: number; name: string; price: number; category: string; stock: number; quantity: number }[]>([]);
-  const totalCartValue = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const [selectedProduct, setSelectedProduct] = useState<{ id: number; name: string; price: number; category: string; stock: number } | null>(null);
-  const [quantity, setQuantity] = useState<string | number>("");
-  const quantityInputRef = useRef<HTMLInputElement>(null);
+  const [selectedProduct, setSelectedProduct] = useState<{
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    stock: number;
+  } | null>(null);
+
+  // Modal state
   const [openModalAddCard, setIsOpenModalAddCard] = useState(false);
+  const [quantity, setQuantity] = useState<string | number>("");
+  const [errorMessageStock, setErrorMessageStock] = useState<string | null>(null);
   const actions = [
     {
       icon: <Plus />,
