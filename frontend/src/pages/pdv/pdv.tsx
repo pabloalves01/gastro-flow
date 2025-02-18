@@ -251,6 +251,7 @@ export default function PDV() {
                   placeholder="Digite o nome do produto.. (F3)"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  autoComplete="off"
                   className="bg-[#1B1B1B] border-[#333333] text-white"
                 />
               </div>

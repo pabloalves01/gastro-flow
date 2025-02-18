@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
 import { Select } from "../../components/ui/catalyst/select";
@@ -13,6 +13,8 @@ import {
 import { Input } from "../../components/ui/catalyst/input";
 import { Switch, SwitchField } from "../../components/ui/catalyst/switch";
 import { Checkbox, CheckboxField, CheckboxGroup } from "../../components/ui/catalyst/checkbox";
+import { Box, Image, Package, Plus, Ruler, Tags } from "lucide-react";
+import { Button, Textarea } from "@headlessui/react";
 
 const productTabs = [
   { name: "dados gerais", href: "#" },
@@ -24,6 +26,7 @@ const productTabs = [
 
 function ProductForm() {
   const [activeTab, setActiveTab] = useState("dados gerais");
+
 
   return (
     <div>
@@ -39,6 +42,8 @@ function ProductForm() {
               <SectionText
                 title="Dados Gerais do Produto"
                 subtitle="Preencha as informações para garantir um controle preciso do produto."
+                icon={<Package />}
+
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -147,6 +152,7 @@ function ProductForm() {
               <SectionText
                 title="Dimensões e Peso"
                 subtitle="Preencha as informações de dimensões e peso do produto."
+                icon={<Ruler />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -194,10 +200,11 @@ function ProductForm() {
               <SectionText
                 title="Estoque"
                 subtitle="Preencha as informações de estocagem do produto."
+                icon={<Box />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                
+
                 <Field className="col-span-1">
                   <Label>Estoque Total</Label>
                   <Description>Digite o estoque total.</Description>
@@ -225,7 +232,7 @@ function ProductForm() {
                   />
                 </Field>
                 <Fieldset>
-                  
+
                   <CheckboxGroup>
                     <CheckboxField>
                       <Checkbox
@@ -235,13 +242,109 @@ function ProductForm() {
                       />
                       <Label>Estoque Infinito</Label>
                       <Description>
-                          Habilite para manter o estoque sem limite de produtos.
+                        Habilite para manter o estoque sem limite de produtos.
                       </Description>
                     </CheckboxField>
-                    
+
                   </CheckboxGroup>
                 </Fieldset>
+
               </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+
+
+
+      {/* DADOS COMPLEMENTARES */}
+
+
+
+      <div className="mt-4">
+        {activeTab === "dados complementares" && (
+          <div>
+            <div className="pb-4">
+              <SectionText
+                title="Dados Complementares"
+                subtitle="Preencha as informações para garantir um controle preciso do produto."
+                icon={<Package />}
+
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Categoria - Ocupa toda a largura */}
+              <Field className="col-span-full w-full">
+                <Label>Categoria</Label>
+                <Description>Identifique a Categoria do Produto.</Description>
+                <Input
+                  name="product_name"
+                  placeholder="Digite a categoria do produto"
+                  className="w-full"
+                />
+              </Field>
+
+              {/* Descrição - Ocupa toda a largura */}
+              <Field className="col-span-full w-full">
+                <Label>Descrição</Label>
+                <Description className="mb-4">Uma breve descrição com informações sobre o produto.</Description>
+                <Textarea
+                  className="w-full border border-zinc-950/10 data-hover:border-zinc-950/20 dark:border-white/10 dark:data-hover:border-white/20 rounded-lg text-sm text-white placeholder:text-zinc-500 p-2"
+                  name="name"
+                  placeholder="Digite a descrição do produto"
+                />
+              </Field>
+
+            </div>
+            <div>
+              <hr className="border-[#333333] border-opacity-50 my-5" />
+              <SectionText
+                title="Imagem e Anexos"
+                subtitle="Preencha as informações de dimensões e peso do produto."
+                icon={<Image />}
+              />
+
+              {/* TODO: AJUSTAR ENVIO DE IAMGEM E MOSTRAR PRÉVIA */}
+              <div className="mt-4">
+                <div className="bg-white/5 hover:bg-zinc-800 py-10 rounded-lg flex justify-center items-center gap-4 text-white font-semibold cursor-pointer border border-zinc-400/10">
+                  <div className="flex items-center justify-center rounded-full bg-zinc-600 w-10 h-10 ">
+                    <Plus />
+                  </div>
+                  <div>Adicionar Imagem ao Produto</div>
+                </div>
+              </div>
+            </div>
+            <hr className="border-[#333333] border-opacity-50 my-5" />
+            <div>
+              <SectionText
+                title="Tags"
+                subtitle="As tags servem para classificar os produtos (Exemplo: Grupo, Cor, etc.)."
+                icon={<Tags />}
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                {/* Campo de Tags */}
+                <Field className="col-span-full w-full">
+                  <Label>Tags</Label>
+                  <Description>Adicione a tag para identificar o seu produto.</Description>
+
+                  {/* Container flex para alinhar Input + Botão */}
+                  <div className="flex items-center gap-2">
+                    <Input
+                      name="product_name"
+                      placeholder="Digite o nome da Tag e tecle Enter."
+                      className="w-full mt-3"
+                    />
+
+                    {/* Botão com cor Zinc do Catalyst */}
+                    <Button className="flex items-center mt-3 gap-2 px-4 py-2 bg-zinc-600 text-white rounded-md hover:bg-zinc-700">
+                      <Plus className="w-4 h-4" />
+                      Adicionar
+                    </Button>
+                  </div>
+                </Field>
+              </div>
+
             </div>
           </div>
         )}
