@@ -27,16 +27,19 @@ export default function ManageCategories() {
     ];
     const createCategory = async () => {
         try {
-            const response = await axios.post("http://localhost:5000/api/categories", {
+            await axios.post("http://localhost:5000/api/categories", {
                 name: categoryName,
                 description: categoryDescription,
                 color: categoryColor,
             });
+            setIsOpenModalAddCard(false);
+            setCategoryName("");
+            setCategoryDescription("");
+            setCategoryColor("#FF9800");
         } catch (error) {
-            console.error("❌ Erro ao criar categoria:", error);
+            console.error("Erro ao criar categoria:", error);
         }
     };
-
     return (
         <div>
             <Breadcrumb items={breadcrumbItems} buttons={bredcrumbButtons} />

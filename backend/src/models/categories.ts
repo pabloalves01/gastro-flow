@@ -22,6 +22,10 @@ Categories.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     color: {
       type: DataTypes.STRING,
       allowNull: true,
