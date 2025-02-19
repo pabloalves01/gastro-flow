@@ -1,44 +1,43 @@
-// src/models/user.ts
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../../config/database";
 
-class Users extends Model {
+class Products extends Model {
   public id!: number;
   public name!: string;
-  public email!: string;
-  public password!: string;
-  public created_at!: Date;
-  public updated_at!: Date;
-  public deleted_at!: Date | null;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
+  public readonly deleted_at!: Date | null;
 }
 
-Users.init(
+Products.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
+      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    password: {
-      type: DataTypes.STRING,
+    categoryId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     deleted_at: {
       type: DataTypes.DATE,
@@ -47,11 +46,12 @@ Users.init(
   },
   {
     sequelize,
-    modelName: "users",
-    tableName: "users", // Nome da tabela no banco de dados
-    timestamps: true, // Gerencia createdAt e updatedAt automaticamente
-    underscored: true, // Usa snake_case para os nomes de coluna
+    modelName: "products",
+    tableName: "products",
+    timestamps: true,
+    underscored: true,
+    paranoid: true,
   }
 );
 
-export default Users;
+export default Products;

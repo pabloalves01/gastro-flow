@@ -164,7 +164,7 @@ export function ManageOrders() {
         </div>
       </div>
 
-      <Table dense className="w-full">
+      <Table dense striped className="w-full">
         <TableHead>
           <TableRow>
             <TableHeader>Nome</TableHeader>
@@ -200,7 +200,7 @@ export function ManageOrders() {
               <TableRow key={user.handle}>
                 <TableCell>
                   <div className="flex items-center gap-4">
-                    <Avatar src={user.avatarUrl} className="size-12" />
+                    {/* <Avatar src={user.avatarUrl} className="size-12" /> */}
                     <div>
                       <div className="font-medium">{user.name}</div>
                       <div className="text-zinc-500">

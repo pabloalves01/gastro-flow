@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable('products', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -13,14 +13,19 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      email: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
-      password: {
-        type: Sequelize.STRING,
+      category_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'categories',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE', // caso um categoria seja atualizada, os produtos serão atualizados
+        onDelete: 'SET NULL', // caso um categoria seja deletada, os produtos não serão deletados
       },
       created_at: {
         type: Sequelize.DATE,
@@ -34,10 +39,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true,
       },
-    });
+    } )
   },
 
-  down: async (queryInterface) => {
-    await queryInterface.dropTable('users');
+  async down (queryInterface) {
+    await queryInterface.dropTable('products')
   }
 };

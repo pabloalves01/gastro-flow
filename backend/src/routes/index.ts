@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { obterUsuarios } from "../controllers/userController";
 const router = Router();
-router.get("/usuarios", obterUsuarios); // Criando a rota para buscar usuários
+
+router.get("/usuarios", obterUsuarios);
 
 export default router;

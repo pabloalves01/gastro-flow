@@ -30,8 +30,8 @@ export default function Home() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("/api/usuarios");
-        console.log("Dados recebidos:", response.data); // Verifique a estrutura dos dados
-        setUsers(response.data); // Atualiza o estado com os dados
+        console.log("Dados recebidos:", response.data);
+        setUsers(response.data);
       } catch (err) {
         setError("Erro ao buscar usuários");
         console.error(err);
@@ -198,7 +198,7 @@ export default function Home() {
         <div>
           {Array.isArray(users) && users.length > 0 ? (
             users.map((user) => (
-              <div key={user.id}>
+              <div className="text-white text-2xl" key={user.id}>
                 <p>Nome: {user.name}</p>
                 <p>Email: {user.email}</p>
               </div>
