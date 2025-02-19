@@ -1,7 +1,7 @@
 import { Avatar } from "../components/ui/catalyst/avatar";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { House, ScrollText, Cog, Headset, Store, InboxIcon, HandPlatter } from "lucide-react";
+import { House, ScrollText, Cog, Headset, Store, InboxIcon, HandPlatter, Tag } from "lucide-react";
 
 import {
   Dropdown,
@@ -161,6 +161,10 @@ function AuthenticatedLayout() {
               <SidebarItem onClick={() => navigate("/produto/novo")}>
                 <ScrollText />
                 <SidebarLabel>Produto</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem onClick={() => navigate("/categoria/gerenciar")}>
+                <Tag />
+                <SidebarLabel>Categorias</SidebarLabel>
               </SidebarItem>
               <SidebarItem onClick={() => navigate("/settings")}>
                 <Cog />
