@@ -24,3 +24,16 @@ export const newCategory = async (
     res.status(500).json({ error: "Erro interno ao criar categoria." });
   }
 };
+
+export const getCategories = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const category = await Categories.findAll();
+    res.status(200).json(category);
+  } catch (error) {
+    console.error("Erro ao obter categorias:", error);
+    res.status(500).json({ error: "Erro interno ao obter categorias." });
+  }
+};
