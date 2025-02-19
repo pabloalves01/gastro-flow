@@ -27,18 +27,17 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Função para buscar os usuários
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/api/usuarios"); // URL para a rota que retorna os usuários
-        setUsers(response.data); // Atualiza o estado com os dados recebidos
+        const response = await axios.get("/api/usuarios");
+        console.log("Dados recebidos:", response.data); // Verifique a estrutura dos dados
+        setUsers(response.data); // Atualiza o estado com os dados
       } catch (err) {
-        setError("Erro ao buscar usuários"); // Se houver erro, atualiza o estado de erro
-      } finally {
-        console.log("Dados recebidos:", response.data); // Exibe os dados recebidos no console
+        setError("Erro ao buscar usuários");
+        console.error(err);
       }
     };
-    fetchUsers(); // Chama a função para buscar os usuários
+    fetchUsers();
   }, []);
 
   const actions = [
@@ -197,12 +196,16 @@ export default function Home() {
         </div>
         <UnlockMoreBenefits />
         <div>
-          {users.map((user) => (
-            <li key={user.id}>
-              <p>Nome: {user.name}</p>
-              <p>Valor: {user.email}</p>
-            </li>
-          ))}
+          {Array.isArray(users) && users.length > 0 ? (
+            users.map((user) => (
+              <div key={user.id}>
+                <p>Nome: {user.name}</p>
+                <p>Email: {user.email}</p>
+              </div>
+            ))
+          ) : (
+            <p>Sem usuários para exibir.</p>
+          )}
         </div>
       </div>
     </div>
