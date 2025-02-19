@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Categories from "../models/categories";
 
 // Criar nova categoria
-export const newCategory = async (
+export const storeCategory = async (
   req: Request,
   res: Response
 ): Promise<void> => {
@@ -35,5 +35,24 @@ export const getCategories = async (
   } catch (error) {
     console.error("Erro ao obter categorias:", error);
     res.status(500).json({ error: "Erro interno ao obter categorias." });
+  }
+};
+
+export const destroyCategory = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const category = await Categories.findByPk(id);
+    if (!category) {
+      res.status(404).json({ error: "Categoria não encontrada." });
+      return;
+    }
+    await category.destroy();
+    res.status(200).json({ message: "Categoria excluída com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao excluir categoria:", error);
+    res.status(500).json({ error: "Erro interno ao excluir categoria." });
   }
 };

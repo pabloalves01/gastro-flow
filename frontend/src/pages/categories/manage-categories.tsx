@@ -28,6 +28,12 @@ export default function ManageCategories() {
         color: string;
     };
     const [categories, setCategories] = useState<Category[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+
+    const handleCategory = (category: Category) => {
+        setSelectedCategory(category);
+        destroyCategory(category.id);
+    };
 
 
     const breadcrumbItems = [
@@ -75,11 +81,23 @@ export default function ManageCategories() {
         }
     }
 
+    const destroyCategory = async (id: number) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/categories/${id}`);
+            console.log(`Categoria ${id} excluída`);
+            getCategories();
+        } catch (error) {
+            console.error("Erro ao deletar categoria:", error);
+        }
+    };
+
     return (
         <div>
             <Breadcrumb items={breadcrumbItems} buttons={bredcrumbButtons} />
             <div className="flex items-center justify-between">
-                <SectionText title="Gerenciar Categorias" subtitle="Gerencie suas categorias, crie novas ou edite." />
+                <div className="pb-4">
+                    <SectionText title="Gerenciar Categorias" subtitle="Gerencie suas categorias, crie novas ou edite." />
+                </div>
                 <div className="group">
                     <Cog
                         onClick={() => setIsOpenFilterModal(true)}
@@ -138,9 +156,9 @@ export default function ManageCategories() {
                                                 <EllipsisHorizontalIcon />
                                             </DropdownButton>
                                             <DropdownMenu anchor="bottom end">
-                                                <DropdownItem>View</DropdownItem>
-                                                <DropdownItem>Edit</DropdownItem>
-                                                <DropdownItem>Delete</DropdownItem>
+                                                <DropdownItem>Visualizar</DropdownItem>
+                                                <DropdownItem>Editar</DropdownItem>
+                                                <DropdownItem onClick={() => handleCategory(category)} >Deletar</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
                                     </div>
