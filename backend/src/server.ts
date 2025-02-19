@@ -15,14 +15,19 @@ app.use(routes);
 const PORT = process.env.PORT || 5000;
 
 // Sincronizar o banco de dados antes de iniciar o servidor
-sequelize.sync({ force: false }) // 'force: false' evita recriar tabelas e perder dados
-  .then(() => {
-    console.log("Banco de dados sincronizado com sucesso");
+// sequelize
+//   .sync({ force: false })
+//   .then(() => {
+//     console.log("Banco de dados sincronizado com sucesso");
 
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Erro ao sincronizar o banco de dados:", error);
-  });
+//     app.listen(PORT, () => {
+//       console.log(`Servidor rodando na porta ${PORT}`);
+//     });
+//   })
+//   .catch((error) => {
+//     console.error("Erro ao sincronizar o banco de dados:", error);
+//   });
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
