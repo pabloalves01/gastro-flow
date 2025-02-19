@@ -3,11 +3,43 @@ import StatusCard from "../../components/cards/stats-card";
 import RecentSales from "../../components/cards/recent-sales";
 import CashFlow from "../../components/cards/cash-flow";
 import UnlockMoreBenefits from "../../components/cards/unlock-more-benefits";
-
-import { DollarSign, Cog, FilePlus, ClipboardList, UserPen, ScrollText } from "lucide-react";
+import {
+  DollarSign,
+  Cog,
+  FilePlus,
+  ClipboardList,
+  UserPen,
+  ScrollText,
+} from "lucide-react";
 import SectionText from "../../components/text/section-text";
 
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 export default function Home() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Função para buscar os usuários
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/api/usuarios"); // URL para a rota que retorna os usuários
+        setUsers(response.data); // Atualiza o estado com os dados recebidos
+      } catch (err) {
+        setError("Erro ao buscar usuários"); // Se houver erro, atualiza o estado de erro
+      } finally {
+        console.log("Dados recebidos:", response.data); // Exibe os dados recebidos no console
+      }
+    };
+    fetchUsers(); // Chama a função para buscar os usuários
+  }, []);
 
   const actions = [
     {
@@ -116,14 +148,16 @@ export default function Home() {
     <div className="container max-w-7xl">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <SectionText title="Bom dia, Dev! ☀️" subtitle="Aqui estão os seus dados de hoje." />
+          <SectionText
+            title="Bom dia, Dev! ☀️"
+            subtitle="Aqui estão os seus dados de hoje."
+          />
           <div className="group">
             <Cog
               className="text-white w-6 h-6 cursor-pointer hover:text-zinc-500 group-hover:animate-[spin_2s_linear_infinite]"
               strokeWidth={1}
             />
-          </div>
-          {" "}
+          </div>{" "}
         </div>
 
         <QuickActions actions={actions} />
@@ -162,6 +196,14 @@ export default function Home() {
           <CashFlow flows={cashFlow} />
         </div>
         <UnlockMoreBenefits />
+        <div>
+          {users.map((user) => (
+            <li key={user.id}>
+              <p>Nome: {user.name}</p>
+              <p>Valor: {user.email}</p>
+            </li>
+          ))}
+        </div>
       </div>
     </div>
   );
