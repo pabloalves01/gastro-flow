@@ -4,6 +4,7 @@ import sequelize from "../../config/database";
 class Categories extends Model {
   public id!: number;
   public name!: string;
+  public color!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
   public readonly deleted_at!: Date | null;
@@ -20,6 +21,10 @@ Categories.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     created_at: {
       type: DataTypes.DATE,
