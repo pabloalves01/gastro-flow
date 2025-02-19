@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routes from "./routes";
-import sequelize from "./config/database"; // Importa a conexão com o banco
+import sequelize from "../config/database"; // Importa a conexão com o banco
 
 dotenv.config();
 

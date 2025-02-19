@@ -1,32 +1,38 @@
-// src/models/Transaction.ts
+// src/models/User.ts
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../config/database';
 
-class Transaction extends Model {
+class User extends Model {
   public id!: number;
   public name!: string;
-  public value!: number;
+  public email!: string;
+  public password!: string;
   public createdAt!: Date;
   public updatedAt!: Date;
 }
 
-Transaction.init(
+User.init(
   {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    value: {
-      type: DataTypes.DECIMAL(10, 2), // Para valores com decimais
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'Transaction',
-    tableName: 'Transactions', // Nome da tabela no banco de dados
+    modelName: 'User',
+    tableName: 'users', // Nome da tabela no banco de dados
     timestamps: true, // Gerencia createdAt e updatedAt automaticamente
   }
 );
 
-export default Transaction;
+export default User;

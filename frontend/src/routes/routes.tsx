@@ -9,6 +9,7 @@ import Checkout from "../pages/pdv/checkout";
 import TableManagement from "../pages/pdv/table-management";
 import NewProduct from "../pages/produtos/new-product";
 import NewOrder from "../pages/pedidos/new-order";
+import Teste from "../pages/home/teste";
 function AppRoutes() {
   return (
     <Router>
@@ -32,6 +33,7 @@ function AppRoutes() {
 
           {/* CADASTROS */}
           <Route path="produto/novo" element={<NewProduct />} />
+          <Route path="produto/teste" element={<Teste />} />
         </Route>
       </Routes>
     </Router>
