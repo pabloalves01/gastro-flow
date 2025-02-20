@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function Teste() {
-    const [dados, setDados] = useState<any[]>([]); // Estado para armazenar os dados
+    const [dados, setDados] = useState<any[]>([]);
 
     useEffect(() => {
         axios.get('/api/teste')
