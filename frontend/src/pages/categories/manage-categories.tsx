@@ -216,6 +216,7 @@ export default function ManageCategories() {
                             placeholder="Digite uma descrição para a categoria"
                             value={categoryDescription}
                             onChange={(e) => setCategoryDescription(e.target.value)}
+                            autoComplete="off"
                         />
                     </Field>
                     <Field className="mt-4">
