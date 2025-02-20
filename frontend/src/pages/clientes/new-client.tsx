@@ -7,6 +7,7 @@ import { Input } from "../../components/ui/catalyst/input";
 import { Select } from "../../components/ui/catalyst/select";
 import { Divider } from "../../components/ui/catalyst/divider";
 import { Checkbox, CheckboxField } from "../../components/ui/catalyst/checkbox";
+import { Button } from "../../components/ui/catalyst/button";
 
 export default function NewCliente() {
     const [activeTab, setActiveTab] = useState("dados gerais");
@@ -327,6 +328,13 @@ export default function NewCliente() {
                         </div>
                     </div>
                 )}
+            </div>
+            <Divider className="mt-12 mb-8" />
+
+            <div className="flex justify-end mt-4">
+                <Button className="hover:bg-[#FF9800] cursor-pointer">
+                    Salvar Informações
+                </Button>
             </div>
         </div >
     )
