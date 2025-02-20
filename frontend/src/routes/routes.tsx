@@ -1,29 +1,47 @@
+// React Router imports
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+// Layout imports
+import AuthenticatedLayout from "../layout/authenticated-layout";
+
+// Authentication and core pages
 import Login from "../pages/auth/login";
 import SplashScreen from "../pages/splashscreen";
 import Home from "../pages/dashboard/home";
-import AuthenticatedLayout from "../layout/authenticated-layout";
+
+// Order related pages
 import ManageOrders from "../pages/orders/manage-orders";
+import NewOrder from "../pages/orders/new-order";
+
+// PDV (Point of Sale) related pages
 import PDV from "../pages/pdv/pdv";
 import Checkout from "../pages/pdv/checkout";
 import TableManagement from "../pages/pdv/table-management";
+
+// Product related pages
 import NewProduct from "../pages/products/new-product";
-import NewOrder from "../pages/orders/new-order";
-import ManageCategories from "../pages/categories/manage-categories";
 import Teste from "../pages/home/teste";
+
+// Category management
+import ManageCategories from "../pages/categories/manage-categories";
+
+// Client related pages
+import NewCliente from "../pages/clientes/new-client";
+
 function AppRoutes() {
   return (
     <Router>
       <Routes>
-        {/* Rotas Públicas */}
+        {/* Public Routes */}
         <Route path="/" element={<SplashScreen />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Rotas Privadas (Usando o Layout Base) */}
+        {/* Private Routes (Using Base Layout) */}
         <Route path="/*" element={<AuthenticatedLayout />}>
+          {/* Dashboard */}
           <Route path="home" element={<Home />} />
 
-          {/* PEDIDOS */}
+          {/* Orders */}
           <Route path="pedido/gerenciar" element={<ManageOrders />} />
           <Route path="pedido/novo" element={<NewOrder />} />
 
@@ -32,14 +50,15 @@ function AppRoutes() {
           <Route path="pdv/checkout" element={<Checkout />} />
           <Route path="pdv/mesas" element={<TableManagement />} />
 
-          {/* CADASTROS */}
+          {/* Products */}
           <Route path="produto/novo" element={<NewProduct />} />
-
           <Route path="produto/teste" element={<Teste />} />
 
-          {/* GERENCIAR */}
+          {/* Categories */}
           <Route path="categoria/gerenciar" element={<ManageCategories />} />
 
+          {/* Clients */}
+          <Route path="cliente/novo" element={<NewCliente />} />
         </Route>
       </Routes>
     </Router>
