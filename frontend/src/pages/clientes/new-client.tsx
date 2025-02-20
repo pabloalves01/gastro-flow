@@ -9,7 +9,11 @@ import { Divider } from "../../components/ui/catalyst/divider";
 import { Checkbox, CheckboxField } from "../../components/ui/catalyst/checkbox";
 import { Button } from "../../components/ui/catalyst/button";
 
+// Hooks
+import { useStates } from "../../hooks/common/useStates";
+
 export default function NewCliente() {
+    const { states, loading, error } = useStates();
     const [activeTab, setActiveTab] = useState("dados gerais");
     const [mostrarEnderecoCobranca, setMostrarEnderecoCobranca] = useState(false);
 
@@ -185,6 +189,8 @@ export default function NewCliente() {
                                         autoComplete="off"
                                     />
                                 </Field>
+
+
                                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                                     <Label>UF</Label>
                                     <Description>
@@ -194,11 +200,20 @@ export default function NewCliente() {
                                         <option value="" disabled hidden>
                                             Selecione a UF
                                         </option>
-                                        <option value="1">Estado 1</option>
-                                        <option value="2">Estado 2</option>
-                                        <option value="2">Estado 3</option>
+                                        <option value="" disabled hidden>Selecione a UF</option>
+                                        {loading && <option>Carregando...</option>}
+                                        {error && <option>{error}</option>}
+                                        {!loading && !error &&
+                                            states.map((states) => (
+                                                <option key={states.id} value={states.id}>
+                                                    {states.initials} - {states.name}
+                                                </option>
+                                            ))
+                                        }
                                     </Select>
                                 </Field>
+
+
                                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
                                     <Label>Endereço</Label>
                                     <Description>
