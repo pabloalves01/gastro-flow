@@ -1,28 +1,23 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../../config/database";
 
-class Categories extends Model {
-  public id!: number;
+class States extends Model {
   public name!: string;
-  public color!: string;
+  public initials!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
   public readonly deleted_at!: Date | null;
 }
 
-Categories.init(
+States.init(
   {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    color: {
+    initials: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -41,12 +36,12 @@ Categories.init(
   },
   {
     sequelize,
-    modelName: "categories",
-    tableName: "categories",
+    modelName: "states",
+    tableName: "states",
     timestamps: true,
     underscored: true,
     paranoid: true,
   }
 );
 
-export default Categories;
+export default States;
