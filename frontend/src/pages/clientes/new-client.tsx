@@ -11,6 +11,12 @@ import { Button } from "../../components/ui/catalyst/button";
 
 export default function NewCliente() {
     const [activeTab, setActiveTab] = useState("dados gerais");
+    const [mostrarEnderecoCobranca, setMostrarEnderecoCobranca] = useState(false);
+
+    const handleCheckboxChange = (checked: boolean) => {
+        setMostrarEnderecoCobranca(checked);
+    };
+
     const BreadcrumbItems = [
         { label: "Início", href: "/home" },
         { label: "Cadastros", href: "/cadastros" },
@@ -237,10 +243,26 @@ export default function NewCliente() {
                                 </Field>
                                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
                                     <CheckboxField className="mt-6">
-                                        <Checkbox name="check_endereco_cobranca" />
+                                        <Checkbox
+                                            name="check_endereco_cobranca"
+                                            checked={mostrarEnderecoCobranca}
+                                            onChange={handleCheckboxChange}
+                                        />
                                         <Label className="font-semibold">Possui endereço de cobrança diferente do endereço principal.</Label>
                                     </CheckboxField>
                                 </Field>
+                                {mostrarEnderecoCobranca && (
+                                    <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
+                                        <Label>Endereoço de Cobrança</Label>
+                                        <Description>
+                                            Endereço de cobrança do cliente ou fornecedor
+                                        </Description>
+                                        <Input
+                                            name="enedereco_cobranca"
+                                            autoComplete="off"
+                                        />
+                                    </Field>
+                                )}
                             </div>
                         </div>
                         <Divider className="mt-12 mb-7" />
