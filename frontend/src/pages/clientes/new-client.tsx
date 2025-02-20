@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb"
 import Tabs from "../../components/custom/tabs/tabs"
 import SectionText from "../../components/text/section-text"
@@ -11,9 +11,23 @@ import { Button } from "../../components/ui/catalyst/button";
 
 // Hooks
 import { useStates } from "../../hooks/common/useStates";
+import { useCep } from "../../hooks/api/useCep";
 
 export default function NewCliente() {
-    const { states, loading, error } = useStates();
+    // HOOKS
+    const { cep, setCep, city, state, loading: loadingCep, error: errorCep, handleCepChange } = useCep();
+    const { states, loading: loadingStates, error: errorStates } = useStates();
+    const [selectedState, setSelectedState] = useState("");
+
+    useEffect(() => {
+        if (state) {
+            const matchingState = states.find((s) => s.initials === state);
+            if (matchingState) {
+                setSelectedState(matchingState.id.toString());
+            }
+        }
+    }, [state, states]); // Executa sempre que `state` ou `states` mudar
+
     const [activeTab, setActiveTab] = useState("dados gerais");
     const [mostrarEnderecoCobranca, setMostrarEnderecoCobranca] = useState(false);
 
@@ -168,6 +182,7 @@ export default function NewCliente() {
                             />
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
+
                                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                                     <Label>CEP</Label>
                                     <Description>
@@ -175,10 +190,15 @@ export default function NewCliente() {
                                     </Description>
                                     <Input
                                         name="cep"
-                                        type="number"
+                                        type="text"
+                                        value={cep}
+                                        onChange={(e) => handleCepChange(e.target.value)}
                                         autoComplete="off"
                                     />
+                                    {loadingCep && <p>Consultando CEP...</p>}
+                                    {errorCep && <p>{errorCep}</p>}
                                 </Field>
+
                                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                                     <Label>Município</Label>
                                     <Description>
@@ -186,24 +206,25 @@ export default function NewCliente() {
                                     </Description>
                                     <Input
                                         name="municipio"
+                                        value={city}
+                                        readOnly
                                         autoComplete="off"
                                     />
                                 </Field>
-
 
                                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                                     <Label>UF</Label>
                                     <Description>
                                         UF do cliente ou fornecedor
                                     </Description>
-                                    <Select name="estado" defaultValue="">
+                                    <Select name="estado" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
                                         <option value="" disabled hidden>
                                             Selecione a UF
                                         </option>
                                         <option value="" disabled hidden>Selecione a UF</option>
-                                        {loading && <option>Carregando...</option>}
-                                        {error && <option>{error}</option>}
-                                        {!loading && !error &&
+                                        {loadingStates && <option>Carregando...</option>}
+                                        {errorStates && <option>{errorStates}</option>}
+                                        {!loadingStates && !errorStates &&
                                             states.map((states) => (
                                                 <option key={states.id} value={states.id}>
                                                     {states.initials} - {states.name}
