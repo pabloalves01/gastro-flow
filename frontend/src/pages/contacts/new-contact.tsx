@@ -29,34 +29,24 @@ export default function NewCliente() {
   const [activeTab, setActiveTab] = useState("dados gerais");
   const [mostrarEnderecoCobranca, setMostrarEnderecoCobranca] = useState(false);
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    if (cep && city && selectedState) {
-      setFormData((prevData) => ({
-        ...prevData,
-        zip_code: cep,
-        city: city,
-        state_id: selectedState,
-      }));
-      setFormErrors((prevErrors) => {
-        const newErrors = { ...prevErrors };
-        if (newErrors.zip_code) {
-          delete newErrors.zip_code;
-        }
-        if (newErrors.city) {
-          delete newErrors.city;
-        }
-        if (newErrors.state_id) {
-          delete newErrors.state_id;
-        }
-        return newErrors;
-      })
-    }
-  }, [cep, city, selectedState]);
-
+  const handleCheckboxChange = (checked: boolean) => {
+    setMostrarEnderecoCobranca(checked);
+  };
+  const BreadcrumbItems = [
+    { label: "Início", href: "/home" },
+    { label: "Cadastros", href: "/cadastros" },
+    { label: "Clientes", href: "/cliente/novo" },
+  ];
+  const clientTabs = [
+    { name: "dados gerais", href: "#" },
+    { name: "dados complementares", href: "#" },
+    { name: "anexos", href: "#" },
+    { name: "observações", href: "#" },
+  ];
   const [formData, setFormData] = useState({
     corporate_name: "",
     trade_name: "",
+    contact_code: "",
     person_type: "",
     cnpj: "",
     cpf: "",
@@ -68,12 +58,19 @@ export default function NewCliente() {
     city: "",
     state_id: "",
     address: "",
+    delivery_address: "",
     neighborhood: "",
     number: "",
+    complement: "",
+    phone: "",
+    additional_phone: "",
+    // celular
+    website: "",
     email: "",
+    email_nfe: "",
+    obs: "",
     active: true,
   });
-
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
 
@@ -105,10 +102,6 @@ export default function NewCliente() {
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
-
-
-
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -129,41 +122,21 @@ export default function NewCliente() {
       return newErrors;
     });
   };
-
-
   const saveFormData = async () => {
     if (!validateForm()) return;
     try {
       const response = await axios.post("/api/contacts", formData);
-      setFormData({
-        corporate_name: "",
-        trade_name: "",
-        person_type: "",
-        cnpj: "",
-        cpf: "",
-        taxpayer: "",
-        state_registration: "",
-        municipal_registration: "",
-        contact_type: "",
-        zip_code: "",
-        city: "",
-        state_id: "",
-        address: "",
-        neighborhood: "",
-        number: "",
-        email: "",
-        active: true,
-      })
-      toast.success("Informações salvas com sucesso!", {
+      toast.success(response.data.message, {
         position: "top-right",
-        autoClose: 5000, // Tempo em milissegundos
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
-      console.log(response.data);
+      window.scrollTo(0, 0);
+      window.location.reload();
     } catch (error) {
       toast.error("Ocorreu um erro ao salvar as informações. Tente novamente.", {
         position: "top-right",
@@ -174,25 +147,12 @@ export default function NewCliente() {
         draggable: true,
         progress: undefined,
       });
-
       console.error(error);
     }
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setMostrarEnderecoCobranca(checked);
-  };
-  const BreadcrumbItems = [
-    { label: "Início", href: "/home" },
-    { label: "Cadastros", href: "/cadastros" },
-    { label: "Clientes", href: "/cliente/novo" },
-  ];
-  const clientTabs = [
-    { name: "dados gerais", href: "#" },
-    { name: "dados complementares", href: "#" },
-    { name: "anexos", href: "#" },
-    { name: "observações", href: "#" },
-  ];
+
+
   useEffect(() => {
     if (state && states.length > 0) {
       const matchingState = states.find((s) => s.initials === state);
@@ -201,7 +161,29 @@ export default function NewCliente() {
       }
     }
   }, [state, states]);
-
+  useEffect(() => {
+    if (cep && city && selectedState) {
+      setFormData((prevData) => ({
+        ...prevData,
+        zip_code: cep,
+        city: city,
+        state_id: selectedState,
+      }));
+      setFormErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        if (newErrors.zip_code) {
+          delete newErrors.zip_code;
+        }
+        if (newErrors.city) {
+          delete newErrors.city;
+        }
+        if (newErrors.state_id) {
+          delete newErrors.state_id;
+        }
+        return newErrors;
+      })
+    }
+  }, [cep, city, selectedState]);
   return (
     <div>
       <ToastContainer />
@@ -344,7 +326,7 @@ export default function NewCliente() {
                 <Label>Inscrição Estadual</Label>
                 <Description>IE do cliente ou fornecedor</Description>
                 <Input
-                  name="inscricao_estadual"
+                  name="state_registration"
                   autoComplete="off"
                 />
               </Field>
@@ -352,7 +334,7 @@ export default function NewCliente() {
                 <Label>Inscrição Municipal</Label>
                 <Description>IM do cliente ou fornecedor</Description>
                 <Input
-                  name="inscricao_municipal"
+                  name="municipal_registration"
                   autoComplete="off"
                 />
               </Field>
@@ -526,7 +508,7 @@ export default function NewCliente() {
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>Telefone</Label>
                   <Description>Telefone do cliente ou fornecedor</Description>
-                  <Input name="telefone" type="number" autoComplete="off" />
+                  <Input name="phone" type="number" autoComplete="off" />
                 </Field>
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>Telefone Adicional</Label>
@@ -534,7 +516,7 @@ export default function NewCliente() {
                     Telefone Adicional do cliente ou fornecedor
                   </Description>
                   <Input
-                    name="telefone_adicional"
+                    name="additional_phone"
                     type="number"
                     autoComplete="off"
                   />

@@ -137,6 +137,10 @@ Contacts.init(
       allowNull: false,
       defaultValue: true,
     },
+    obs: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
