@@ -46,24 +46,23 @@ export default function NewCliente() {
   }, [cep, city, selectedState]);
 
   const [formData, setFormData] = useState({
-    corporate_name: "razao",
-    trade_name: "fantasia",
-    person_type: "individual",
-    taxpayer: "yes",
-    contact_type: "customer",
-    zip_code: "88780000",
-    city: "Imbituba",
-    state_id: "24",
-    address: "Rua Manoel João Machad",
-    neighborhood: "Mirim",
-    number: "780",
-    email: "pabloalveszimba@gmail.com",
+    corporate_name: "",
+    trade_name: "",
+    person_type: "",
+    taxpayer: "",
+    contact_type: "",
+    zip_code: "",
+    city: "",
+    state_id: "",
+    address: "",
+    neighborhood: "",
+    number: "",
+    email: "",
     active: true,
   });
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
-
     if (!formData.corporate_name) errors.corporate_name = "Nome é obrigatório";
     if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
     if (!formData.person_type)
@@ -78,9 +77,7 @@ export default function NewCliente() {
     if (!formData.neighborhood) errors.neighborhood = "Bairro é obrigatório";
     if (!formData.number) errors.number = "Número é obrigatório";
     if (!formData.email) errors.email = "E-mail é obrigatório";
-
     setFormErrors(errors);
-
     return Object.keys(errors).length === 0;
   };
 
@@ -152,7 +149,7 @@ export default function NewCliente() {
                   autoComplete="off"
                   value={formData.corporate_name}
                   onChange={handleInputChange}
-                  data-invalid={formErrors.corporate_name ? true : undefined} 
+                  data-invalid={formErrors.corporate_name ? true : undefined}
                 />
                 {formErrors.corporate_name && (
                   <ErrorMessage>{formErrors.corporate_name}</ErrorMessage>
@@ -169,7 +166,11 @@ export default function NewCliente() {
                   autoComplete="off"
                   value={formData.trade_name}
                   onChange={handleInputChange}
+                  data-invalid={formErrors.trade_name ? true : undefined}
                 />
+                {formErrors.trade_name && (
+                  <ErrorMessage>{formErrors.trade_name}</ErrorMessage>
+                )}
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Código</Label>
@@ -179,15 +180,20 @@ export default function NewCliente() {
                   type="number"
                   placeholder="Opcional"
                   autoComplete="off"
+                  data-invalid={formErrors.contact_code ? true : undefined}
                 />
+                {formErrors.contact_code && (
+                  <ErrorMessage>{formErrors.contact_code}</ErrorMessage>
+                )}
               </Field>
               <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Tipo de Pessoa</Label>
                 <Description>Tipo de pessoa física ou jurídica.</Description>
                 <Select
-                  name="tipo_pessoa"
+                  name="person_type"
                   value={formData.person_type}
                   onChange={handleInputChange}
+                  data-invalid={formErrors.person_type ? true : undefined}
                 >
                   <option value="" disabled hidden>
                     Selecione um tipo
@@ -195,6 +201,9 @@ export default function NewCliente() {
                   <option value="individual">Pessoa Física</option>
                   <option value="company">Pessoa Júridica</option>
                 </Select>
+                {formErrors.person_type && (
+                  <ErrorMessage>{formErrors.person_type}</ErrorMessage>
+                )}
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>CNPJ</Label>
@@ -213,6 +222,7 @@ export default function NewCliente() {
                   name="taxpayer"
                   value={formData.taxpayer}
                   onChange={handleInputChange}
+                  data-invalid={formErrors.taxpayer ? true : undefined}
                 >
                   <option value="" disabled hidden>
                     Selecione um tipo de contribuinte
@@ -221,6 +231,9 @@ export default function NewCliente() {
                   <option value="yes">Contribuinte</option>
                   <option value="exempt">Isento</option>
                 </Select>
+                {formErrors.taxpayer && (
+                  <ErrorMessage>{formErrors.taxpayer}</ErrorMessage>
+                )}
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Inscrição Estadual</Label>
@@ -247,6 +260,7 @@ export default function NewCliente() {
                   name="contact_type"
                   value={formData.contact_type}
                   onChange={handleInputChange}
+                  data-invalid={formErrors.contact_type ? true : undefined}
                 >
                   <option value="" disabled hidden>
                     Selecione um tipo de contato
@@ -255,6 +269,9 @@ export default function NewCliente() {
                   <option value="2">Fornecedor</option>
                   <option value="2">Cliente e Fornecedor</option>
                 </Select>
+                {formErrors.contact_type && (
+                  <ErrorMessage>{formErrors.contact_type}</ErrorMessage>
+                )}
               </Field>
             </div>
             <Divider className="mt-12 mb-7" />
@@ -270,15 +287,28 @@ export default function NewCliente() {
                     value={cep}
                     onChange={(e) => handleCepChange(e.target.value)}
                     autoComplete="off"
+                    data-invalid={formErrors.zip_code ? true : undefined}
                   />
                   {loadingCep && <p>Consultando CEP...</p>}
                   {errorCep && <p>{errorCep}</p>}
+                  {formErrors.zip_code && (
+                    <ErrorMessage>{formErrors.zip_code}</ErrorMessage>
+                  )}
                 </Field>
 
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>Município</Label>
                   <Description>CEP do cliente ou fornecedor</Description>
-                  <Input name="city" value={city} readOnly autoComplete="off" />
+                  <Input
+                    name="city"
+                    value={city}
+                    readOnly
+                    autoComplete="off"
+                    data-invalid={formErrors.city ? true : undefined}
+                  />
+                  {formErrors.city && (
+                    <ErrorMessage>{formErrors.city}</ErrorMessage>
+                  )}
                 </Field>
 
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
@@ -288,6 +318,7 @@ export default function NewCliente() {
                     name="state_id"
                     value={selectedState}
                     onChange={(e) => setSelectedState(e.target.value)}
+                    data-invalid={formErrors.state_id ? true : undefined}
                   >
                     <option value="" disabled hidden>
                       Selecione a UF
@@ -305,6 +336,9 @@ export default function NewCliente() {
                         </option>
                       ))}
                   </Select>
+                  {formErrors.state_id && (
+                    <ErrorMessage>{formErrors.state_id}</ErrorMessage>
+                  )}
                 </Field>
 
                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
@@ -315,8 +349,13 @@ export default function NewCliente() {
                     autoComplete="off"
                     value={formData.address}
                     onChange={handleInputChange}
+                    data-invalid={formErrors.address ? true : undefined}
                   />
+                  {formErrors.address && (
+                    <ErrorMessage>{formErrors.address}</ErrorMessage>
+                  )}
                 </Field>
+
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>Bairro</Label>
                   <Description>Bairro do cliente ou fornecedor</Description>
@@ -325,7 +364,11 @@ export default function NewCliente() {
                     autoComplete="off"
                     value={formData.neighborhood}
                     onChange={handleInputChange}
+                    data-invalid={formErrors.neighborhood ? true : undefined}
                   />
+                    {formErrors.neighborhood && (
+                        <ErrorMessage>{formErrors.neighborhood}</ErrorMessage>
+                    )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>Número</Label>
@@ -336,12 +379,19 @@ export default function NewCliente() {
                     autoComplete="off"
                     value={formData.number}
                     onChange={handleInputChange}
+                    data-invalid={formErrors.number ? true : undefined}
                   />
+                    {formErrors.number && (
+                        <ErrorMessage>{formErrors.number}</ErrorMessage>
+                    )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>Complemento</Label>
                   <Description>Complemento do endereço</Description>
-                  <Input name="complemento" autoComplete="off" />
+                  <Input
+                  name="complemento"
+                  autoComplete="off"
+                  />
                 </Field>
                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
                   <CheckboxField className="mt-6">
@@ -406,7 +456,11 @@ export default function NewCliente() {
                     autoComplete="off"
                     value={formData.email}
                     onChange={handleInputChange}
+                    data-invalid={formErrors.email ? true : undefined}
                   />
+                    {formErrors.email && (
+                        <ErrorMessage>{formErrors.email}</ErrorMessage>
+                    )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>E-mail para envio da NFE</Label>
