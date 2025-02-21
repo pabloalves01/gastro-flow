@@ -265,9 +265,8 @@ export default function NewCliente() {
                   <option value="" disabled hidden>
                     Selecione um tipo de contato
                   </option>
-                  <option value="1">Cliente</option>
-                  <option value="2">Fornecedor</option>
-                  <option value="2">Cliente e Fornecedor</option>
+                  <option value="customer">Cliente</option>
+                  <option value="supplier">Fornecedor</option>
                 </Select>
                 {formErrors.contact_type && (
                   <ErrorMessage>{formErrors.contact_type}</ErrorMessage>
@@ -289,7 +288,7 @@ export default function NewCliente() {
                     autoComplete="off"
                     data-invalid={formErrors.zip_code ? true : undefined}
                   />
-                  {loadingCep && <p>Consultando CEP...</p>}
+                  {loadingCep && <span className="mt-1 text-sm font-semibold text-white">Consultando CEP...</span>}
                   {errorCep && <p>{errorCep}</p>}
                   {formErrors.zip_code && (
                     <ErrorMessage>{formErrors.zip_code}</ErrorMessage>
@@ -366,9 +365,9 @@ export default function NewCliente() {
                     onChange={handleInputChange}
                     data-invalid={formErrors.neighborhood ? true : undefined}
                   />
-                    {formErrors.neighborhood && (
-                        <ErrorMessage>{formErrors.neighborhood}</ErrorMessage>
-                    )}
+                  {formErrors.neighborhood && (
+                    <ErrorMessage>{formErrors.neighborhood}</ErrorMessage>
+                  )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>Número</Label>
@@ -381,16 +380,16 @@ export default function NewCliente() {
                     onChange={handleInputChange}
                     data-invalid={formErrors.number ? true : undefined}
                   />
-                    {formErrors.number && (
-                        <ErrorMessage>{formErrors.number}</ErrorMessage>
-                    )}
+                  {formErrors.number && (
+                    <ErrorMessage>{formErrors.number}</ErrorMessage>
+                  )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>Complemento</Label>
                   <Description>Complemento do endereço</Description>
                   <Input
-                  name="complemento"
-                  autoComplete="off"
+                    name="complemento"
+                    autoComplete="off"
                   />
                 </Field>
                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
@@ -458,9 +457,9 @@ export default function NewCliente() {
                     onChange={handleInputChange}
                     data-invalid={formErrors.email ? true : undefined}
                   />
-                    {formErrors.email && (
-                        <ErrorMessage>{formErrors.email}</ErrorMessage>
-                    )}
+                  {formErrors.email && (
+                    <ErrorMessage>{formErrors.email}</ErrorMessage>
+                  )}
                 </Field>
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>E-mail para envio da NFE</Label>
