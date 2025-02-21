@@ -24,3 +24,7 @@ npm run dev
 # Configurar .env
 Configure sua conexão com o banco de dados no .env substituindo os valores abaixo
 DATABASE_URL=postgres://usuario:senha@localhost:5432/nome_do_banco
+
+# Rode as migrations
+npx sequelize db:migrate
+
