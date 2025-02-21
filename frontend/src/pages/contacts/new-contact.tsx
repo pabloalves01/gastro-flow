@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Description,
   ErrorMessage,
@@ -21,15 +23,7 @@ import axios from "axios";
 
 export default function NewCliente() {
   // HOOKS
-  const {
-    cep,
-    // setCep,
-    city,
-    state,
-    loading: loadingCep,
-    error: errorCep,
-    handleCepChange,
-  } = useCep();
+  const { cep, city, state, loading: loadingCep, error: errorCep, handleCepChange, } = useCep();
   const { states, loading: loadingStates, error: errorStates } = useStates();
   const [selectedState, setSelectedState] = useState("");
   const [activeTab, setActiveTab] = useState("dados gerais");
@@ -37,19 +31,38 @@ export default function NewCliente() {
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
-    setFormData((prevData) => ({
-      ...prevData,
-      zip_code: cep,
-      city: city,
-      state_id: selectedState,
-    }));
+    if (cep && city && selectedState) {
+      setFormData((prevData) => ({
+        ...prevData,
+        zip_code: cep,
+        city: city,
+        state_id: selectedState,
+      }));
+      setFormErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        if (newErrors.zip_code) {
+          delete newErrors.zip_code;
+        }
+        if (newErrors.city) {
+          delete newErrors.city;
+        }
+        if (newErrors.state_id) {
+          delete newErrors.state_id;
+        }
+        return newErrors;
+      })
+    }
   }, [cep, city, selectedState]);
 
   const [formData, setFormData] = useState({
     corporate_name: "",
     trade_name: "",
     person_type: "",
+    cnpj: "",
+    cpf: "",
     taxpayer: "",
+    state_registration: "",
+    municipal_registration: "",
     contact_type: "",
     zip_code: "",
     city: "",
@@ -63,9 +76,22 @@ export default function NewCliente() {
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
-    if (!formData.corporate_name) errors.corporate_name = "Nome é obrigatório";
+
+    // Campos obrigatórios
+    if (!formData.corporate_name) errors.corporate_name = "Razão social é obrigatória";
     if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
     if (!formData.person_type) errors.person_type = "Tipo de pessoa é obrigatório";
+
+    // Validação de CNPJ ou CPF
+    if (formData.person_type === "company" && !formData.cnpj) {
+      errors.cnpj = "CNPJ é obrigatório para pessoa jurídica";
+    }
+
+    if (formData.person_type === "individual" && !formData.cpf) {
+      errors.cpf = "CPF é obrigatório para pessoa física";
+    }
+
+    // Outros campos obrigatórios
     if (!formData.taxpayer) errors.taxpayer = "Contribuinte é obrigatório";
     if (!formData.contact_type) errors.contact_type = "Tipo de contato é obrigatório";
     if (!formData.zip_code) errors.zip_code = "CEP é obrigatório";
@@ -75,26 +101,80 @@ export default function NewCliente() {
     if (!formData.neighborhood) errors.neighborhood = "Bairro é obrigatório";
     if (!formData.number) errors.number = "Número é obrigatório";
     if (!formData.email) errors.email = "E-mail é obrigatório";
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+
+
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
+    // Atualiza os dados do formulário
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    // Remove o erro correspondente ao campo se ele for preenchido corretamente
+    setFormErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (value && newErrors[name]) {
+        delete newErrors[name];  // Remove o erro se o valor estiver preenchido
+      }
+      return newErrors;
+    });
   };
+
 
   const saveFormData = async () => {
     if (!validateForm()) return;
     try {
       const response = await axios.post("/api/contacts", formData);
+      setFormData({
+        corporate_name: "",
+        trade_name: "",
+        person_type: "",
+        cnpj: "",
+        cpf: "",
+        taxpayer: "",
+        state_registration: "",
+        municipal_registration: "",
+        contact_type: "",
+        zip_code: "",
+        city: "",
+        state_id: "",
+        address: "",
+        neighborhood: "",
+        number: "",
+        email: "",
+        active: true,
+      })
+      toast.success("Informações salvas com sucesso!", {
+        position: "top-right",
+        autoClose: 5000, // Tempo em milissegundos
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       console.log(response.data);
     } catch (error) {
+      toast.error("Ocorreu um erro ao salvar as informações. Tente novamente.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
       console.error(error);
     }
   };
@@ -124,6 +204,7 @@ export default function NewCliente() {
 
   return (
     <div>
+      <ToastContainer />
       <Breadcrumb items={BreadcrumbItems} />
       <SectionText className="mb-4" title="Novo Cliente" />
       <Tabs
@@ -187,24 +268,56 @@ export default function NewCliente() {
               <Field className="col-span-1">
                 <Label>Tipo de Pessoa</Label>
                 <Description>Pessoa Física ou Júridica.</Description>
-                <Select name="person_type" value={formData.person_type} onChange={handleInputChange}>
+                <Select
+                  name="person_type"
+                  value={formData.person_type}
+                  onChange={handleInputChange}
+                  data-invalid={formErrors.person_type ? true : undefined}
+                >
+                  <option value="" disabled hidden>
+                    Selecione um tipo de pessoa
+                  </option>
                   <option value="individual">Pessoa Física</option>
                   <option value="company">Pessoa Jurídica</option>
                 </Select>
+                {formErrors.person_type && (
+                  <ErrorMessage>{formErrors.person_type}</ErrorMessage>
+                )}
               </Field>
+
 
               {/* CPF ou CNPJ */}
               {formData.person_type === "company" ? (
                 <Field className="col-span-2">
                   <Label>CNPJ</Label>
                   <Description>CNPJ da pessoa jurídica.</Description>
-                  <Input name="cnpj" placeholder="Opcional" type="number" autoComplete="off" />
+                  <Input
+                    name="cnpj"
+                    placeholder="Opcional"
+                    autoComplete="off"
+                    value={formData.cnpj}
+                    onChange={handleInputChange}
+                    data-invalid={formErrors.cnpj ? true : undefined}
+                  />
+                  {formErrors.cnpj && (
+                    <ErrorMessage>{formErrors.cnpj}</ErrorMessage>
+                  )}
                 </Field>
               ) : (
                 <Field className="col-span-2">
                   <Label>CPF</Label>
                   <Description>CPF da pessoa física.</Description>
-                  <Input name="cpf" placeholder="Opcional" type="number" autoComplete="off" />
+                  <Input
+                    name="cpf"
+                    placeholder="Opcional"
+                    value={formData.cpf}
+                    onChange={handleInputChange}
+                    autoComplete="off"
+                    data-invalid={formErrors.cpf ? true : undefined}
+                  />
+                  {formErrors.cpf && (
+                    <ErrorMessage>{formErrors.cpf}</ErrorMessage>
+                  )}
                 </Field>
               )}
 
@@ -212,19 +325,26 @@ export default function NewCliente() {
               <Field className="col-span-1">
                 <Label>Contribuinte</Label>
                 <Description>Selecione o tipo de contribuinte.</Description>
-                <Select name="taxpayer" value={formData.taxpayer} onChange={handleInputChange}>
+                <Select
+                  name="taxpayer"
+                  value={formData.taxpayer}
+                  onChange={handleInputChange}
+                  data-invalid={formErrors.taxpayer ? true : undefined}
+                >
                   <option value="" disabled hidden>Selecione um tipo</option>
                   <option value="no">Não Contribuinte</option>
                   <option value="yes">Contribuinte</option>
                   <option value="exempt">Isento</option>
                 </Select>
+                {formErrors.taxpayer && (
+                  <ErrorMessage>{formErrors.taxpayer}</ErrorMessage>
+                )}
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Inscrição Estadual</Label>
                 <Description>IE do cliente ou fornecedor</Description>
                 <Input
                   name="inscricao_estadual"
-                  type="number"
                   autoComplete="off"
                 />
               </Field>
@@ -233,7 +353,6 @@ export default function NewCliente() {
                 <Description>IM do cliente ou fornecedor</Description>
                 <Input
                   name="inscricao_municipal"
-                  type="number"
                   autoComplete="off"
                 />
               </Field>
