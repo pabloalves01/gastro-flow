@@ -24,12 +24,10 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING(14),
         allowNull: true,
-        unique: true,
       },
       cnpj: {
         type: Sequelize.STRING(18),
         allowNull: true,
-        unique: true,
       },
       taxpayer: {
         type: Sequelize.ENUM('yes', 'no', 'exempt'), 
@@ -98,7 +96,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       email_nfe: {
         type: Sequelize.STRING,

@@ -55,12 +55,10 @@ Contacts.init(
     cpf: {
       type: DataTypes.STRING(14),
       allowNull: true,
-      unique: true,
     },
     cnpj: {
       type: DataTypes.STRING(18),
       allowNull: true,
-      unique: true,
     },
     taxpayer: {
       type: DataTypes.ENUM("yes", "no", "exempt"),
@@ -125,7 +123,6 @@ Contacts.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     email_nfe: {
       type: DataTypes.STRING,
