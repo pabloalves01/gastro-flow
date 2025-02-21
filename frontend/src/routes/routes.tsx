@@ -26,7 +26,7 @@ import Teste from "../pages/home/teste";
 import ManageCategories from "../pages/categories/manage-categories";
 
 // Client related pages
-import NewCliente from "../pages/clientes/new-client";
+import NewCliente from "../pages/contacts/new-contact";
 
 function AppRoutes() {
   return (
