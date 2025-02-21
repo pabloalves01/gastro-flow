@@ -9,6 +9,7 @@ interface BreadcrumbItem {
 interface BreadcrumbButton {
     label: string;
     icon?: React.ReactNode;
+    href?: string
     onClick: () => void;
 }
 interface BreadcrumbProps {
@@ -40,21 +41,36 @@ export function Breadcrumb({ items, buttons }: BreadcrumbProps) {
             {buttons && buttons.length > 0 && (
                 <div className="flex items-center space-x-2">
                     {buttons.map((button, index) => (
-                        <Button
-                            key={index}
-                            onClick={button.onClick}
-                            className="flex items-center gap-2 px-4 py-2 cursor-pointer"
-                        >
-                            {button.icon && (
-                                <span className="w-5 h-5 flex items-center justify-center">
-                                    {button.icon}
-                                </span>
+                        <div key={index}>
+                            {button.href ? (
+                                <Button className="flex items-center gap-2 px-4 py-2 cursor-pointer">
+                                    <Link to={button.href} className="flex items-center gap-2">
+                                        {button.icon && (
+                                            <span className="w-5 h-5 flex items-center justify-center">
+                                                {button.icon}
+                                            </span>
+                                        )}
+                                        <span>{button.label}</span>
+                                    </Link>
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={button.onClick}
+                                    className="flex items-center gap-2 px-4 py-2 cursor-pointer"
+                                >
+                                    {button.icon && (
+                                        <span className="w-5 h-5 flex items-center justify-center">
+                                            {button.icon}
+                                        </span>
+                                    )}
+                                    <span>{button.label}</span>
+                                </Button>
                             )}
-                            <span>{button.label}</span>
-                        </Button>
+                        </div>
                     ))}
                 </div>
             )}
+
         </nav>
     );
 }

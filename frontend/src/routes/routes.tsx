@@ -26,7 +26,8 @@ import Teste from "../pages/home/teste";
 import ManageCategories from "../pages/categories/manage-categories";
 
 // Client related pages
-import NewCliente from "../pages/contacts/new-contact";
+import NewContact from "../pages/contacts/new-contact";
+import ManageContacts from "../pages/contacts/manage-contacts";
 
 function AppRoutes() {
   return (
@@ -58,7 +59,8 @@ function AppRoutes() {
           <Route path="categoria/gerenciar" element={<ManageCategories />} />
 
           {/* Clients */}
-          <Route path="cliente/novo" element={<NewCliente />} />
+          <Route path="cliente/novo" element={<NewContact />} />
+          <Route path="cliente/gerenciar" element={<ManageContacts />} />
         </Route>
       </Routes>
     </Router>

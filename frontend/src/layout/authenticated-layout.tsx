@@ -170,6 +170,10 @@ function AuthenticatedLayout() {
                 <User />
                 <SidebarLabel>Clientes</SidebarLabel>
               </SidebarItem>
+              <SidebarItem onClick={() => navigate("/cliente/gerenciar")}>
+                <User />
+                <SidebarLabel>Gerenciar Clientes</SidebarLabel>
+              </SidebarItem>
               <SidebarItem onClick={() => navigate("/settings")}>
                 <Cog />
                 <SidebarLabel>Configurações</SidebarLabel>
