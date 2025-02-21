@@ -10,7 +10,7 @@ interface BreadcrumbButton {
     label: string;
     icon?: React.ReactNode;
     href?: string
-    onClick: () => void;
+    onClick?: () => void;
 }
 interface BreadcrumbProps {
     items: BreadcrumbItem[];

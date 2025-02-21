@@ -7,6 +7,7 @@ export const storeContacts = async (
 ): Promise<void> => {
   try {
     const formData = req.body;
+    console.log("formData:", formData);
     const contact = await Contacts.create(formData);
     res.status(201).json({ message: "Contato criado com sucesso!", contact });
   } catch (error) {
