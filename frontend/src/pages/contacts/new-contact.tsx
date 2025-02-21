@@ -65,11 +65,9 @@ export default function NewCliente() {
     const errors: { [key: string]: string } = {};
     if (!formData.corporate_name) errors.corporate_name = "Nome é obrigatório";
     if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
-    if (!formData.person_type)
-      errors.person_type = "Tipo de pessoa é obrigatório";
+    if (!formData.person_type) errors.person_type = "Tipo de pessoa é obrigatório";
     if (!formData.taxpayer) errors.taxpayer = "Contribuinte é obrigatório";
-    if (!formData.contact_type)
-      errors.contact_type = "Tipo de contato é obrigatório";
+    if (!formData.contact_type) errors.contact_type = "Tipo de contato é obrigatório";
     if (!formData.zip_code) errors.zip_code = "CEP é obrigatório";
     if (!formData.city) errors.city = "Cidade é obrigatória";
     if (!formData.state_id) errors.state_id = "Estado é obrigatório";
@@ -186,54 +184,40 @@ export default function NewCliente() {
                   <ErrorMessage>{formErrors.contact_code}</ErrorMessage>
                 )}
               </Field>
-              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
+              <Field className="col-span-1">
                 <Label>Tipo de Pessoa</Label>
-                <Description>Tipo de pessoa física ou jurídica.</Description>
-                <Select
-                  name="person_type"
-                  value={formData.person_type}
-                  onChange={handleInputChange}
-                  data-invalid={formErrors.person_type ? true : undefined}
-                >
-                  <option value="" disabled hidden>
-                    Selecione um tipo
-                  </option>
+                <Description>Pessoa Física ou Júridica.</Description>
+                <Select name="person_type" value={formData.person_type} onChange={handleInputChange}>
                   <option value="individual">Pessoa Física</option>
-                  <option value="company">Pessoa Júridica</option>
+                  <option value="company">Pessoa Jurídica</option>
                 </Select>
-                {formErrors.person_type && (
-                  <ErrorMessage>{formErrors.person_type}</ErrorMessage>
-                )}
               </Field>
-              <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
-                <Label>CNPJ</Label>
-                <Description>CNPJ da pessoa jurídica.</Description>
-                <Input
-                  name="cnpj"
-                  placeholder="Opcional"
-                  type="number"
-                  autoComplete="off"
-                />
-              </Field>
-              <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
+
+              {/* CPF ou CNPJ */}
+              {formData.person_type === "company" ? (
+                <Field className="col-span-2">
+                  <Label>CNPJ</Label>
+                  <Description>CNPJ da pessoa jurídica.</Description>
+                  <Input name="cnpj" placeholder="Opcional" type="number" autoComplete="off" />
+                </Field>
+              ) : (
+                <Field className="col-span-2">
+                  <Label>CPF</Label>
+                  <Description>CPF da pessoa física.</Description>
+                  <Input name="cpf" placeholder="Opcional" type="number" autoComplete="off" />
+                </Field>
+              )}
+
+              {/* Contribuinte ao lado do CPF/CNPJ */}
+              <Field className="col-span-1">
                 <Label>Contribuinte</Label>
-                <Description>Tipo de pessoa física ou jurídica.</Description>
-                <Select
-                  name="taxpayer"
-                  value={formData.taxpayer}
-                  onChange={handleInputChange}
-                  data-invalid={formErrors.taxpayer ? true : undefined}
-                >
-                  <option value="" disabled hidden>
-                    Selecione um tipo de contribuinte
-                  </option>
+                <Description>Selecione o tipo de contribuinte.</Description>
+                <Select name="taxpayer" value={formData.taxpayer} onChange={handleInputChange}>
+                  <option value="" disabled hidden>Selecione um tipo</option>
                   <option value="no">Não Contribuinte</option>
                   <option value="yes">Contribuinte</option>
                   <option value="exempt">Isento</option>
                 </Select>
-                {formErrors.taxpayer && (
-                  <ErrorMessage>{formErrors.taxpayer}</ErrorMessage>
-                )}
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Inscrição Estadual</Label>
