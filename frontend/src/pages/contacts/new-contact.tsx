@@ -4,6 +4,7 @@ import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
 import {
   Description,
+  ErrorMessage,
   Field,
   Label,
 } from "../../components/ui/catalyst/fieldset";
@@ -22,7 +23,7 @@ export default function NewCliente() {
   // HOOKS
   const {
     cep,
-    setCep,
+    // setCep,
     city,
     state,
     loading: loadingCep,
@@ -33,6 +34,7 @@ export default function NewCliente() {
   const [selectedState, setSelectedState] = useState("");
   const [activeTab, setActiveTab] = useState("dados gerais");
   const [mostrarEnderecoCobranca, setMostrarEnderecoCobranca] = useState(false);
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     setFormData((prevData) => ({
@@ -59,6 +61,29 @@ export default function NewCliente() {
     active: true,
   });
 
+  const validateForm = () => {
+    const errors: { [key: string]: string } = {};
+
+    if (!formData.corporate_name) errors.corporate_name = "Nome é obrigatório";
+    if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
+    if (!formData.person_type)
+      errors.person_type = "Tipo de pessoa é obrigatório";
+    if (!formData.taxpayer) errors.taxpayer = "Contribuinte é obrigatório";
+    if (!formData.contact_type)
+      errors.contact_type = "Tipo de contato é obrigatório";
+    if (!formData.zip_code) errors.zip_code = "CEP é obrigatório";
+    if (!formData.city) errors.city = "Cidade é obrigatória";
+    if (!formData.state_id) errors.state_id = "Estado é obrigatório";
+    if (!formData.address) errors.address = "Endereço é obrigatório";
+    if (!formData.neighborhood) errors.neighborhood = "Bairro é obrigatório";
+    if (!formData.number) errors.number = "Número é obrigatório";
+    if (!formData.email) errors.email = "E-mail é obrigatório";
+
+    setFormErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -70,8 +95,8 @@ export default function NewCliente() {
   };
 
   const saveFormData = async () => {
+    if (!validateForm()) return;
     try {
-        console.log("formData", formData);
       const response = await axios.post("/api/contacts", formData);
       console.log(response.data);
     } catch (error) {
@@ -101,7 +126,7 @@ export default function NewCliente() {
       }
     }
   }, [state, states]);
-  
+
   return (
     <div>
       <Breadcrumb items={BreadcrumbItems} />
@@ -117,9 +142,9 @@ export default function NewCliente() {
             <div className="pb-4"></div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
-                <Label>Nome</Label>
+                <Label>Razão Social</Label>
                 <Description>
-                  Nome principal para exibição e identificação.
+                  Razão Social para exibição e identificação.
                 </Description>
                 <Input
                   name="corporate_name"
@@ -127,8 +152,13 @@ export default function NewCliente() {
                   autoComplete="off"
                   value={formData.corporate_name}
                   onChange={handleInputChange}
+                  data-invalid={formErrors.corporate_name ? true : undefined} 
                 />
+                {formErrors.corporate_name && (
+                  <ErrorMessage>{formErrors.corporate_name}</ErrorMessage>
+                )}
               </Field>
+
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Fantasia</Label>
                 <Description>
