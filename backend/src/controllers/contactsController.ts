@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import Contacts from "../models/contacts";
-
+import States from "../models/states";
 export const storeContacts = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const formData = req.body;
-    console.log("formData:", formData);
     const contact = await Contacts.create(formData);
+
     res.status(201).json({ message: "Contato criado com sucesso!", contact });
   } catch (error) {
     console.error("Erro ao criar contato:", error);
@@ -21,7 +21,15 @@ export const getContacts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const contacts = await Contacts.findAll();
+    const contacts = await Contacts.findAll({
+      include: [
+        {
+          model: States,
+          as: "state",
+          attributes: ["id", "name", "initials"],
+        },
+      ],
+    });
 
     contacts.forEach((contact) => {
       if (contact.contact_type === "customer") {

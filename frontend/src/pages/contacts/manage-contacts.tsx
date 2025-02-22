@@ -22,7 +22,6 @@ import {
   Dialog,
   DialogActions,
   DialogBody,
-  DialogDescription,
   DialogTitle,
 } from "../../components/ui/catalyst/dialog";
 import { Field, Label } from "../../components/ui/catalyst/fieldset";
@@ -66,6 +65,11 @@ export default function ManageContacts() {
     website: string;
     state_registration: string;
     municipal_registration: string;
+    state: {
+        id: number;
+        name: string;
+        initials: string
+    }
   }
 
   const handleContactView = (contact: Contact) => {
@@ -85,6 +89,7 @@ export default function ManageContacts() {
 
   useEffect(() => {
     getContacts();
+    console.log("Contatos:", contacts);
   }, []);
 
   return (
@@ -283,7 +288,7 @@ export default function ManageContacts() {
               </div>
               <div>
                 <span className="text-gray-400">Estado</span>
-                <p className="font-medium">{selectedContact?.state_id}</p>
+                <p className="font-medium">{selectedContact?.state.name}</p>
               </div>
             </div>
           </div>

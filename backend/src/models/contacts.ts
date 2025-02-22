@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../../config/database";
+import States from "./states";
 
 class Contacts extends Model {
   public id!: number;
@@ -163,5 +164,6 @@ Contacts.init(
     paranoid: true,
   }
 );
+Contacts.belongsTo(States, { foreignKey: "state_id", as: "state" });
 
 export default Contacts;
