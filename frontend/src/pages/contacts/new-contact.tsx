@@ -1,28 +1,24 @@
 import { useEffect, useState } from "react";
+// Notifications
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// Custom Components
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {
-  Description,
-  ErrorMessage,
-  Field,
-  Label,
-} from "../../components/ui/catalyst/fieldset";
+// Catalys
+import { Description, ErrorMessage, Field, Label } from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
 import { Select } from "../../components/ui/catalyst/select";
 import { Divider } from "../../components/ui/catalyst/divider";
 import { Checkbox, CheckboxField } from "../../components/ui/catalyst/checkbox";
 import { Button } from "../../components/ui/catalyst/button";
-
 // Hooks
 import { useStates } from "../../hooks/common/useStates";
 import { useCep } from "../../hooks/api/useCep";
 import axios from "axios";
 
 export default function NewCliente() {
-  // HOOKS
   const { cep, city, state, loading: loadingCep, error: errorCep, handleCepChange, } = useCep();
   const { states, loading: loadingStates, error: errorStates } = useStates();
   const [selectedState, setSelectedState] = useState("");
@@ -64,7 +60,6 @@ export default function NewCliente() {
     complement: "",
     phone: "",
     additional_phone: "",
-    // celular
     website: "",
     email: "",
     email_nfe: "",
@@ -73,22 +68,11 @@ export default function NewCliente() {
   });
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
-
-    // Campos obrigatórios
     if (!formData.corporate_name) errors.corporate_name = "Razão social é obrigatória";
     if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
     if (!formData.person_type) errors.person_type = "Tipo de pessoa é obrigatório";
-
-    // Validação de CNPJ ou CPF
-    if (formData.person_type === "company" && !formData.cnpj) {
-      errors.cnpj = "CNPJ é obrigatório para pessoa jurídica";
-    }
-
-    if (formData.person_type === "individual" && !formData.cpf) {
-      errors.cpf = "CPF é obrigatório para pessoa física";
-    }
-
-    // Outros campos obrigatórios
+    if (formData.person_type === "company" && !formData.cnpj) { errors.cnpj = "CNPJ é obrigatório para pessoa jurídica"; }
+    if (formData.person_type === "individual" && !formData.cpf) { errors.cpf = "CPF é obrigatório para pessoa física"; }
     if (!formData.taxpayer) errors.taxpayer = "Contribuinte é obrigatório";
     if (!formData.contact_type) errors.contact_type = "Tipo de contato é obrigatório";
     if (!formData.zip_code) errors.zip_code = "CEP é obrigatório";
@@ -98,7 +82,6 @@ export default function NewCliente() {
     if (!formData.neighborhood) errors.neighborhood = "Bairro é obrigatório";
     if (!formData.number) errors.number = "Número é obrigatório";
     if (!formData.email) errors.email = "E-mail é obrigatório";
-
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -117,7 +100,7 @@ export default function NewCliente() {
     setFormErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
       if (value && newErrors[name]) {
-        delete newErrors[name];  // Remove o erro se o valor estiver preenchido
+        delete newErrors[name]; // Remove o erro se o valor estiver preenchido
       }
       return newErrors;
     });
@@ -138,20 +121,21 @@ export default function NewCliente() {
       window.scrollTo(0, 0);
       window.location.reload();
     } catch (error) {
-      toast.error("Ocorreu um erro ao salvar as informações. Tente novamente.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        "Ocorreu um erro ao salvar as informações. Tente novamente.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       console.error(error);
     }
   };
-
-
 
   useEffect(() => {
     if (state && states.length > 0) {
@@ -181,7 +165,7 @@ export default function NewCliente() {
           delete newErrors.state_id;
         }
         return newErrors;
-      })
+      });
     }
   }, [cep, city, selectedState]);
   return (
@@ -198,7 +182,7 @@ export default function NewCliente() {
         {activeTab === "dados gerais" && (
           <div>
             <div className="pb-4"></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4">
               <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                 <Label>Razão Social</Label>
                 <Description>
@@ -216,7 +200,6 @@ export default function NewCliente() {
                   <ErrorMessage>{formErrors.corporate_name}</ErrorMessage>
                 )}
               </Field>
-
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Fantasia</Label>
                 <Description>
@@ -266,11 +249,8 @@ export default function NewCliente() {
                   <ErrorMessage>{formErrors.person_type}</ErrorMessage>
                 )}
               </Field>
-
-
-              {/* CPF ou CNPJ */}
               {formData.person_type === "company" ? (
-                <Field className="col-span-2">
+                <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>CNPJ</Label>
                   <Description>CNPJ da pessoa jurídica.</Description>
                   <Input
@@ -286,7 +266,7 @@ export default function NewCliente() {
                   )}
                 </Field>
               ) : (
-                <Field className="col-span-2">
+                <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                   <Label>CPF</Label>
                   <Description>CPF da pessoa física.</Description>
                   <Input
@@ -302,8 +282,6 @@ export default function NewCliente() {
                   )}
                 </Field>
               )}
-
-              {/* Contribuinte ao lado do CPF/CNPJ */}
               <Field className="col-span-1">
                 <Label>Contribuinte</Label>
                 <Description>Selecione o tipo de contribuinte.</Description>
@@ -373,7 +351,11 @@ export default function NewCliente() {
                     autoComplete="off"
                     data-invalid={formErrors.zip_code ? true : undefined}
                   />
-                  {loadingCep && <span className="mt-1 text-sm font-semibold text-white">Consultando CEP...</span>}
+                  {loadingCep && (
+                    <span className="mt-1 text-sm font-semibold text-white">
+                      Consultando CEP...
+                    </span>
+                  )}
                   {errorCep && <p>{errorCep}</p>}
                   {formErrors.zip_code && (
                     <ErrorMessage>{formErrors.zip_code}</ErrorMessage>
@@ -472,10 +454,7 @@ export default function NewCliente() {
                 <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                   <Label>Complemento</Label>
                   <Description>Complemento do endereço</Description>
-                  <Input
-                    name="complemento"
-                    autoComplete="off"
-                  />
+                  <Input name="complemento" autoComplete="off" />
                 </Field>
                 <Field className="col-span-1 sm:col-span-4 lg:col-span-4">
                   <CheckboxField className="mt-6">
