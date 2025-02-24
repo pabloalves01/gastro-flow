@@ -43,15 +43,17 @@ export function Breadcrumb({ items, buttons }: BreadcrumbProps) {
                     {buttons.map((button, index) => (
                         <div key={index}>
                             {button.href ? (
-                                <Button className="flex items-center gap-2 px-4 py-2 cursor-pointer">
-                                    <Link to={button.href} className="flex items-center gap-2">
-                                        {button.icon && (
-                                            <span className="w-5 h-5 flex items-center justify-center">
-                                                {button.icon}
-                                            </span>
-                                        )}
-                                        <span>{button.label}</span>
-                                    </Link>
+                                <Button
+                                    as={Link}
+                                    to={button.href}
+                                    className="flex items-center gap-2 px-4 py-2 cursor-pointer"
+                                >
+                                    {button.icon && (
+                                        <span className="w-5 h-5 flex items-center justify-center">
+                                            {button.icon}
+                                        </span>
+                                    )}
+                                    <span>{button.label}</span>
                                 </Button>
                             ) : (
                                 <Button
@@ -69,8 +71,9 @@ export function Breadcrumb({ items, buttons }: BreadcrumbProps) {
                         </div>
                     ))}
                 </div>
-            )}
+            )
+            }
 
-        </nav>
+        </nav >
     );
 }
