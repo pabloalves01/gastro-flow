@@ -29,6 +29,9 @@ import ManageCategories from "../pages/categories/manage-categories";
 import NewContact from "../pages/contacts/new-contact";
 import ManageContacts from "../pages/contacts/manage-contacts";
 
+// Permissions 
+import ManagePermissions from "../pages/permissions/manage-permissions";
+
 function AppRoutes() {
   return (
     <Router>
@@ -61,6 +64,9 @@ function AppRoutes() {
           {/* Clients */}
           <Route path="cliente/novo" element={<NewContact />} />
           <Route path="cliente/gerenciar" element={<ManageContacts />} />
+
+          {/* Permissions */}
+          <Route path="configuracoes/permissoes" element={<ManagePermissions />} />
         </Route>
       </Routes>
     </Router>
