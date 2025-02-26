@@ -38,15 +38,6 @@ function ProductForm() {
       <div className="mt-4">
         {activeTab === "dados gerais" && (
           <div>
-            <div className="pb-4">
-              <SectionText
-                className="py-4"
-                title="Dados Gerais do Produto"
-                subtitle="Preencha as informações para garantir um controle preciso do produto."
-                icon={<Package />}
-
-              />
-            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <Field className="col-span-1 sm:col-span-2 lg:col-span-2">
                 <Label>Nome do Produto</Label>
@@ -153,8 +144,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Dimensões e Peso"
-                subtitle="Preencha as informações de dimensões e peso do produto."
-                icon={<Ruler />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -202,8 +191,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Estoque"
-                subtitle="Preencha as informações de estocagem do produto."
-                icon={<Box />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
