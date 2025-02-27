@@ -36,7 +36,6 @@ export default function ManageContacts() {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [selectedContactToDisable, setSelectedContactToDisable] = useState<Contact | null>(null);
   const [disableContactModal, setIsDisableContactModal] = useState(false);
-  const [openFilters, setIsOpenFilters] = useState(false);
   const breadcrumbItems = [
     { label: "Início", href: "/" },
     { label: "Cadastros", href: "/cadastros" },
@@ -74,6 +73,7 @@ export default function ManageContacts() {
       name: string;
       initials: string
     }
+    obs?: string;
   }
 
   const handleContactView = (contact: Contact) => {
@@ -132,15 +132,10 @@ export default function ManageContacts() {
           <Cog
             className="text-white w-6 h-6 cursor-pointer hover:text-zinc-500 group-hover:animate-[spin_2s_linear_infinite]"
             strokeWidth={1}
-            onClick={() => setIsOpenFilters(!openFilters)}
           />
         </div>
       </div>
-      {openFilters && (
-        <div className="py-4 bg-zinc-800 rounded-lg">
-          .
-        </div>
-      )}
+
       <Table className="[--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
         <TableHead>
           <TableRow>
@@ -154,57 +149,65 @@ export default function ManageContacts() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {contacts.map((contact, index) => (
-            <TableRow key={index}>
-              <TableCell className="font-medium">
-                {contact.corporate_name}
-              </TableCell>
-              <TableCell className="font-medium">
-                {contact.trade_name}
-              </TableCell>
-              <TableCell className="font-medium">
-                {contact.contact_type}
-              </TableCell>
-              {contact.cnpj ? (
-                <TableCell className="font-medium">{contact.cnpj}</TableCell>
-              ) : (
-                <TableCell className="font-medium">{contact.cpf}</TableCell>
-              )}
-              <TableCell className="font-medium">{contact.city}</TableCell>
-              {contact.active === true ? (
+          {contacts.length > 0 ? (
+            contacts.map((contact, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium">{contact.corporate_name}</TableCell>
+                <TableCell className="font-medium">{contact.trade_name}</TableCell>
+                <TableCell className="font-medium">{contact.contact_type}</TableCell>
+                {contact.cnpj ? (
+                  <TableCell className="font-medium">{contact.cnpj}</TableCell>
+                ) : (
+                  <TableCell className="font-medium">{contact.cpf}</TableCell>
+                )}
+                <TableCell className="font-medium">{contact.city}</TableCell>
                 <TableCell className="font-medium">
-                  <div className="bg-green-500 rounded-full h-3 w-3"></div>
+                  <div
+                    className={`rounded-full h-3 w-3 ${contact.active ? "bg-green-500" : "bg-red-500"
+                      }`}
+                  ></div>
                 </TableCell>
-              ) : (
-                <TableCell className="font-medium">
-                  <div className="bg-red-500 rounded-full h-3 w-3"></div>
-                </TableCell>
-              )}
-              <TableCell>
-                <div className="-mx-3 -my-1.5 sm:-mx-2.5">
-                  <Dropdown>
-                    <DropdownButton plain aria-label="More options">
-                      <EllipsisHorizontalIcon />
-                    </DropdownButton>
-                    <DropdownMenu anchor="bottom end">
-                      <DropdownItem onClick={() => handleContactView(contact)}>
-                        Visualizar
-                      </DropdownItem>
-                      <DropdownItem>Editar</DropdownItem>
-                      {contact.active === true ? (
-                        <DropdownItem onClick={() => confirmContactChangeActive(contact)}>
-                          Inativar
+                <TableCell>
+                  <div className="-mx-3 -my-1.5 sm:-mx-2.5">
+                    <Dropdown>
+                      <DropdownButton plain aria-label="More options">
+                        <EllipsisHorizontalIcon />
+                      </DropdownButton>
+                      <DropdownMenu anchor="bottom end">
+                        <DropdownItem onClick={() => handleContactView(contact)}>
+                          Visualizar
                         </DropdownItem>
-                      ) : (
-                        <DropdownItem onClick={() => confirmContactChangeActive(contact)}>Ativar</DropdownItem>
-                      )}
-                    </DropdownMenu>
-                  </Dropdown>
+                        <DropdownItem>Editar</DropdownItem>
+                        <DropdownItem onClick={() => confirmContactChangeActive(contact)}>
+                          {contact.active ? "Inativar" : "Ativar"}
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={12} className="py-24 text-center text-[#A1A1A1]">
+                <div className="flex flex-col items-center justify-center">
+                  <Inbox className="w-14 h-14" />
+                  <div className="text-lg font-semibold">
+                    Nenhum resultado encontrado
+                  </div>
+                  <p className="text-sm text-center">
+                    Você pode configurar as opções no menu acima clicando em
+                    <i className="inline-flex items-center">
+                      <Cog className="w-4 h-4 mx-1" />
+                    </i>
+                    no menu acima.
+                  </p>
                 </div>
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
+
       </Table>
       <Dialog
         open={viewContatModal}
@@ -339,6 +342,12 @@ export default function ManageContacts() {
                   {selectedContact?.website || "Não informado"}
                 </p>
               </div>
+              <div>
+                <span className="text-gray-400">Observações</span>
+                <p className="font-medium">
+                  {selectedContact?.obs || "Não informado"}
+                </p>
+              </div>
             </div>
           </div>
         </DialogBody>
@@ -361,7 +370,11 @@ export default function ManageContacts() {
           <Button plain onClick={() => setIsDisableContactModal(false)}>
             Cancelar
           </Button>
-          <Button onClick={() => handleDisableContact()}>Inativar</Button>
+          {selectedContactToDisable?.active ? (
+            <Button color="red" onClick={() => handleDisableContact()}>Inativar</Button>
+          ) : (
+            <Button color="green" onClick={() => handleDisableContact()}>Ativar</Button>
+          )}
         </AlertActions>
       </Alert>
 

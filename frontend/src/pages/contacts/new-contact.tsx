@@ -18,7 +18,10 @@ import { useStates } from "../../hooks/common/useStates";
 import { useCep } from "../../hooks/api/useCep";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 export default function NewCliente() {
+  const navigate = useNavigate();
   const { cep, city, state, loading: loadingCep, error: errorCep, handleCepChange, } = useCep();
   const { states, loading: loadingStates, error: errorStates } = useStates();
   const [selectedState, setSelectedState] = useState("");
@@ -119,7 +122,7 @@ export default function NewCliente() {
         progress: undefined,
       });
       window.scrollTo(0, 0);
-      window.location.reload();
+      navigate("/cliente/gerenciar");
     } catch (error) {
       toast.error(
         "Ocorreu um erro ao salvar as informações. Tente novamente.",
@@ -535,7 +538,11 @@ export default function NewCliente() {
                   <Description>
                     Observações sobre o cliente ou fornecedor
                   </Description>
-                  <Input name="email" autoComplete="off" />
+                  <Input
+                    name="obs"
+                    autoComplete="off"
+                    value={formData.obs}
+                    onChange={handleInputChange} />
                 </Field>
               </div>
             </div>
