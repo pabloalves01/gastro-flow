@@ -67,8 +67,9 @@ export default function NewCliente() {
     email: "",
     email_nfe: "",
     obs: "",
-    active: true,
+    active: "true",
   });
+
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
     if (!formData.corporate_name) errors.corporate_name = "Razão social é obrigatória";
@@ -110,8 +111,12 @@ export default function NewCliente() {
   };
   const saveFormData = async () => {
     if (!validateForm()) return;
+    // Converte "" para NULL  antes de enviar para o Backend
+    const sanitizedData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => [key, value.trim() === "" ? null : value])
+    );
     try {
-      const response = await axios.post("/api/contacts", formData);
+      const response = await axios.post("/api/contacts", sanitizedData);
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 5000,
