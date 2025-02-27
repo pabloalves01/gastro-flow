@@ -29,6 +29,7 @@ import {
 import { Button } from "../../components/ui/catalyst/button";
 import { Divider } from "../../components/ui/catalyst/divider";
 import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../components/ui/catalyst/alert";
+import { Pagination, PaginationGap, PaginationList, PaginationNext, PaginationPage, PaginationPrevious } from "../../components/ui/catalyst/pagination";
 
 export default function ManageContacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -136,7 +137,7 @@ export default function ManageContacts() {
         </div>
       </div>
 
-      <Table className="[--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
+      <Table grid dense className="[--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
         <TableHead>
           <TableRow>
             <TableHeader>Razão Social</TableHeader>
@@ -209,6 +210,21 @@ export default function ManageContacts() {
         </TableBody>
 
       </Table>
+      <Pagination className="flex w-full justify-center mt-6">
+        <PaginationPrevious href="?page=2" />
+        <PaginationList>
+          <PaginationPage href="?page=1">1</PaginationPage>
+          <PaginationPage href="?page=2">2</PaginationPage>
+          <PaginationPage href="?page=3" current>
+            3
+          </PaginationPage>
+          <PaginationPage href="?page=4">4</PaginationPage>
+          <PaginationGap />
+          <PaginationPage href="?page=65">65</PaginationPage>
+          <PaginationPage href="?page=66">66</PaginationPage>
+        </PaginationList>
+        <PaginationNext href="?page=4" />
+      </Pagination>
       <Dialog
         open={viewContatModal}
         onClose={() => setIsViewContactModal(false)}
