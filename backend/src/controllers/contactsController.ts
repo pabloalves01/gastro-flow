@@ -45,3 +45,29 @@ export const getContacts = async (
     res.status(500).json({ error: "Erro interno ao obter contatos." });
   }
 };
+
+export const disableOrEnableContact = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const contact = await Contacts.findByPk(id);
+    if (!contact) {
+      res.status(404).json({ error: "Contato não encontrado." });
+      return;
+    }
+    if (contact.active === false) {
+      await contact.update({ active: true });
+      res.status(200).json({ message: "Contato ativado com sucesso!" });
+      return;
+    } else if (contact.active === true) {
+      await contact.update({ active: false });
+      res.status(200).json({ message: "Contato desativado com sucesso!" });
+      return;
+    }
+  } catch (error) {
+    console.error("Erro ao desativar contato:", error);
+    res.status(500).json({ error: "Erro interno ao desativar contato." });
+  }
+};

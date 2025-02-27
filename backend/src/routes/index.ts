@@ -1,7 +1,11 @@
 import { Router } from "express";
 import { obterUsuarios } from "../controllers/userController";
 import { getStates } from "../controllers/common/stateController";
-import { getContacts, storeContacts } from "../controllers/contactsController";
+import {
+  getContacts,
+  storeContacts,
+  disableOrEnableContact,
+} from "../controllers/contactsController";
 import {
   storeCategory,
   getCategories,
@@ -19,5 +23,6 @@ router.get("/states", getStates);
 
 router.get("/contacts", getContacts);
 router.post("/contacts", storeContacts);
+router.put("/contacts/:id/disable", disableOrEnableContact);
 
 export default router;

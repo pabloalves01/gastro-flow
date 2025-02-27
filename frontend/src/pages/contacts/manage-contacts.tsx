@@ -24,15 +24,19 @@ import {
   DialogBody,
   DialogTitle,
 } from "../../components/ui/catalyst/dialog";
-import { Field, Label } from "../../components/ui/catalyst/fieldset";
-import { Input } from "../../components/ui/catalyst/input";
+// import { Field, Label } from "../../components/ui/catalyst/fieldset";
+// import { Input } from "../../components/ui/catalyst/input";
 import { Button } from "../../components/ui/catalyst/button";
 import { Divider } from "../../components/ui/catalyst/divider";
+import { Alert, AlertActions, AlertDescription, AlertTitle } from "../../components/ui/catalyst/alert";
 
 export default function ManageContacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [viewContatModal, setIsViewContactModal] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [selectedContactToDisable, setSelectedContactToDisable] = useState<Contact | null>(null);
+  const [disableContactModal, setIsDisableContactModal] = useState(false);
+  const [openFilters, setIsOpenFilters] = useState(false);
   const breadcrumbItems = [
     { label: "Início", href: "/" },
     { label: "Cadastros", href: "/cadastros" },
@@ -66,9 +70,9 @@ export default function ManageContacts() {
     state_registration: string;
     municipal_registration: string;
     state: {
-        id: number;
-        name: string;
-        initials: string
+      id: number;
+      name: string;
+      initials: string
     }
   }
 
@@ -77,6 +81,25 @@ export default function ManageContacts() {
     setSelectedContact(contact);
     setIsViewContactModal(true);
   };
+
+  const confirmContactChangeActive = (contact: Contact) => {
+    console.log("Inativar contato:", contact);
+    setSelectedContactToDisable(contact);
+    setIsDisableContactModal(true);
+  }
+
+  const handleDisableContact = async () => {
+    try {
+      const response = await axios.put(`/api/contacts/${selectedContactToDisable?.id}/disable`, {
+        active: false
+      });
+      console.log("Contato inativado:", response.data);
+      setIsDisableContactModal(false);
+      getContacts();
+    } catch (error) {
+      console.error("Erro ao inativar contato:", error);
+    }
+  }
 
   const getContacts = async () => {
     try {
@@ -97,7 +120,6 @@ export default function ManageContacts() {
       <Breadcrumb
         items={breadcrumbItems}
         buttons={bredcrumbButtons}
-        // buttons={bredcrumbButtons}
       />
       <div className="flex items-center justify-between">
         <div className="pb-4">
@@ -108,12 +130,17 @@ export default function ManageContacts() {
         </div>
         <div className="group">
           <Cog
-            // onClick={() => setIsOpenFilterModal(true)}
             className="text-white w-6 h-6 cursor-pointer hover:text-zinc-500 group-hover:animate-[spin_2s_linear_infinite]"
             strokeWidth={1}
+            onClick={() => setIsOpenFilters(!openFilters)}
           />
         </div>
       </div>
+      {openFilters && (
+        <div className="py-4 bg-zinc-800 rounded-lg">
+          .
+        </div>
+      )}
       <Table className="[--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]">
         <TableHead>
           <TableRow>
@@ -164,7 +191,13 @@ export default function ManageContacts() {
                         Visualizar
                       </DropdownItem>
                       <DropdownItem>Editar</DropdownItem>
-                      <DropdownItem>Inativar</DropdownItem>
+                      {contact.active === true ? (
+                        <DropdownItem onClick={() => confirmContactChangeActive(contact)}>
+                          Inativar
+                        </DropdownItem>
+                      ) : (
+                        <DropdownItem onClick={() => confirmContactChangeActive(contact)}>Ativar</DropdownItem>
+                      )}
                     </DropdownMenu>
                   </Dropdown>
                 </div>
@@ -185,9 +218,8 @@ export default function ManageContacts() {
             </h2>
             <div className="flex items-center gap-2 text-sm">
               <div
-                className={`w-3 h-3 rounded-full ${
-                  selectedContact?.active ? "bg-green-500" : "bg-red-500"
-                }`}
+                className={`w-3 h-3 rounded-full ${selectedContact?.active ? "bg-green-500" : "bg-red-500"
+                  }`}
               ></div>
               {selectedContact?.active ? "Ativo" : "Inativo"}
             </div>
@@ -225,10 +257,10 @@ export default function ManageContacts() {
                   {selectedContact?.taxpayer === "yes"
                     ? "Sim"
                     : selectedContact?.taxpayer === "no"
-                    ? "Não"
-                    : selectedContact?.taxpayer === "exempt"
-                    ? "Isento"
-                    : "Não informado"}
+                      ? "Não"
+                      : selectedContact?.taxpayer === "exempt"
+                        ? "Isento"
+                        : "Não informado"}
                 </p>
               </div>
               <div>
@@ -318,6 +350,21 @@ export default function ManageContacts() {
           <Button onClick={() => setIsViewContactModal(false)}>Ok</Button>
         </DialogActions>
       </Dialog>
+
+      <Alert open={disableContactModal} onClose={setIsDisableContactModal}>
+        <AlertTitle>Você deseja {selectedContactToDisable?.active ? "inativar" : "ativar"} o contato {selectedContactToDisable?.corporate_name}?</AlertTitle>
+        <AlertDescription>
+          Essa ação tornará o contato {selectedContactToDisable?.active ? "inativo" : "ativo"}, {selectedContactToDisable?.active ? "impedindo futuras interações" : "permitindo futuras interações"}. Você tem certeza que deseja continuar?
+        </AlertDescription>
+
+        <AlertActions>
+          <Button plain onClick={() => setIsDisableContactModal(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={() => handleDisableContact()}>Inativar</Button>
+        </AlertActions>
+      </Alert>
+
     </div>
   );
 }
