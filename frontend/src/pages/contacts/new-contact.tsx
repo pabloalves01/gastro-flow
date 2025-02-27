@@ -43,32 +43,33 @@ export default function NewCliente() {
     { name: "observações", href: "#" },
   ];
   const [formData, setFormData] = useState({
-    corporate_name: null,
-    trade_name: null,
-    contact_code: null,
-    person_type: null,
-    cnpj: null,
-    cpf: null,
-    taxpayer: null,
-    state_registration: null,
-    municipal_registration: null,
-    contact_type: null,
-    zip_code: null,
-    city: null,
-    state_id: null,
-    address: null,
-    delivery_address: null,
-    neighborhood: null,
-    number: null,
-    complement: null,
-    phone: null,
-    additional_phone: null,
-    website: null,
-    email: null,
-    email_nfe: null,
-    obs: null,
-    active: true,
+    corporate_name: "",
+    trade_name: "",
+    contact_code: "",
+    person_type: "",
+    cnpj: "",
+    cpf: "",
+    taxpayer: "",
+    state_registration: "",
+    municipal_registration: "",
+    contact_type: "",
+    zip_code: "",
+    city: "",
+    state_id: "",
+    address: "",
+    delivery_address: "",
+    neighborhood: "",
+    number: "",
+    complement: "",
+    phone: "",
+    additional_phone: "",
+    website: "",
+    email: "",
+    email_nfe: "",
+    obs: "",
+    active: "true",
   });
+
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
     if (!formData.corporate_name) errors.corporate_name = "Razão social é obrigatória";
@@ -110,8 +111,12 @@ export default function NewCliente() {
   };
   const saveFormData = async () => {
     if (!validateForm()) return;
+    // Converte "" para NULL  antes de enviar para o Backend
+    const sanitizedData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => [key, value.trim() === "" ? null : value])
+    );
     try {
-      const response = await axios.post("/api/contacts", formData);
+      const response = await axios.post("/api/contacts", sanitizedData);
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 5000,
