@@ -5,7 +5,7 @@ import { Select } from "../../components/ui/catalyst/select";
 import { Description, Field, Fieldset, Label } from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
 import { Checkbox, CheckboxField, CheckboxGroup } from "../../components/ui/catalyst/checkbox";
-import { Box, Image, Package, Plus, Ruler, Tags } from "lucide-react";
+import { Plus, Ruler, Tags } from "lucide-react";
 import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 import { Divider } from "../../components/ui/catalyst/divider";
 import { Button } from "../../components/ui/catalyst/button";
@@ -42,9 +42,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Dados Gerais do Produto"
-                subtitle="Preencha as informações para garantir um controle preciso do produto."
-                icon={<Package />}
-
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -153,8 +150,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Dimensões e Peso"
-                subtitle="Preencha as informações de dimensões e peso do produto."
-                icon={<Ruler />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -202,8 +197,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Estoque"
-                subtitle="Preencha as informações de estocagem do produto."
-                icon={<Box />}
               />
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -264,9 +257,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Dados Complementares"
-                subtitle="Preencha as informações para garantir um controle preciso do produto."
-                icon={<Package />}
-
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -297,7 +287,6 @@ function ProductForm() {
                 className="py-4"
                 title="Imagem e Anexos"
                 subtitle="Preencha as informações de dimensões e peso do produto."
-                icon={<Image />}
               />
               <div className="mt-4">
                 <div className="bg-white/5 hover:bg-zinc-800 py-10 rounded-lg flex justify-center items-center gap-4 text-white font-semibold cursor-pointer border border-zinc-400/10">
@@ -313,8 +302,6 @@ function ProductForm() {
               <SectionText
                 className="py-4"
                 title="Tags"
-                subtitle="As tags servem para classificar os produtos (Exemplo: Grupo, Cor, etc.)."
-                icon={<Tags />}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 <Field className="col-span-full w-full">
