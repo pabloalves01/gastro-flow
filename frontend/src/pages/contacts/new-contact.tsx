@@ -7,7 +7,12 @@ import { Breadcrumb } from "../../components/custom/breadcrumbs/breadcrumb";
 import Tabs from "../../components/custom/tabs/tabs";
 import SectionText from "../../components/text/section-text";
 // Catalys
-import { Description, ErrorMessage, Field, Label } from "../../components/ui/catalyst/fieldset";
+import {
+  Description,
+  ErrorMessage,
+  Field,
+  Label,
+} from "../../components/ui/catalyst/fieldset";
 import { Input } from "../../components/ui/catalyst/input";
 import { Select } from "../../components/ui/catalyst/select";
 import { Divider } from "../../components/ui/catalyst/divider";
@@ -22,7 +27,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewCliente() {
   const navigate = useNavigate();
-  const { cep, city, state, loading: loadingCep, error: errorCep, handleCepChange, } = useCep();
+  const {
+    cep,
+    city,
+    state,
+    loading: loadingCep,
+    error: errorCep,
+    handleCepChange,
+  } = useCep();
   const { states, loading: loadingStates, error: errorStates } = useStates();
   const [selectedState, setSelectedState] = useState("");
   const [activeTab, setActiveTab] = useState("dados gerais");
@@ -71,13 +83,20 @@ export default function NewCliente() {
   });
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
-    if (!formData.corporate_name) errors.corporate_name = "Razão social é obrigatória";
+    if (!formData.corporate_name)
+      errors.corporate_name = "Razão social é obrigatória";
     if (!formData.trade_name) errors.trade_name = "Nome fantasia é obrigatório";
-    if (!formData.person_type) errors.person_type = "Tipo de pessoa é obrigatório";
-    if (formData.person_type === "company" && !formData.cnpj) { errors.cnpj = "CNPJ é obrigatório para pessoa jurídica"; }
-    if (formData.person_type === "individual" && !formData.cpf) { errors.cpf = "CPF é obrigatório para pessoa física"; }
+    if (!formData.person_type)
+      errors.person_type = "Tipo de pessoa é obrigatório";
+    if (formData.person_type === "company" && !formData.cnpj) {
+      errors.cnpj = "CNPJ é obrigatório para pessoa jurídica";
+    }
+    if (formData.person_type === "individual" && !formData.cpf) {
+      errors.cpf = "CPF é obrigatório para pessoa física";
+    }
     if (!formData.taxpayer) errors.taxpayer = "Contribuinte é obrigatório";
-    if (!formData.contact_type) errors.contact_type = "Tipo de contato é obrigatório";
+    if (!formData.contact_type)
+      errors.contact_type = "Tipo de contato é obrigatório";
     if (!formData.zip_code) errors.zip_code = "CEP é obrigatório";
     if (!formData.city) errors.city = "Cidade é obrigatória";
     if (!formData.state_id) errors.state_id = "Estado é obrigatório";
@@ -294,7 +313,9 @@ export default function NewCliente() {
                   onChange={handleInputChange}
                   data-invalid={formErrors.taxpayer ? true : undefined}
                 >
-                  <option value="" disabled hidden>Selecione um tipo</option>
+                  <option value="" disabled hidden>
+                    Selecione um tipo
+                  </option>
                   <option value="no">Não Contribuinte</option>
                   <option value="yes">Contribuinte</option>
                   <option value="exempt">Isento</option>
@@ -306,18 +327,12 @@ export default function NewCliente() {
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Inscrição Estadual</Label>
                 <Description>IE do cliente ou fornecedor</Description>
-                <Input
-                  name="state_registration"
-                  autoComplete="off"
-                />
+                <Input name="state_registration" autoComplete="off" />
               </Field>
               <Field className="col-span-1 sm:col-span-1 lg:col-span-1">
                 <Label>Inscrição Municipal</Label>
                 <Description>IM do cliente ou fornecedor</Description>
-                <Input
-                  name="municipal_registration"
-                  autoComplete="off"
-                />
+                <Input name="municipal_registration" autoComplete="off" />
               </Field>
               <Field className="col-span-1 sm:col-span-2 lg:col-span-1">
                 <Label>Tipo de Contato</Label>
@@ -542,7 +557,8 @@ export default function NewCliente() {
                     name="obs"
                     autoComplete="off"
                     value={formData.obs}
-                    onChange={handleInputChange} />
+                    onChange={handleInputChange}
+                  />
                 </Field>
               </div>
             </div>

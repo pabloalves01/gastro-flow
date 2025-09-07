@@ -1,24 +1,23 @@
 {
-    "development": {
-      "username": "postgres",
-      "password": "root",
-      "database": "my_app",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
-    },
-    "test": {
-      "username": "postgres",
-      "password": "root",
-      "database": "my_app_test",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
-    },
-    "production": {
-      "username": "postgres",
-      "password": "root",
-      "database": "my_app_prod",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
-    }
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "gastroflow",
+    "host": "postgres",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "root",
+    "database": "my_app_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "root",
+    "database": "my_app_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
-  
+}

@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use("/api", routes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Sincronizar o banco de dados antes de iniciar o servidor
 // sequelize
