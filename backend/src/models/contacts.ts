@@ -56,10 +56,12 @@ Contacts.init(
     cpf: {
       type: DataTypes.STRING(14),
       allowNull: true,
+      defaultValue: null,
     },
     cnpj: {
       type: DataTypes.STRING(18),
       allowNull: true,
+      defaultValue: null,
     },
     taxpayer: {
       type: DataTypes.ENUM("yes", "no", "exempt"),
@@ -68,10 +70,12 @@ Contacts.init(
     state_registration: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     municipal_registration: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     contact_type: {
       type: DataTypes.ENUM("customer", "supplier"),
@@ -96,6 +100,7 @@ Contacts.init(
     delivery_address: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     neighborhood: {
       type: DataTypes.STRING,
@@ -108,18 +113,22 @@ Contacts.init(
     complement: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     additional_phone: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     website: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     email: {
       type: DataTypes.STRING,
@@ -128,10 +137,12 @@ Contacts.init(
     email_nfe: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: null,
     },
     contact_notes: {
       type: DataTypes.TEXT,
       allowNull: true,
+      defaultValue: null,
     },
     active: {
       type: DataTypes.BOOLEAN,
@@ -141,6 +152,7 @@ Contacts.init(
     obs: {
       type: DataTypes.TEXT,
       allowNull: true,
+      defaultValue: null,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -153,6 +165,7 @@ Contacts.init(
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true,
+      defaultValue: null,
     },
   },
   {
